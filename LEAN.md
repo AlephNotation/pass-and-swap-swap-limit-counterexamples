@@ -1,169 +1,209 @@
 # Lean verification
 
-This is a partial formalization of `paper.tex`. It proves balanced-region
-nonemptiness, height, closure, and communication with positive position rates
-for every w ≥ 2, alongside the five-job certificate results. Lean reconstructs
-the replacement dynamics; it does not import the
-Python transition tables or assume the Python checks are correct.
+Lean checks the general balanced-region, two-flow, and canonical obstruction
+arguments for every w ≥ 2, as well as the five-job certificate. It also proves
+the finite Markov-chain recurrence and stationary-vector results and connects
+them to the queue's original transitions and balance equations.
+
+The probability statements concern the embedded completion chain: the
+probability of returning within n steps tends to one. A continuous-time
+sample-path process is not constructed. The C7 classification, graph screen,
+and other finite experiments remain outside Lean.
+
+Lean reconstructs the replacement dynamics. It does not import Python
+transition tables or assume the Python checks are correct.
 
 ## Run
 
-Lean and Mathlib are pinned to 4.28.0. With Elan installed, from this directory:
+Lean and Mathlib are pinned to 4.28.0. With Elan installed, run from this
+directory:
 
 ```sh
-lake exe cache get Mathlib.Data.List.Permutation Mathlib.Algebra.Field.Rat Mathlib.Logic.Relation Mathlib.Tactic.NormNum Mathlib.Tactic.Ring Mathlib.Algebra.BigOperators.Ring.List Mathlib.Data.ZMod.Basic Mathlib.Data.List.Sort Mathlib.Data.List.Range Mathlib.Data.List.Sublists
+lake exe cache get
 lake build
 lake env lean OddCycle/Audit.lean
-lake env leanchecker OddCycle
+lake env leanchecker --verbose OddCycle
 python3 -B code/export_lean_certificate.py --check
 ```
 
-Allow several minutes for a first build of the finite proofs. Incremental
-builds reuse the checked declarations.
+The cache command downloads prebuilt Mathlib dependencies. Allow several
+minutes for a first build of the finite proofs. Incremental builds reuse the
+checked declarations.
 
-`lake build` checks the proofs. The optional `leanchecker` command replays the
-project's declarations through Lean's kernel. The final command checks that
-the committed Lean data still match the JSON certificate and deterministic
-path witnesses; Python is not needed to build or check the Lean proofs.
+`lake build` checks the proofs. `Audit.lean` prints the axioms used by the
+principal claims. `leanchecker` independently replays the project's compiled
+declarations through Lean's kernel. The Python command checks
+that the committed certificate data still match their JSON source and
+deterministic path witnesses; Python is not needed to check the Lean proofs.
 
-## What is formalized
+## General queue theorems
 
-The general declarations below are in namespace `OddCycle`:
+These declarations are in namespace `OddCycle`:
 
 | Claim | Declaration |
 |---|---|
 | Every completion preserves the fixed population | `transition_valid` |
 | Balanced states exist for every w ≥ 2 | `balanced_nonempty` |
-| Exchanging queues preserves balancedness | `balanced_exchange` |
-| Every position completion in either queue preserves balancedness, for every w ≥ 2 | `balanced_transition` |
-| Every event preserves both validity and balancedness | `balanced_events_closed` |
+| Every queue-position completion preserves balancedness | `balanced_transition`, `balanced_events_closed` |
 | Nonemptiness and closure together | `balanced_region_nonempty_closed` |
+| Exact cardinality: 2(2w+1)(2w+2) choose(2w−1,w) | `balanced_cardinality` |
 | Every valid balanced state has height w+1 | `balanced_height` |
 | States with the same orientation communicate | `reachable_of_orientation_eq` |
-| All valid balanced states communicate through queue-position completions | `balanced_communication` |
-| Every path from the balanced region stays in it | `balanced_reachable_closed` |
-| Communication with an explicit positive-rate hypothesis (Lemma 4) | `balanced_positive_rate_communication` |
+| All valid balanced states communicate | `balanced_communication` |
+| Every intermediate state stays balanced and valid | `balanced_reachable_closed` |
+| Lemma 4 with positive position rates explicit | `balanced_positive_rate_communication` |
+| Proper coloring using exactly w+1 nonempty colors | `partiteColor_proper`, `partiteColor_surjective` |
+| Only full-queue head events can change with the budget | `balanced_changed_event_head` |
+| Unique source reconstruction for a changed incoming event | `balanced_changed_head_injective` |
+| Exactly the gained X and lost Y events in Lemma 5 | `two_flow_completeness` |
+| Difference of limited and unlimited balance, with arbitrary weights and class rates | `two_flow_balance_difference` |
+| Exhaustive unlimited incoming-event list at the target | `targetOccurrences_complete` |
+| Unlimited canonical balance at the target, proved directly | `unlimited_target_balance` |
+| Uniform two-flow identity W(X)−W(Y) | `uniform_two_flow_identity` |
+| Displayed balance formula for every positive real theta | `uniform_defect` |
+| Positive defect below theta=1, negative above it | `uniform_defect_pos`, `uniform_defect_neg` |
+| Defect −w/(2w+2)! over any characteristic-zero field | `uniform_defect_two` |
+| Every nonzero real rescaling fails stationarity when theta≠1 | `uniform_scaled_not_stationary` |
+| Normalized canonical weights are positive and sum to one | `normalizedCanonicalWeight_pos`, `normalizedCanonicalWeight_sum` |
+| These normalized weights fail stationarity when theta≠1 | `normalizedCanonicalWeight_not_stationary` |
 
-These prove the nonemptiness and closure assertions of Lemma 2. Its general
-cardinality formula is not yet formalized. Closure uses the original
-`Model.lean` definitions and has no rate assumptions: assigning arbitrary
-nonnegative rates, including zero, selects from events already proved safe.
+All assertions of Lemma 2 are proved. Closure has no rate assumptions:
+arbitrary nonnegative rates, including zero, select from events already
+proved safe. Communication allows rates to depend on the entire state,
+queue, and position, and requires positivity only at occupied positions.
 
-The height and communication theorems also quantify over every w ≥ 2.
-`EventStep` uses the original `transition` function and is proved equivalent
-to membership in `events`. `PositiveEventStep` additionally requires the
-initiating position's rate to be positive. The rate hypothesis is required
-only at occupied positions in valid balanced states; rates may depend on the
-entire configuration and may be real-valued. These are finite-path theorems,
-without any assumed Markov-chain recurrence or uniqueness result.
+The balance definitions are polymorphic over fields. The two-flow difference
+holds for arbitrary weights and class rates. The field version of the
+canonical formula states its nonzero-denominator hypotheses explicitly;
+the real version derives them from theta>0. No unlimited product-form
+stationarity theorem is assumed.
 
-The five-job results are:
+## Finite probability and stationary laws
 
-| Claim | Declaration in `OddCycle.FiveJob` |
+`FiniteMarkov S` consists of a finite matrix of nonnegative real transition
+probabilities whose rows sum to one. It is not a reachability predicate.
+
+`avoid target n i` computes the probability of avoiding the target at times
+0 through n, starting at i, by the finite first-step recursion. Consequently,
+`returnBy target n = 1 - expect (avoid target n) target` is the probability of
+a positive-time return by step n+1. The proofs establish convergence of
+these probabilities to one, rather than defining recurrence as membership
+in a terminal graph component.
+
+| Claim | Declaration |
+|---|---|
+| Finite communication implies return probabilities tend to one | `FiniteMarkov.returnBy_tendsto_one` |
+| Every nonempty finite chain has a stationary probability vector | `FiniteMarkov.stationary_exists` |
+| A communicating chain has a unique, strictly positive stationary probability vector | `FiniteMarkov.stationary_exists_unique`, `FiniteMarkov.stationary_positive` |
+| Every nonempty finite closed set contains a recurrent state in the original chain | `FiniteMarkov.closed_recurrent_state_exists` |
+| Any finite completion kernel on the full population has a balanced recurrent state of height w+1 | `balanced_recurrent_state` |
+| The queue's embedded matrix is irreducible for theta>0 | `queueMarkov_irreducible` |
+| Every balanced state has return probability tending to one | `queue_returnBy_tendsto_one` |
+| Embedded-matrix stationarity equals the original generator balance equations | `queue_stationary_iff` |
+| Existence and uniqueness for those original balance equations | `queue_stationary_exists_unique` |
+| The unique stationary probabilities are strictly positive | `queue_stationary_positive` |
+| The normalized canonical vector is not stationary for theta≠1 | `queue_normalized_not_stationary` |
+
+`balanced_recurrent_state` quantifies over any stochastic matrix on the
+original full population whose positive-probability transitions are legal
+completions or self steps. No irreducibility or positive non-head-rate
+hypothesis is imposed. Closed-set restriction is proved to preserve the
+original return probabilities.
+
+For the paper's distinguished-rate allocation, `queueMarkov` is constructed
+explicitly from `events`, keeping event multiplicity and the initiating
+job's rate. Its total event rate is proved to be theta+2w. Dividing incoming
+rates by this constant gives the embedded matrix; `queue_stationary_iff`
+proves its equivalence to the original row-generator equations.
+
+The return proof takes the decreasing limit of avoidance probabilities and
+uses a maximum principle. The stationary existence proof uses compactness
+and Cesaro averages; positivity and uniqueness follow from communication.
+The closed-set recurrence proof also covers reducible chains, using a
+positive coordinate of a stationary vector. These results are proved in
+Lean, not assumed as a finite-chain theorem.
+
+## Five-job certificate
+
+These declarations are in namespace `OddCycle.FiveJob`:
+
+| Claim | Declaration |
 |---|---|
 | Support is exactly all valid balanced C5 states | `mem_support_iff` |
-| 180 states, without repetitions | `support_size`, `support_nodup` |
+| 180 states without repetitions | `support_size`, `support_nodup` |
 | Every state has height three | `support_height` |
 | Closure under every position completion with budget two | `support_closed` |
 | Communication using only head completions | `head_communication` |
-| Explicit proper three-coloring of C5 | `proper_three_coloring` |
-| Canonical balance defect is exactly −1/360 | `canonical_defect` |
-| Any nonzero rational rescaling of canonical weights fails stationarity | `canonical_scaled_not_stationary` |
+| Proper three-coloring of C5 | `proper_three_coloring` |
+| Canonical defect exactly −1/360 | `canonical_defect` |
+| Any nonzero rational rescaling fails stationarity | `canonical_scaled_not_stationary` |
 | Positive integer certificate, exact total, every balance equation | `certificate_positive`, `certificate_total`, `certificate_stationary` |
-| Normalized rational weights are positive, sum to one, and are stationary | `probability_positive`, `probability_sum`, `probability_stationary` |
+| Normalized rational certificate is positive, sums to one, and is stationary | `probability_positive`, `probability_sum`, `probability_stationary` |
 | Certificate cannot factor as K A(c) B(d), even after normalization | `normalized_certificate_not_product` |
 
 The factorization theorem quantifies over every characteristic-zero field,
-including real-valued factors. The balance equations and probability vector
-are currently expressed over the rationals, at rates (2,1,1,1,1).
+including real-valued factors. The finite stationary certificate and its
+normalization are checked over the rationals, at rates (2,1,1,1,1).
 
-## Definitions and trust
+## Definitions, proof organization, and trust
 
-- `OddCycle/Model.lean` defines the general finite-cycle transition rule,
-  fixed-population states, orientations, balanced orientations, directed-path
-  height, canonical prefix weights, and row-generator balance. It also proves
-  that the state enumeration includes exactly all fixed-population states.
-- `OddCycle/Certificate.lean` contains integer weights and finite head paths.
-  They are untrusted candidate data exported by
-  `code/export_lean_certificate.py` from the bundled certificate and Python
-  model. Lean independently checks their support, paths, and balance.
-- `OddCycle/FiveJob.lean` checks the finite claims and proves the rectangle
-  obstruction. `OddCycle/Balance.lean` proves the general scaling identity;
-  `OddCycle/Conclusions.lean` handles normalization.
-- `OddCycle/Operational.lean` proves population preservation.
-  `OddCycle/EdgeOrder.lean` proves a general replacement invariant using
-  two-letter projections of queue words. `OddCycle/PlacementOrder.lean`
-  connects these projections to the model's orientation definition.
-- `OddCycle/CycleCoordinates.lean`, `OddCycle/CycleGeometry.lean`, and
-  `OddCycle/CycleSymmetry.lean` establish the cyclic coordinate identities.
-  `OddCycle/BalancedGeometry.lean` and `OddCycle/BalancedSymmetry.lean`
-  connect them to balanced states. `OddCycle/GeneralClosure.lean` proves
-  closure for arbitrary w ≥ 2.
-- `OddCycle/GeneralHeight.lean` bounds every directed path by the existing
-  rank function and exhibits a long-branch path attaining height w+1.
-- `OddCycle/Reachability.lean` constructs tail and adjacent-exchange paths.
-  `OddCycle/WordCommunication.lean` proves communication within a fixed
-  orientation. `OddCycle/BalancedMoves.lean` verifies explicit head completions,
-  and `OddCycle/GeneralCommunication.lean` connects all balanced orientations
-  and proves communication under positive position rates.
-- `OddCycle/Audit.lean` prints the axioms used by the main declarations.
+- `Model.lean` defines the transition rule, fixed population, placement
+  orientations, balancedness, directed-path height, canonical prefix
+  weights, and row-generator balance.
+- `Operational.lean`, `EdgeOrder.lean`, and `PlacementOrder.lean` establish
+  population preservation and the edge-order invariant. The cycle geometry
+  and symmetry modules lead to `GeneralClosure.lean` and `GeneralHeight.lean`.
+- `Reachability.lean`, `WordCommunication.lean`, `BalancedMoves.lean`, and
+  `GeneralCommunication.lean` construct actual completion paths.
+- `Interleavings.lean`, `BranchChains.lean`, `BalancedWords.lean`, and
+  `GeneralCardinality.lean` count the original balanced state space.
+- `BudgetStability.lean`, `ChangedEvents.lean`, `InterleavedCarry.lean`,
+  `ArcCarry.lean`, and `ChangedReconstruction.lean` characterize and invert
+  changed events. `FlowWords.lean`, `FlowWordLabels.lean`, and
+  `TwoFlowCompleteness.lean` identify the two sources.
+- `EventWeights.lean`, `IncomingOccurrences.lean`, and `TwoFlowBalance.lean`
+  preserve event multiplicities when comparing balance equations.
+  `UnlimitedCarry.lean` and `UnlimitedPredecessors.lean` reconstruct all
+  unrestricted incoming events. The target modules culminate in
+  `UnlimitedTargetBalance.lean`.
+- `PrefixWeights.lean`, `UniformWeights.lean`, `FactorialProducts.lean`,
+  `UniformDefect.lean`, `DefectSign.lean`, and `UniformObstruction.lean`
+  evaluate the general formula and its consequences.
+- The `FiniteMarkov`, `FiniteReturn`, `FiniteStationary`,
+  `StationaryExistence`, `FiniteRecurrence`, and `ClosedRecurrence` modules
+  prove the finite probability results. `QueueMarkov.lean`,
+  `QueueStationary.lean`, and `BalancedRecurrence.lean` connect them to the
+  queue model; `PartiteColoring.lean` proves the partiteness hypothesis.
+- `Certificate.lean` contains untrusted integer weights and finite path
+  witnesses. `FiveJob.lean`, `Balance.lean`, and `Conclusions.lean` check the
+  finite claims, normalization, and nonfactorization.
+- `Audit.lean` lists the axioms used by the principal declarations.
 
 Finite calculations use `decide +kernel`. There are no admitted proofs,
-custom mathematical axioms, or native-evaluation axioms in the project.
-The audit reports only the standard axioms `propext`, `Classical.choice`,
-and `Quot.sound`; some declarations require none.
+custom mathematical axioms, or native-evaluation axioms in the imported
+proofs. The audit reports only `propext`, `Classical.choice`, and `Quot.sound`;
+some declarations require none.
 
-The integer certificate is not a definition of the state space: its support
-is proved equivalent to validity and balanced orientation, with an exhaustive
-check against all 720 configurations. Stationarity sums events, retaining
-their multiplicity and the initiating job's rate. The canonical defect is
-computed directly from the transition rule, without assuming the manuscript's
-predecessor table or the unlimited product-form theorem.
+The certificate does not define the state space: its support is proved
+equivalent to validity and balanced orientation by checking all 720
+configurations. General cardinality and closure use structural proofs,
+without enumerating cycle sizes.
 
-## General closure proof
+The Lean closure proof proceeds directly through a rank invariant and does
+not use Lemma 1 of reference [1] in the paper, so it constitutes an independent
+proof. The general balance proof likewise verifies unlimited balance at the
+target directly, without assuming the cited unlimited product-form theorem.
 
-The proof is structural, with no enumeration of cycle sizes. In a balanced
-orientation, assign each vertex its distance from the source along its
-branch, assigning the common sink rank w+1. Every replacement increases
-rank. Once a budget of w replacements is exhausted, any further compatible
-vertex must form the edge from the long branch's penultimate vertex to the
-sink. The generic queue invariant proves that all other edge orders are
-preserved.
+## Scope boundary
 
-Reversing that one edge produces the other balanced orientation with the
-same source. Thus either possible order of its endpoints gives a balanced
-successor. Exchanging queues reverses the placement word and reduces the
-second-queue case to the first. This argument proves the operational claim
-directly, without assuming unlimited orientation preservation.
+The continuous-time sample-path construction, holding times, and their
+measure-theoretic connection to the embedded chain are not formalized.
+The checked probability conclusion is precisely convergence of finite-step
+return probabilities to one. Arbitrary OI allocations enter the general
+recurrence result through their completion-supported stochastic kernel;
+the distinguished-rate kernel is constructed explicitly.
 
-## General height and communication proofs
-
-The rank invariant bounds the number of edges in every directed path by
-w+1. The long branch occurs as a subsequence of every placement with the
-given balanced orientation and attains this bound. This proves equality
-for the original `height` definition, which enumerates adjacency chains
-among placement subsequences.
-
-For communication, tail completions move the cut without changing the
-placement word. An adjacent incompatible pair can be exchanged by putting
-the cut just after it and completing its first job. An induction moves each
-desired label to the front, proving that placements with the same edge
-orders communicate. An explicit head completion on a canonical branch word
-flips the long-branch direction. Conjugating this move by queue exchange,
-then toggling again, advances the source one vertex. Repetition connects
-every source and both directions. Finally, closure ensures that every
-completion used in these paths receives a positive rate under the stated
-rate hypothesis.
-
-## Remaining work
-
-The manuscript as a whole is **not yet verified in Lean**. In particular:
-
-1. The all-w cardinality formula in Lemma 2.
-2. The uniform two-flow completeness lemma and the all-parameter balance
-   formula, including the imported unlimited product-form theorem.
-3. General finite continuous-time Markov-chain results connecting a closed
-   communicating event graph to recurrence and uniqueness of its stationary
-   distribution. The finite graph and stationary-vector ingredients are
-   checked here; these probabilistic conclusions are not yet formal theorems.
-4. The C7 classification, small-graph screen, and other finite experiments.
+The C7 classification, small-graph screen, and other finite experiments in
+the manuscript are verified by the Python suite, not by these Lean proofs.
+The manuscript as a whole should therefore not be described as fully
+formalized.

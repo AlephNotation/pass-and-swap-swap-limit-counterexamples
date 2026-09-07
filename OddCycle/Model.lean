@@ -115,25 +115,27 @@ def height (n : Nat) (s : State) : Nat :=
   (((placement s).sublists.filter (pathEdges (cycleAdjacent n))).map
     (fun p => p.length - 1)).foldl max 0
 
+variable {K : Type*} [Field K]
+
 /-- Canonical prefix-product weight; `total` is the preceding prefix rate. -/
-def prefixWeight (rate : Nat → ℚ) (total : ℚ) : Queue → ℚ
+def prefixWeight (rate : Nat → K) (total : K) : Queue → K
   | [] => 1
   | x :: xs => (total + rate x)⁻¹ * prefixWeight rate (total + rate x) xs
 
-def canonicalWeight (rate : Nat → ℚ) (s : State) : ℚ :=
+def canonicalWeight (rate : Nat → K) (s : State) : K :=
   prefixWeight rate 0 s.1 * prefixWeight rate 0 s.2
 
 /-- Row-generator balance at a target; repeated destinations are separate events.
 Subtracting the outgoing event flow also correctly handles any self-events. -/
-def balance (adj : Nat → Nat → Bool) (budget : Nat) (rate : Nat → ℚ)
-    (states : List State) (weight : State → ℚ) (target : State) : ℚ :=
+def balance (adj : Nat → Nat → Bool) (budget : Nat) (rate : Nat → K)
+    (states : List State) (weight : State → K) (target : State) : K :=
   (states.map fun s =>
     ((events adj budget s).map fun e =>
       (if e.1 = target then weight s * rate e.2 else 0) -
       (if s = target then weight s * rate e.2 else 0)).sum).sum
 
-def Stationary (adj : Nat → Nat → Bool) (budget : Nat) (rate : Nat → ℚ)
-    (states : List State) (weight : State → ℚ) : Prop :=
+def Stationary (adj : Nat → Nat → Bool) (budget : Nat) (rate : Nat → K)
+    (states : List State) (weight : State → K) : Prop :=
   ∀ target ∈ states, balance adj budget rate states weight target = 0
 
 end OddCycle
