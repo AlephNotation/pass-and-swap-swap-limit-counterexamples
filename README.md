@@ -3,7 +3,6 @@
 Start with **paper.pdf**, the consolidated manuscript. **paper.tex** is its
 self-contained LaTeX source. This package merges the uniform theorem with the
 earlier five-job nonfactorization certificate and finite graph experiments.
-Nothing depends on an earlier chat, installation, or unpublished solver output.
 
 ## One-command verification
 
