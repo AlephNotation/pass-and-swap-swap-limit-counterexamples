@@ -28,6 +28,7 @@ def main() -> int:
     options = ['-B'] + (['-O'] if sys.flags.optimize else [])
     tests = [
         ('five_job', 'verify_five.py', ['--certificate', str(ROOT/'data/stationary_certificate.json')]),
+        ('modulated', 'verify_modulated.py', []),
         ('orbits', 'verify_orbits.py', []),
         ('uniform', 'verify_uniform.py', []),
         ('classification', 'verify_classification.py', []),

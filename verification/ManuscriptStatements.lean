@@ -50,3 +50,14 @@ These checks add no propositions or proof assumptions. -/
 #check OddCycle.ClosedClass.canonical_length_marginal
 #check OddCycle.constant_lengthGenerator
 #check OddCycle.unit_exceptional_queue_length_indistinguishability
+#check OddCycle.even_one_swap_terminal_iff
+#check OddCycle.PositivePositionAllocation.even_one_swap_recurrent_iff
+#check OddCycle.ClosedClass.even_one_swap_normalized_oi
+#check OddCycle.ModulatedFiveJob.support_closed
+#check OddCycle.ModulatedFiveJob.complete_unlimited
+#check OddCycle.ModulatedFiveJob.communication
+#check OddCycle.ModulatedFiveJob.certificate_balance
+#check OddCycle.ModulatedFiveJob.allocation_increment
+#check OddCycle.ModulatedFiveJob.probability_generator_stationary
+#check OddCycle.ModulatedFiveJob.probability_unique
+#check OddCycle.ModulatedFiveJob.stationary_not_product

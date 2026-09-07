@@ -96,12 +96,19 @@ def main():
         run('python-suite', [sys.executable, '-B', 'run_checks.py'])
         run('python-suite-optimized', [sys.executable, '-B', '-O', 'run_checks.py'])
         run('lean-certificate-export', [sys.executable, '-B', 'code/export_lean_certificate.py', '--check'])
+        run('modulated-lean-export', [sys.executable, '-B', 'code/export_modulated_certificate.py', '--check'])
         generated = out/'regenerated_certificate.json'
         run('certificate-regeneration', [sys.executable, '-B', 'code/regenerate_certificate.py', '--output', str(generated)])
         run('regenerated-certificate-verification', [sys.executable, '-B', 'code/verify_five.py', '--certificate', str(generated)])
         require(json.loads(generated.read_text()) == json.loads((ROOT/'data/stationary_certificate.json').read_text()),
                 'regenerated certificate differs from committed certificate')
         checked('certificate-exact-equality', 'Regenerated and supplied JSON objects are identical.')
+        modulated = out/'regenerated_modulated_certificate.json'
+        run('modulated-certificate-regeneration', [sys.executable, '-B', 'code/regenerate_modulated_certificate.py', '--output', str(modulated)])
+        run('modulated-certificate-verification', [sys.executable, '-B', 'code/verify_modulated.py', '--certificate', str(modulated)])
+        require(json.loads(modulated.read_text()) == json.loads((ROOT/'data/modulated_certificate.json').read_text()),
+                'regenerated modulated certificate differs from committed certificate')
+        checked('modulated-certificate-exact-equality', 'Regenerated and supplied modulated JSON objects are identical.')
 
         paper_dir = out/'paper'
         paper_dir.mkdir(exist_ok=True)

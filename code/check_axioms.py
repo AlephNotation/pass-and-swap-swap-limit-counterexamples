@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run all four Lean axiom audits and enforce their shared release/CI allowlist."""
+"""Run the Lean axiom audits and enforce their shared release/CI allowlist."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -8,7 +8,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parent.parent
 AUDITS = ['Audit', 'CycleClassificationAudit', 'StructuralTheoryAudit',
-          'IndistinguishabilityAudit']
+          'IndistinguishabilityAudit', 'ModulatedAudit']
 ALLOWED_AXIOMS = {'propext', 'Classical.choice', 'Quot.sound'}
 
 

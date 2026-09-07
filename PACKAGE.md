@@ -47,7 +47,7 @@ Exact tool versions used for the packaged run are in
 LEAN_NUM_THREADS=1 python3 code/verify_release.py --output-dir /tmp/cycle-verification-replay
 ```
 
-This runs the full Lean build, all four axiom audits, full-root kernel
+This runs the full Lean build, all five axiom audits, full-root kernel
 replay, the complete Python suite normally and with optimization, the Lean
 certificate export consistency check, exact stationary-certificate
 regeneration and independent verification, and two complete PDF builds.
@@ -74,6 +74,7 @@ Each component can be invoked directly:
 
 ```sh
 python3 code/verify_five.py --certificate data/stationary_certificate.json
+python3 code/verify_modulated.py
 python3 code/verify_orbits.py
 python3 code/verify_uniform.py
 python3 code/verify_classification.py
@@ -85,7 +86,7 @@ python3 code/verify_screen.py
 `verify_screen.py` regenerates the complete bipartite graph list and checks
 coverage. `verify_nine.py` enumerates the entire C9 exceptional class and
 checks both generators with integer flows. The complete suite compares
-fresh JSON objects with all seven committed `results/*.json` files.
+fresh JSON objects with all eight committed `results/*.json` files.
 The additional `verify_head_cycles.py` check enumerates seven nonexceptional
 cycle instances under head-only and all-position service. It shares the
 existing full-state transition enumeration and SCC algorithm with the
@@ -97,13 +98,18 @@ earlier C5/C7 check, whose recorded results are unchanged.
 python3 code/regenerate_certificate.py --output /tmp/regenerated_certificate.json
 python3 code/verify_five.py --certificate /tmp/regenerated_certificate.json
 python3 -B code/export_lean_certificate.py --check
+python3 code/regenerate_modulated_certificate.py --output /tmp/modulated_certificate.json
+python3 code/verify_modulated.py --certificate /tmp/modulated_certificate.json
+python3 -B code/export_modulated_certificate.py --check
 ```
 
 The generator solves a rational 45-orbit system and expands to 180 states.
 The separate verifier reconstructs the full generator, checks all exact
 balance equations and the nonzero factorization determinant, and does not
 trust the stationary solver. The full replay also compares regenerated and
-committed certificate JSON for exact equality.
+committed certificate JSON for exact equality. The two-mode certificate is
+regenerated from a 90-orbit rational system and independently verified on its
+360-state generator; both certificates and both Lean exports are checked.
 
 ## Build a new local package
 

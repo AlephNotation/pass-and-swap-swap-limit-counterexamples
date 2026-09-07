@@ -29,7 +29,17 @@ hypothesis because three colors suffice. Removing positivity from the
 validity direction remains open; the finite head-only checks below support
 that possibility without proving it.
 
-The classification and sharp boundary are now the manuscript's main results.
+At `w=1`, every even cycle has exactly two closed classes, the two alternating
+orientations, under positive position rates. Thus the one-swap conjecture is
+confirmed on this infinite bipartite family in that regime.
+
+A separate C5 certificate refutes the proposed Markov-modulated product form:
+an independent environment switches between budget two and unlimited swaps
+at rate one in each direction, with class rates `(2,1,1,1,1)` in both queues.
+Its 360-state closed class has a unique stationary law admitting no queue-wise
+factors, even if the factors depend on the environment mode.
+
+The classification and sharp boundary remain the manuscript's main results.
 Lean proves them for arbitrary parameters from the actual queue transitions;
 the numerical enumerations below have separately stated finite scopes.
 See [classification details](docs/CYCLE_CLASSIFICATION.md) and
@@ -46,6 +56,7 @@ See [classification details](docs/CYCLE_CLASSIFICATION.md) and
 | Larger exceptional-family canonical failure | `w >= 1`, `k >= 2`; unit rate at every position; residual `[1-2w(k-1)]/n!` | Written calculation and Lean |
 | C9/w=2 target `([0],[7,8,6,3,4,5,2,1])` | Unit position rates; unnormalized residual `-1/120960` | Lean specialization and complete class enumeration |
 | No factorization `K*A(c)*B(d)` | C5/w=2, rates `(2,1,1,1,1)` in both queues | Exact stationary certificate, nonzero rectangle determinant, Lean |
+| No mode-dependent factorization `K(b)*A_b(c)*B_b(d)` | C5, budgets 2/unlimited, unit switching, class rates `(2,1,1,1,1)` | Exact 360-state certificate, Lean generator balance and uniqueness |
 | Head-only communication of `B_2` | Every admissible OI allocation, even with zero non-head rates | Nine-orbit proof, Lean connectivity, finite checks |
 | C5/w=2 and C7/w=3 state counts and head-only classifications | Entire finite state spaces; both event supports | Python SCC checks; all-position structure also follows from general Lean theorem |
 | No tall recurrence in seven nonexceptional cycle instances | `n=6,8` with `w=1,2,3`, and `n=7,w=2`; head-only and all-position service | Complete Python SCC checks, not a general zero-non-head-rate theorem |
@@ -53,8 +64,8 @@ See [classification details](docs/CYCLE_CLASSIFICATION.md) and
 
 The odd-cycle examples at `w=1` do not satisfy Conjecture 1's bipartite
 hypothesis. The arbitrary-graph one-swap bipartite problem remains unresolved.
-The five-job exclusion of *all* queue-wise factors is not generalized to all
-exceptional cycles. On the family `n=2w+1`, canonical balance at `theta=1`
+The fixed-budget and modulated five-job exclusions of *all* queue-wise
+factors are not generalized to all exceptional cycles. On the family `n=2w+1`, canonical balance at `theta=1`
 for the tested `w=2,3,4,5` is computational evidence, not an all-`w` theorem.
 
 At unit position rates, queue length decreases at rate `K` and increases at
@@ -91,13 +102,14 @@ lake env lean verification/ManuscriptStatements.lean
 python3 -B code/check_axioms.py
 lake env leanchecker --verbose OddCycle
 python3 -B code/export_lean_certificate.py --check
+python3 -B code/export_modulated_certificate.py --check
 ```
 
 [GitHub Actions](.github/workflows/lean.yml) runs these machine-proof checks
-on every push and pull request, and can also be run manually. The four
+on every push and pull request, and can also be run manually. The five
 axiom audits reject dependencies outside `propext`, `Classical.choice`,
 and `Quot.sound`, including `sorryAx`. CI uses the pinned Lean toolchain
-and Mathlib dependency, and replays the full `OddCycle` library.
+and Mathlib dependency, and replays the full `OddCycle` library. It also runs the complete Python suite.
 
 All Lean modules, including the preserved structural and path-law proofs,
 remain in the default build. [PACKAGE.md](PACKAGE.md) gives the complete
@@ -105,17 +117,20 @@ verification runner, toolchain setup, certificate regeneration, PDF build,
 file hashes, and archive instructions. [LEAN.md](LEAN.md) records precise
 declarations and logical dependencies.
 
-## Regenerate the stationary certificate
+## Regenerate the stationary certificates
 
 ```sh
 python3 code/regenerate_certificate.py --output /tmp/regenerated_certificate.json
 python3 code/verify_five.py --certificate /tmp/regenerated_certificate.json
+python3 code/regenerate_modulated_certificate.py --output /tmp/modulated_certificate.json
+python3 code/verify_modulated.py --certificate /tmp/modulated_certificate.json
 ```
 
-Rational Gaussian elimination constructs weights using 45 symmetry orbits;
-the independent verifier checks all 180 original states and every balance
-equation. The exact certificates, graph inputs, and expected outputs remain
-editable and included.
+Rational Gaussian elimination uses 45 symmetry orbits for the fixed-budget
+certificate and 90 for the modulated certificate. Independent verifiers check
+all 180 and 360 original states, respectively, and every balance equation.
+The exact certificates, graph inputs, and expected outputs remain editable
+and included.
 
 ## Build the manuscript
 

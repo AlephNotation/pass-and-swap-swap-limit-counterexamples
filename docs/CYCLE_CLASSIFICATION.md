@@ -185,3 +185,20 @@ to concrete specializations and use kernel-checked reduction.
 The sharp equivalence requires `w >= 2`; recurrence and safe-length sufficiency
 require only `w >= 1`. See the quantifier review in LEAN.md. This revision
 is consolidated into the manuscript, rather than an unmerged mathematical extension.
+
+## One swap on even cycles and independent budget modulation
+
+At `w=1` and even `n>=4`, positive position rates leave exactly the two
+alternating-orientation classes; all other configurations are transient.
+Positive OI allocations have the canonical stationary law on each class.
+This is the proved positive-position case of Conjecture 1 on even cycles;
+the general bipartite problem and removal of positivity remain open.
+
+The tall C5 class also stays closed when an independent two-state environment
+switches between budget two and unlimited service at unit rates. With class
+rates `(2,1,1,1,1)` in both queues, its 360-state joint chain has a unique
+stationary law excluding all mode-dependent queue factors. The exact
+certificate is in `data/modulated_certificate.json`; the generator and
+nonfactorization theorems are in `OddCycle.ModulatedStationary`. This is a
+finite complement to the general cycle classification, not a new claim
+about arbitrary graphs or every modulated allocation.

@@ -1,0 +1,23 @@
+import OddCycle.ModulatedStationary
+import OddCycle.EvenCycles
+
+#print axioms OddCycle.even_one_swap_terminal_iff
+#print axioms OddCycle.PositivePositionAllocation.even_one_swap_recurrent_iff
+#print axioms OddCycle.ClosedClass.even_one_swap_normalized_oi
+#print axioms OddCycle.ModulatedFiveJob.support_size
+#print axioms OddCycle.ModulatedFiveJob.mem_support_iff
+#print axioms OddCycle.ModulatedFiveJob.support_closed
+#print axioms OddCycle.ModulatedFiveJob.complete_unlimited
+#print axioms OddCycle.ModulatedFiveJob.communication
+#print axioms OddCycle.ModulatedFiveJob.total_event_rate
+#print axioms OddCycle.ModulatedFiveJob.certificate_balance
+#print axioms OddCycle.ModulatedFiveJob.limited_mode_total
+#print axioms OddCycle.ModulatedFiveJob.normalized_certificate_not_product
+#print axioms OddCycle.ModulatedFiveJob.allocation_increment
+#print axioms OddCycle.ModulatedFiveJob.generatorBalance_eq
+#print axioms OddCycle.ModulatedFiveJob.kernel_irreducible
+#print axioms OddCycle.ModulatedFiveJob.probability_positive
+#print axioms OddCycle.ModulatedFiveJob.probability_sum
+#print axioms OddCycle.ModulatedFiveJob.probability_generator_stationary
+#print axioms OddCycle.ModulatedFiveJob.probability_unique
+#print axioms OddCycle.ModulatedFiveJob.stationary_not_product

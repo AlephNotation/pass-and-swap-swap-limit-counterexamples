@@ -26,6 +26,7 @@ Publisher PDF: https://link.springer.com/content/pdf/10.1007/s11134-024-09914-1.
 | Counterexample 2 | 239 | 35 | Earlier product-form failure with w=1 and a complete three-class graph, hence outside the required bipartite regime. |
 | **Theorem 7 and Eq. (25)** | **240** | **36** | Short-placement-order result. Eq. (25) is the stationary law; the explicit prefix-product formulas for Phi and Lambda are in an **unnumbered display immediately below it**. |
 | **Conjecture 1** | **241** | **37** | Transience of taller states on a (w+1)-partite graph. The following paragraph describes the intended product-form consequence. |
+| **Conjecture 2** | **245** | **41** | An exogenous Markov process determines the swap limit; the conjecture asserts product form without specifying only the canonical candidate. The manuscript's two-mode C5 example excludes even mode-dependent queue-wise factors on a closed communicating class. |
 | Lemma 3 and its proof | 252-253 | 48-49 | Partiteness is used in the at-most-color sense: the reverse implication constructs at most w+1 independent vertex sets. Every cycle therefore meets the hypothesis when w>=2. |
 | Appendix C.2, allocation caveat | 254 | 50 | Explicitly notes that OI assumptions ensure positive service only at the heads. The manuscript's Conjecture 1 corollary needs positive position rates for validity at nonexceptional lengths; exceptional closure gives failure without this extra assumption. |
 
@@ -89,3 +90,11 @@ rates. It does not claim general validity with zero non-head rates. The
 motivating paragraph uses the 2021 introduction's machine-cluster
 applications; the product-form explanation concerns the manuscript's
 classwise normalized law.
+
+The Conjecture 2 page (printed 245 / PDF 41) was separately rendered and
+visually inspected for the modulation extension. Its statement imposes no
+explicit short-initial-order restriction. The counterexample uses positive
+OI service, a three-partite C5, and a genuine two-state environment switching
+between budget two and unlimited service at unit rates. Its initial states
+belong to the tall exceptional class. The result concerns budget modulation;
+Theorem 6 concerns swapping-graph modulation and is not contradicted.

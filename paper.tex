@@ -35,7 +35,7 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-We classify the recurrent configurations of two pass-and-swap queues in closed tandem, with one distinct job per vertex of a cycle. For a swap limit $w\ge1$ and positive service at every occupied position, each orientation whose circular runs have length at most $w$ gives one closed communicating class. The only other recurrent configurations have exactly one run of length $w+1$ and all other runs of length $w$. They form a unique exceptional class, which exists exactly when $n=2kw+1$ for an integer $k\ge1$. For $w\ge2$, this yields a sharp boundary: the canonical OI weights are stationary on every closed class for every positive OI allocation if and only if $n\not\equiv1\pmod{2w}$. At exceptional lengths, complementary constructions give exact canonical balance defects: a distinguished class rate on $C_{2w+1}$, and unit position rates on every larger exceptional cycle. An integer stationary certificate on $C_5$ additionally excludes every queue-wise factorization. The proofs connect actual completions to orientation moves and run dynamics; the arbitrary-size classification and sharp boundary are verified in Lean, with exact finite computations retained separately.
+We classify the recurrent configurations of two pass-and-swap queues in closed tandem, with one distinct job per vertex of a cycle. For a swap limit $w\ge1$ and positive service at every occupied position, each orientation whose circular runs have length at most $w$ gives one closed communicating class. The only other recurrent configurations have exactly one run of length $w+1$ and all other runs of length $w$. They form a unique exceptional class, which exists exactly when $n=2kw+1$ for an integer $k\ge1$. For $w\ge2$, this yields a sharp boundary: the canonical OI weights are stationary on every closed class for every positive OI allocation if and only if $n\not\equiv1\pmod{2w}$. At exceptional lengths, complementary constructions give exact canonical balance defects: a distinguished class rate on $C_{2w+1}$, and unit position rates on every larger exceptional cycle. Integer stationary certificates on $C_5$ additionally exclude every queue-wise factorization, both at a fixed budget and when an independent two-state Markov process switches between limited and unlimited swaps. The latter gives a counterexample to the proposed Markov-modulated product form. The proofs connect actual completions to orientation moves and run dynamics; the arbitrary-size classification and sharp boundary are verified in Lean, with exact finite computations retained separately.
 \end{abstract}
 
 \section{Introduction and main results}\label{sec:intro}
@@ -105,9 +105,9 @@ For $n\ge3$ and $w\ge2$, with one job per vertex of $C_n$, Conjecture~1 fails fo
 At an exceptional length, $\T$ is nonempty and closed under every position completion. Under any admissible OI allocation it therefore contains a recurrent state, necessarily of height $w+1$. At every other length, Theorem~\ref{thm:classification} makes all tall states transient when position rates are strictly positive.
 \end{proof}
 
-Removing positivity from the validity direction remains open. Dorsman and Gardner explicitly note that their OI conditions guarantee positive head rates only~\cite[Appendix~C.2, p.~254]{DG}. Our finite checks in Section~\ref{sec:finite} find no tall recurrent states on the tested nonexceptional cycles under head-only service either, suggesting that this hypothesis may be removable. At $w=1$ the exceptional cycles are odd and fail the bipartite hypothesis; the arbitrary-graph one-swap bipartite problem remains unresolved. Theorem~7 and Eq.~(25) of~\cite[p.~240]{DG}, which concern short initial placement orders, are unaffected. Counterexample~2 of~\cite[p.~239]{DG} gives product-form failure outside the relevant partite regime.
+Removing positivity from the validity direction remains open. Dorsman and Gardner explicitly note that their OI conditions guarantee positive head rates only~\cite[Appendix~C.2, p.~254]{DG}. Our finite checks in Section~\ref{sec:finite} find no tall recurrent states on the tested nonexceptional cycles under head-only service either, suggesting that this hypothesis may be removable. At $w=1$, the classification confirms Conjecture~1 on every even cycle under positive position rates; Corollary~\ref{cor:even-one} identifies its two closed classes. Odd cycles fail the bipartite hypothesis. The arbitrary-graph one-swap bipartite problem and removal of the positive-position assumption remain unresolved. Theorem~7 and Eq.~(25) of~\cite[p.~240]{DG}, which concern short initial placement orders, are unaffected. Counterexample~2 of~\cite[p.~239]{DG} gives product-form failure outside the relevant partite regime.
 
-The proof proceeds from actual completions to exact orientation moves (Section~\ref{sec:quotient}), then from circular runs to terminal classes (Section~\ref{sec:runs}). Short-class balance proves the positive direction (Section~\ref{sec:positive}); complementary exceptional-family calculations prove sharpness (Section~\ref{sec:failures}). The five-job exclusion of all queue-wise factors, a short queue-length consequence, and finite verification follow in Sections~\ref{sec:certificate}--\ref{sec:finite}.
+The proof proceeds from actual completions to exact orientation moves (Section~\ref{sec:quotient}), then from circular runs to terminal classes (Section~\ref{sec:runs}). Short-class balance proves the positive direction (Section~\ref{sec:positive}); complementary exceptional-family calculations prove sharpness (Section~\ref{sec:failures}). The five-job exclusion of all queue-wise factors also extends to an independent two-state modulation switching between budget two and unlimited service. Section~\ref{sec:modulated} gives an exact counterexample to Conjecture~2 of~\cite[p.~245]{DG}, allowing even the candidate queue factors to depend on the environment state. The fixed-budget certificate, this modulation result, a short queue-length consequence, and finite verification follow in Sections~\ref{sec:certificate}--\ref{sec:finite}.
 
 \section{From queue completions to orientation moves}\label{sec:quotient}
 We first discard the queue cut and the choice of linear extension without discarding reachability information. This is a quotient of an event graph: a quotient edge exists when some actual completion realizes it. No claim that the orientation projection is itself Markov is needed.
@@ -172,10 +172,17 @@ Let $n\ge3$, $w\ge1$, and $n\bmod(2w)\ne1$. For every pair of strictly positive 
 In a short orientation, every directed path has at most $w$ edges. Thus every replacement chain has at most $w$ replacements, and limited and unlimited dynamics coincide. The orientation fiber is closed and communicating by Lemma~\ref{lem:fiber}. The unlimited tandem theorem, Theorem~3 and Eq.~(8) of~\cite[p.~217]{DG}, gives the canonical law on this fiber; its original version is Theorem~5 and Eq.~(23) of~\cite[p.~298]{CD}. The same mechanism underlies Theorem~7 of~\cite[p.~240]{DG}, which is stated with an additional partiteness hypothesis. The classification shows that these are all recurrent classes at nonexceptional lengths and supplies the asserted absorption. In the formal development the unlimited OI balance identity is proved from complete incoming-event reconstruction and telescoping prefix weights, rather than assumed from the literature.
 \end{proof}
 
+\begin{corollary}[The one-swap conjecture on even cycles]\label{cor:even-one}
+Let $n\ge4$ be even, with one job per vertex of $C_n$ and swap budget $w=1$. Under strictly positive service at every occupied position, there are exactly two closed communicating classes, corresponding to the two alternating cycle orientations. Each class contains all linear extensions and cuts of its orientation; every other configuration is transient. For every pair of positive OI allocations, the normalized canonical weights give the stationary law on each class. Thus Conjecture~1 holds on every even cycle in this positive-position regime.
+\end{corollary}
+\begin{proof}
+An even $n$ is not congruent to $1$ modulo $2$, so Theorem~\ref{thm:classification} leaves only short orientations. At $w=1$ every circular run then has length one. There are exactly two such circular binary words, the two alternating orientations; both are acyclic and realizable. The classification identifies their full configuration classes and transience outside them, and Corollary~\ref{cor:positive} gives their canonical laws.
+\end{proof}
+
 This proves sufficiency in Theorem~\ref{thm:sharp}. The next section proves necessity by giving one failing positive allocation on every exceptional cycle. A nonzero \emph{unnormalized} residual remains nonzero after division by the positive class normalizer.
 
 \section{Canonical failure on every exceptional cycle}\label{sec:failures}
-There are two complementary cases. The first exceptional length, $n=2w+1$, admits a uniform calculation with one distinguished class rate. At every larger exceptional length, identical unit rates at all positions already suffice.
+At the first exceptional length, $n=2w+1$, one distinguished class rate gives a uniform calculation. At every larger exceptional length, unit position rates suffice.
 
 \subsection{The first exceptional class: \texorpdfstring{$\mathcal B_w=\mathcal T_{2w+1,w}$}{the balanced family}}\label{sec:balanced}
 Fix $w\ge2$. The exceptional pattern has two runs, or equivalently two source-to-sink branches of lengths $w$ and $w+1$. Denote this class by $\B$. This notation is reserved for $n=2w+1$; the classes with $k\ge2$ have multiple sources and sinks. Theorem~\ref{thm:classification} proves recurrence and communication of $\B$ under positive position rates.
@@ -422,6 +429,48 @@ The determinant is congruent to $21\cdot29-78\cdot68\equiv52\pmod{101}$, so it i
 This proposition uses an exact computational certificate; the arbitrary-$w$ proof in Section~\ref{sec:balance} does not. An optional rational Gaussian-elimination script regenerates the weights using the 45 orbits under reflection fixing class~0 and queue exchange. Verification is performed separately on all 180 states and does not rely on trusting the solver.
 
 
+\section{Markov-modulated swap limits}\label{sec:modulated}
+Conjecture~2 of~\cite[p.~245]{DG} proposes product form when an exogenous Markov process controls the swap limit. The exceptional class permits a direct test with both limited and unlimited service. Keep $C_5$, one job per vertex, and the additive class rates $(2,1,1,1,1)$ in both queues. Independently of queue events, let the environment jump $L\to U$ and $U\to L$ at rate one. Mode $L$ uses budget two, and mode $U$ allows unlimited replacements; switching changes only the mode. On
+\[
+ \mathcal S=\mathcal B_2\times\{L,U\},
+\]
+the joint generator, with the limited states listed first, is
+\begin{equation}\label{eq:modulated-generator}
+ G=\begin{pmatrix}Q_{2,2}-I&I\\I&Q_{\infty,2}-I\end{pmatrix},
+\end{equation}
+where $I$ is the $180\times180$ identity matrix. Both queue generators use the same class rates. Each joint state has five queue-completion events of total rate six and one environment transition of rate one.
+
+\begin{theorem}[Nonfactorization under Markov modulation]\label{thm:modulated}
+The set $\mathcal S$ is a closed communicating class of 360 states. Its unique stationary law cannot be written as
+\begin{equation}\label{eq:modulated-factors}
+ \pi(c,d,b)=K(b)A_b(c)B_b(d),
+\end{equation}
+even with arbitrary real-valued queue factors and prefactors depending on the environment state. In particular, Markov modulation of the swap limit does not guarantee the P\&S product form asserted in Conjecture~2.
+\end{theorem}
+\begin{proof}
+Limited completions preserve $\mathcal B_2$ by Lemma~\ref{lem:closure}; unlimited completions preserve each orientation and hence their union $\mathcal B_2$. Environment jumps preserve the queues. To communicate, switch to mode $L$ if necessary, follow a limited-mode path between the required queue configurations, and switch to the desired final mode. Every step has positive rate.
+
+The file \texttt{data/modulated\_certificate.json} gives a positive integer weight $u(s,b)$ at every joint state. Direct reconstruction of all 2,160 events verifies
+\begin{align*}
+ uG&=0,\\
+ N:=\sum_{(s,b)\in\mathcal S}u(s,b)
+   &=453455693620316895843696276658701576451041520896.
+\end{align*}
+Equivalently, every incoming integer weighted rate equals $7u(s,b)$. Both mode totals equal $N/2$, agreeing with the exogenous environment's stationary law. Irreducibility makes $u/N$ the unique stationary distribution.
+
+Use the same queues $c_1,c_2,d_1,d_2$ as in Proposition~\ref{prop:nonfactor}. At mode $L$, their certified integer weights satisfy
+\[
+ \begin{pmatrix}
+ u(c_1,d_1,L)&u(c_1,d_2,L)\\
+ u(c_2,d_1,L)&u(c_2,d_2,L)
+ \end{pmatrix}
+ \equiv\begin{pmatrix}35&59\\6&1\end{pmatrix}\pmod{101}.
+\]
+The determinant is congruent to $35\cdot1-59\cdot6\equiv85\pmod{101}$, so it is nonzero. Every factorization~\eqref{eq:modulated-factors} makes this fixed-mode determinant zero, a contradiction. Normalization preserves nonvanishing.
+\end{proof}
+
+The graph is three-partite and both allocations are strictly positive and OI. The example starts in the height-three class, which both modes preserve. It concerns modulation of the \emph{budget}; the swapping-graph modulation theorem of~\cite[Theorem~6]{DG} is unaffected. The rational solver uses 90 symmetry orbits, but the independent verifier and Lean certificate check operate on all 360 original states. The Lean development also proves closure, communication, normalization, the generator identity, uniqueness, and exclusion of mode-dependent queue factors.
+
 \section{A queue-length consequence}\label{sec:length}
 At unit position rates, $K=|c|$ decreases at rate $K$ and increases at rate $n-K$, independently of job order, swapping graph, and budget. Its birth--death generator therefore determines the same length-process law for any two initial laws with the same length marginal. Every placement word in a closed class occurs with all $n+1$ cuts, so the number of configurations at each length is the same. Since $W(c,d)=1/(|c|!|d|!)$, the normalized canonical length marginal at $j$ is $2^{-n}\binom nj$, the stationary law of this birth--death chain. On $\T$ with $w\ge1$, $k\ge2$, it consequently agrees with the marginal of an actual stationary law, although the canonical candidate is not stationary by Theorem~\ref{thm:unit}. The entire continuous-time length trajectories have identical laws under these two initializations. The nonzero residual $D=\widehat\pi Q$ also satisfies $\sum_{s:|c|=j}D(s)=0$ for every $j$. Detailed path-measure conventions and extensions to length-dependent service capacities are recorded in \texttt{LEAN.md}. This consequence specifies no convergence timescale.
 
@@ -471,14 +520,14 @@ Two transition implementations check closure, communication within and between o
 Two transition implementations check all 131,040 states in $\mathcal T_{9,2}$, its 18 orientations, and 1,179,360 events per generator. With integer weights $\binom9{|c|}=9!W(c,d)$, unlimited residuals all vanish; limited residuals are nonzero at 16,560 states, equal $-3$ at the target in Section~\ref{sec:nine}, and sum to zero at each length. Closure and complete gained/lost predecessor lists are also checked. The counts in \texttt{results/nine\_job.json} are independent checks of Theorem~\ref{thm:unit}.
 
 \section{Conclusion}\label{sec:conclusion}
-On cycles, a finite swap budget has an exact structural effect: the recurrent classes are the short orientation fibers and, precisely at $n=2kw+1$, one exceptional class with a single extra edge among otherwise full runs. The operational-to-orientation equivalence makes this a classification of the original queues. It yields a sharp universal canonical boundary for $w\ge2$, with different counterexample allocations covering the first and larger exceptional cycles. The five-job certificate goes further by excluding all queue-wise factors for one explicit allocation, and the head-only argument proves stronger rate robustness for that class. Neither strengthening is claimed for every exceptional cycle.
+On cycles, a finite swap budget has an exact structural effect: the recurrent classes are the short orientation fibers and, precisely at $n=2kw+1$, one exceptional class with a single extra edge among otherwise full runs. The operational-to-orientation equivalence makes this a classification of the original queues. It yields a sharp universal canonical boundary for $w\ge2$, with different counterexample allocations covering the first and larger exceptional cycles. At $w=1$, the classification confirms the positive-position conjecture on every even cycle and identifies its two alternating classes. The five-job certificates exclude all queue-wise factors both at a fixed budget and under independent switching between limited and unlimited swaps, supplying a counterexample to Conjecture~2. The head-only argument retains its stronger rate robustness for the fixed-budget class. These finite strengthenings are not asserted for every exceptional cycle.
 
-The classification assumes distinct jobs on a simple cycle and positive service at every position. It does not classify arbitrary swapping graphs, repeated classes, or general supports with vanishing non-head rates. The one-swap bipartite problem, allocation-specific stationarity on exceptional classes, and quantitative convergence rates remain directions for future work. No claim concerning the Markov-modulated Conjecture~2 of~\cite{DG} is made.
+The classification assumes distinct jobs on a simple cycle and positive service at every position. It does not classify arbitrary swapping graphs, repeated classes, or general supports with vanishing non-head rates. The one-swap problem on general bipartite graphs, removal of positivity from the nonexceptional validity direction, allocation-specific stationarity on exceptional classes, and quantitative convergence rates remain directions for future work.
 
 \section{Verification and reproducibility}\label{sec:verification}
-The package includes editable \texttt{paper.tex}, the rendered PDF, every Lean source, exact stationary and orbit certificates, graph inputs, expected JSON results, and regeneration scripts. The standard-library command \texttt{python3 run\_checks.py} reconstructs the operational model and compares fresh exact outputs with the recorded finite results. It also runs under \texttt{-O}; verification does not depend on disabled assertions. The stationary certificate can be regenerated by rational elimination and independently checked against the full generator.
+The package includes editable \texttt{paper.tex}, the PDF, every Lean source, exact stationary and orbit certificates, graph inputs, expected results, and regeneration scripts. Running \texttt{python3 run\_checks.py} reconstructs the operational model and reproduces all recorded finite results, also under \texttt{-O}. Both stationary certificates can be regenerated by rational elimination and checked independently against the full generators. The head-only verifier checks all 72,000 event/symmetry identities on the 720 configurations, the paths in Appendix~\ref{app:head}, and forward/reverse head reachability.
 
-Lean verifies Theorems~\ref{thm:classification}, \ref{thm:sharp}, \ref{thm:balanced}, and~\ref{thm:unit}, the C9 specialization, the five-job certificate, and the continuous-time recurrence and queue-length assertions. It constructs the actual queue transitions, proves the quotient equivalence, and constructs measurable nonexplosive sample paths from exponential clocks. No external queueing theorem is installed as an axiom. Finite experiments retain their separate computational status. \texttt{LEAN.md} maps the mathematical statements to declarations with their precise assumptions; \texttt{verification/REPORT.md} records the checked revision, commands, audit results, and rendered-page inspection. The package instructions explain how to replay the complete verification and validate file hashes. Kernel checks use only Lean's standard logical axioms; no admitted proofs, custom axioms, or native-evaluation axioms are introduced.
+Lean verifies Theorems~\ref{thm:classification}, \ref{thm:sharp}, \ref{thm:balanced}, \ref{thm:unit}, and~\ref{thm:modulated}, the C9 specialization, both five-job certificates, and the continuous-time recurrence and queue-length assertions. It constructs the queue transitions, proves the quotient equivalence, and constructs nonexplosive measurable paths from exponential clocks. No external queueing theorem is assumed as an axiom. \texttt{LEAN.md} maps statements to declarations and separates finite computations from general proofs. \texttt{verification/REPORT.md} records the checked revision, commands, and page inspection; \texttt{PACKAGE.md} gives replay and file-hash instructions. CI builds the full library, audits its axioms, replays proofs in the kernel, and runs the Python checks. Only Lean's standard logical axioms are used; no admitted proofs, custom axioms, or native-evaluation axioms are introduced.
 
 \paragraph{Acknowledgment.} This work was assisted by OpenAI's ChatGPT-6 and Anthropic's Claude Fable-5.1.
 
@@ -496,9 +545,9 @@ Lean verifies Theorems~\ref{thm:classification}, \ref{thm:sharp}, \ref{thm:balan
 
 \appendix
 \section{The five-job class under arbitrary OI allocation}\label{app:head}
-Here admissible OI allocations have nonnegative prefix increments and positive singleton capacities~\cite[Definition~1, p.~210]{DG}. Heads therefore receive positive service, while other rates may vanish.
+Admissible OI allocations have nonnegative prefix increments and positive singleton capacities~\cite[Definition~1, p.~210]{DG}: head rates are positive, while other rates may vanish.
 
-The 20 symmetries in $\Gamma$ combine $x\mapsto\pm x+k\pmod5$ with optional queue exchange. They preserve allowed events, but need not preserve rates. Table~\ref{tab:orbits} gives representatives $t_i$; each vector lists destination orbits for successive queue positions.
+The 20 symmetries in $\Gamma$ combine $x\mapsto\pm x+k\pmod5$ with optional queue exchange, preserving allowed events but not necessarily rates. Table~\ref{tab:orbits} lists representatives $t_i$ and destination orbits for successive queue positions.
 \begin{table}[ht]
 \centering\small
 \renewcommand{\arraystretch}{1.12}
@@ -524,7 +573,7 @@ $i$&$c$&$d$&$c$: positions $1,2,\ldots$&$d$: positions $1,2,\ldots$\\
 For every admissible OI allocation, $\mathcal B_2$ is a single closed communicating class of 180 states. At equal unit head-only rates, its uniform distribution is stationary.
 \end{proposition}
 \begin{proof}
-The action is free because queue lengths differ and all labels are distinct. Shorter-queue length separates rows 1--3, 4--6, and 7--9; within each group an equivalence fixes two distinct labels and hence is the identity. These nine balanced orbits have $9\cdot20=180$ states, exhausting $\mathcal B_2$ by~\eqref{eq:size}.
+Unequal queue lengths and distinct labels make the action free. Shorter-queue length separates rows 1--3, 4--6, and 7--9; within each group an equivalence fixes two labels and is the identity. Thus the nine balanced orbits exhaust the $180$ states of $\mathcal B_2$.
 
 \Needspace{8\baselineskip}
 Closure holds for all positions. Write $C,D$ for head completions. From $t_7$,
@@ -532,7 +581,7 @@ Closure holds for all positions. Write $C,D$ for head completions. From $t_7$,
  CCDD:t_7\longmapsto((4,3),(2,1,0))=a(t_7),\qquad
  CDD:t_7\longmapsto((0,4,3),(2,1))=b(t_7),
 \]
-where $a(x)=4-x$ and $b$ combines $x\mapsto2-x$ with queue exchange. These involutions generate $\Gamma$: their product has order ten and $a$ is not one of its powers. Equivariance lifts the paths to every orbit member, proving communication within the orbit of $t_7$. The head walk
+where $a(x)=4-x$ and $b$ combines $x\mapsto2-x$ with queue exchange. They generate $\Gamma$: their product has order ten and $a$ is not one of its powers. Equivariance therefore proves communication within the orbit of $t_7$. The head walk
 \[
  7\to6\to1\to4\to3\to6\to8\to5\to2\to5\to9\to4\to7
 \]
@@ -540,6 +589,4 @@ visits all nine orbits; lifting it through that communicating orbit proves commu
 
 At unit head rates, the table and free group action give one incoming event per state in orbits 1--3 and two in each other orbit. These match the outgoing counts, proving uniform balance for this allocation.
 \end{proof}
-
-The exact successors and symmetry witnesses are in \texttt{data/all\_position\_certificate.json}. The verifier checks them, all 72,000 event/symmetry identities on the full five-job space, both displayed paths, and forward/reverse head reachability.
 \end{document}

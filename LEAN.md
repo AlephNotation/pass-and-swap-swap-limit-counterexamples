@@ -29,6 +29,7 @@ generated logs are not tracked in the repository.
 | Exact operational/path-flip equivalence (`lem:local`) | `transition_changed_path`; `cycle_path_realize_flip`; `orientationStep_iff_pathFlip`; `orientationStep_iff_circularFlip` | `n >= 3`, `w >= 1`; existence of a nontrivial quotient edge, not an orientation Markov kernel. |
 | Run classification (`sec:runs`) | `CircularRun.terminal_iff`; `CircularRun.exceptional_iff_one_long`; `BinaryCycle.terminal_iff`; `CycleState.terminal_iff_runs` | The run relation is proved equivalent to the original quotient; recurrence is not defined to mean the proposed run test. |
 | Positive canonical law (`cor:positive`) | `unlimited_oi_stationary`; `short_class_normalized_oi`; `ClosedClass.safe_normalized_oi` | `n >= 3`, `w >= 1`, `n % (2*w) != 1`; each queue has its own `PositiveOIAllocation n`. Normalization, positivity, and original generator balance are proved. |
+| Even-cycle one-swap corollary (`cor:even-one`) | `even_one_swap_terminal_iff`; `PositivePositionAllocation.even_one_swap_recurrent_iff`; `ClosedClass.even_one_swap_normalized_oi` | Even `n >= 4`, `w=1`, one job per vertex. Recurrence requires positive position rates; stationarity requires positive OI allocations. The declarations give the run-one characterization and normalized law. The paper derives the count of two classes by counting the two alternating Boolean words and applying the general class theorem; no separate two-class cardinality declaration is claimed. |
 | Sharp universal boundary (`thm:sharp`) | `cycle_canonical_sharpness`; **`cycle_normalized_canonical_sharpness`** | **`n >= 3`, `w >= 2`**. Quantifies over every pair of positive OI allocations and every actual closed class. Equivalence is with universal validity, not allocation-specific validity. |
 | Balanced case is the first exceptional class | `balanced_is_exceptional`; `balanced_cardinality` | `w >= 2`; `B_w=T_(2w+1,w)`; `2(2w+1)(2w+2) choose(2w-1,w)` full states. |
 | Uniform two-flow obstruction (`thm:balanced`, `lem:two`) | `two_flow_completeness`; `uniform_two_flow_identity`; `uniform_defect`; `uniform_defect_pos`; `uniform_defect_neg`; `uniform_defect_two` | `w >= 2`; same additive rates in both queues, `r_0=theta>0`, other rates 1; exact defect nonzero iff `theta != 1`. At 2 it is `-w/(2w+2)!`. Zero at the displayed target when theta=1 is not a full all-w stationarity proof. |
@@ -36,6 +37,7 @@ generated logs are not tracked in the repository.
 | Explicit C9 (`eq:nine`) | `NineJobCycle.target_member`; `NineJobCycle.recurrent_class`; `NineJobCycle.gained_event`; `NineJobCycle.residual` | `n=9`, `w=2`, unit position rates; target `([0],[7,8,6,3,4,5,2,1])`; unnormalized defect `-1/120960`. No enumeration needed for the Lean specialization. |
 | Five-job four-predecessor result (`sec:five`) | `FiveJob.canonical_defect`; `FiveJob.canonical_scaled_not_stationary` | `n=5`, `w=2`, additive rates `(2,1,1,1,1)` in each queue. Complete table also reconstructed by `verify_five.py`. |
 | Exclusion of all queue-wise factors (`prop:nonfactor`) | `FiveJob.certificate_stationary`; `FiveJob.certificate_total`; `FiveJob.normalized_certificate_not_product` | Exact C5 allocation above. Nonfactorization over every characteristic-zero field, including real factors. Not a theorem for all exceptional cycles. |
+| Markov-modulated nonfactorization (`thm:modulated`) | `ModulatedFiveJob.support_closed`; `communication`; `complete_unlimited`; `allocation_increment`; `certificate_balance`; `probability_generator_stationary`; `probability_unique`; **`stationary_not_product`** | C5, one job per vertex, budgets 2/unlimited, independent switches of rate one each way, class rates `(2,1,1,1,1)` in both queues. The actual 360-state generator has one stationary probability vector. It excludes arbitrary real factors `K(b) A_b(c) B_b(d)`, including mode dependence; not just the canonical candidate. |
 | Head-only communication (`prop:heads`) | `FiveJob.head_communication`; `FiveJob.support_closed` | `n=5`, `w=2`; any allocation retaining positive heads, including all admissible OI allocations. The nine-orbit table and uniform law at equal unit head rates are separately checked in Python. |
 | Partiteness | `partiteColor_proper`; `partiteColor_surjective` | `C_(2w+1)`, `w >= 2`, exactly `w+1` nonempty colors. Odd cycles at `w=1` are not bipartite and do not refute Conjecture 1 under its hypothesis. |
 | Linear executable recurrence test | `CycleClassifier.classify_correct`; `CycleClassifier.classify_cost`; `CycleClassifier.classify_continuous_recurrence` | Valid state, `n >= 3`, `w >= 1`; bound `33*n+18` in the instrumented bounded-word RAM model, not bit complexity or measured runtime. |
@@ -52,11 +54,13 @@ telescoping prefix weights. No external theorem is introduced as an axiom.
 
 - Kept `w >= 1` for recurrence and safe-length sufficiency; retained **`w >= 2`**
   for the sharp universal equivalence. No claim is made to settle its omitted
-  one-swap cases or the arbitrary-graph bipartite conjecture.
+  general one-swap bipartite conjecture. The positive-position even-cycle case
+  is explicitly stated as a corollary, including its two alternating classes.
 - Distinguished structural closure for nonnegative allocations from
   irreducibility under positive position rates; the C5 head-only result has
   its own stronger support hypothesis.
-- Restricted all-factor nonfactorization to the explicit C5 certificate.
+- Restricted all-factor nonfactorization to the two explicit C5 certificates:
+  the earlier fixed-budget chain and the new nondegenerate modulated chain.
 - The family unit-rate residual uses a particular interior order constructed
   in Lean. The paper fixes that construction; it does not attribute an extra
   universally quantified theorem over arbitrary interior words to Lean.
@@ -85,6 +89,7 @@ telescoping prefix weights. No external theorem is introduced as an axiom.
 | C9 complete exceptional-class enumeration | `verify_nine.py` / `results/nine_job.json` | 131,040 states, 18 orientations, 1,179,360 events per generator; 16,560 nonzero limited residuals, zero unlimited residuals, target -3 in integer scaling. |
 | Five-job certificate and orbit table | `verify_five.py`, `verify_orbits.py` / corresponding JSON | Exact 180-state certificate, 45 representative events, 72,000 symmetry identities, unit-head balance. |
 | Small-graph screen | `verify_screen.py` / `results/screen.json` | All 61 simple bipartite graphs on 1..6 vertices at w=1; four named graphs at w=2; 192,590 states, 1,143,194 all-position events. |
+| Modulated five-job certificate | `verify_modulated.py` / `results/modulated.json`; `data/modulated_certificate.json` | All 360 states and 2,160 events; independent closure, communication and integer-balance checks. Budgets 2/unlimited, unit switching. Limited-mode rectangle `(35,59;6,1)` modulo 101 has determinant 85. The solver uses 90 orbits; the verifier uses the full state space. |
 | Head-only service on nonexceptional cycles | `verify_head_cycles.py` / `results/head_cycles.json` | Seven pairs: `(6,1)`, `(6,2)`, `(6,3)`, `(7,2)`, `(8,1)`, `(8,2)`, `(8,3)`. Complete SCC checks under both supports; 1,144,080 state/budget cases, 2,031,840 head events, 9,082,080 all-position events. No tall recurrence; C6/w=2 has 68 head-only classes versus 20 all-position classes. Finite evidence only. |
 
 The general classification is proved in Lean; its computed state counts
@@ -98,15 +103,16 @@ is a fresh complete reproduction of the stated C9 experiment. The unavailable
 ## Build, axiom audits, and kernel replay
 
 The [Lean proofs workflow](.github/workflows/lean.yml) runs the full default
-build, manuscript statement checks, all four audits, full-root kernel replay,
-and the generated-certificate consistency check on pushes and pull requests.
+build, manuscript statement checks, all five audits, full-root kernel replay,
+both generated-certificate consistency checks, and all eight exact Python
+components on pushes and pull requests.
 It also supports manual runs. `python3 -B code/check_axioms.py` runs and
-validates all four audits locally; CI and the release verifier share its
+validates all five audits locally; CI and the release verifier share its
 allowlist validation. A missing audit output, failed Lean command, or axiom
 outside `propext`, `Classical.choice`, and `Quot.sound` fails the check.
-The audit scope is the declarations listed in those four audit modules;
+The audit scope is the declarations listed in those five audit modules;
 kernel replay covers the full `OddCycle` library. CI sets
-`LEAN_NUM_THREADS=1` for kernel replay to bound Mathlib memory use.
+`LEAN_NUM_THREADS=1` throughout to bound certificate-checking memory use.
 
 ```sh
 lake exe cache get
@@ -115,8 +121,10 @@ lake env lean OddCycle/Audit.lean
 lake env lean OddCycle/CycleClassificationAudit.lean
 lake env lean OddCycle/StructuralTheoryAudit.lean
 lake env lean OddCycle/IndistinguishabilityAudit.lean
+lake env lean OddCycle/ModulatedAudit.lean
 lake env leanchecker --verbose OddCycle
 python3 -B code/export_lean_certificate.py --check
+python3 -B code/export_modulated_certificate.py --check
 ```
 
 The cache command is first-install setup. The full replay includes all
@@ -127,6 +135,29 @@ custom axioms, or native-evaluation axioms. Actual commands and outcomes
 for this revision are in [verification/REPORT.md](verification/REPORT.md).
 Machine-readable logs and source hashes accompany the verification package;
 [PACKAGE.md](PACKAGE.md) documents their regeneration and packaging.
+
+## Two-mode counterexample to Conjecture 2
+
+`ModulatedCertificate.lean` contains generated integer data only.
+`ModulatedFiveJob.lean` constructs queue events using the existing completion
+rule, adds an independent mode flip at rate one, and checks all 360 integer
+balance equations. The true mode uses budget five on a five-job population;
+`complete_unlimited` proves that this is exactly the unrestricted scan.
+The support is proved to be `FiveJob.support × Bool`. Closure and communication
+are proved for the full event graph, using the existing limited-mode head paths.
+
+`ModulatedStationary.lean` constructs the rate-seven embedded kernel and
+identifies it with the incoming-minus-outgoing generator balance. It proves
+positive OI realizability of the rates, normalization, stationarity, uniqueness,
+and nonfactorization of every stationary probability vector over the reals.
+The excluded factors may depend on the mode. No perturbation or slow-switching
+limit is assumed: both environment transition rates are exactly one.
+`ModulatedAudit.lean` audits these statements and the even-cycle specializations.
+
+Conjecture 2 on printed p. 245 asserts product form for an exogenous swap-limit
+modulator. The example is a genuine two-mode process on a three-partite graph,
+with positive OI service. It starts in the tall class. The swapping-graph
+modulation theorem (Theorem 6) is a different statement and is unaffected.
 
 ## Detailed balanced-family declarations
 
@@ -324,6 +355,7 @@ residual is `-1/(120960 Z_C)`. The concrete declaration is
 ```sh
 lake build
 lake env lean OddCycle/IndistinguishabilityAudit.lean
+lake env lean OddCycle/ModulatedAudit.lean
 lake env leanchecker OddCycle.QueueLengthIndistinguishability
 ```
 

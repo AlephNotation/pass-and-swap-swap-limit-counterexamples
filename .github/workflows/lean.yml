@@ -17,6 +17,9 @@ jobs:
     name: Build, axiom audit, and kernel replay
     runs-on: ubuntu-24.04
     timeout-minutes: 60
+    # Kernel reductions of finite certificates have substantial per-thread memory.
+    env:
+      LEAN_NUM_THREADS: "1"
     steps:
       - name: Check out sources
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
@@ -33,14 +36,16 @@ jobs:
       - name: Check manuscript theorem statements
         run: lake env lean verification/ManuscriptStatements.lean
 
-      - name: Enforce the axiom allowlist in all four audits
+      - name: Enforce the axiom allowlist in all audits
         run: python3 -B code/check_axioms.py
 
       - name: Replay the full proof library in the kernel
-        # Each concurrent check loads Mathlib; bound memory on hosted runners.
-        env:
-          LEAN_NUM_THREADS: "1"
         run: lake env leanchecker --verbose OddCycle
 
-      - name: Check generated Lean certificate against its source data
-        run: python3 -B code/export_lean_certificate.py --check
+      - name: Check generated Lean certificates against their source data
+        run: |
+          python3 -B code/export_lean_certificate.py --check
+          python3 -B code/export_modulated_certificate.py --check
+
+      - name: Run all exact Python checks
+        run: python3 -B run_checks.py
