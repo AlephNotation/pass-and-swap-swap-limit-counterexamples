@@ -64,13 +64,12 @@ def recurrent_indices(graph: list[list[int]]) -> tuple[set[int], list[list[int]]
     return {u for c in closed for u in c}, closed
 
 
-def check_case(w: int) -> dict:
-    n = 2 * w + 1
+def event_graphs(n: int, w: int):
+    """Enumerate every cycle state and cross-check both completion implementations."""
     states = [(p[:k], p[k:][::-1]) for p in permutations(range(n))
               for k in range(n + 1)]
     index = {s: i for i, s in enumerate(states)}
     heights = [height(s, n) for s in states]
-    balanced = {index[s] for s in balanced_states(w)}
     heads = [[] for _ in states]
     allpos = [[] for _ in states]
     for i, s in enumerate(states):
@@ -82,8 +81,16 @@ def check_case(w: int) -> dict:
                 allpos[i].append(j)
                 if p == 0:
                     heads[i].append(j)
+    return states, heights, {'head_only': heads, 'all_positions': allpos}
+
+
+def check_case(w: int) -> dict:
+    n = 2 * w + 1
+    states, heights, graphs = event_graphs(n, w)
+    support = set(balanced_states(w))
+    balanced = {i for i, s in enumerate(states) if s in support}
     disciplines = {}
-    for name, graph in [('head_only', heads), ('all_positions', allpos)]:
+    for name, graph in graphs.items():
         recurrent, closed = recurrent_indices(graph)
         tall_recurrent = {i for i in recurrent if heights[i] > w}
         require(tall_recurrent == balanced, f'w={w}: unexpected tall recurrent set ({name})')

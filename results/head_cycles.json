@@ -1,0 +1,305 @@
+{
+  "status": "PASS",
+  "scope": "Seven complete nonexceptional cycle state spaces; one job per vertex.",
+  "total_state_budget_cases": 1144080,
+  "cases": [
+    {
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "short_states": 672,
+      "short_region_closed_under_all_positions": true,
+      "two_transition_implementations_agree": true,
+      "disciplines": {
+        "head_only": {
+          "events": 8640,
+          "closed_class_count": 20,
+          "closed_class_size_histogram": {
+            "21": 8,
+            "28": 6,
+            "56": 6
+          },
+          "recurrent_states": 672,
+          "transient_states": 4368,
+          "tall_recurrent_states": 0
+        },
+        "all_positions": {
+          "events": 30240,
+          "closed_class_count": 2,
+          "closed_class_size_histogram": {
+            "336": 2
+          },
+          "recurrent_states": 672,
+          "transient_states": 4368,
+          "tall_recurrent_states": 0
+        }
+      }
+    },
+    {
+      "n": 6,
+      "w": 2,
+      "states": 5040,
+      "short_states": 3276,
+      "short_region_closed_under_all_positions": true,
+      "two_transition_implementations_agree": true,
+      "disciplines": {
+        "head_only": {
+          "events": 8640,
+          "closed_class_count": 68,
+          "closed_class_size_histogram": {
+            "14": 6,
+            "21": 8,
+            "28": 12,
+            "42": 12,
+            "56": 6,
+            "77": 24
+          },
+          "recurrent_states": 3276,
+          "transient_states": 1764,
+          "tall_recurrent_states": 0
+        },
+        "all_positions": {
+          "events": 30240,
+          "closed_class_count": 20,
+          "closed_class_size_histogram": {
+            "126": 6,
+            "154": 12,
+            "336": 2
+          },
+          "recurrent_states": 3276,
+          "transient_states": 1764,
+          "tall_recurrent_states": 0
+        }
+      }
+    },
+    {
+      "n": 6,
+      "w": 3,
+      "states": 5040,
+      "short_states": 4620,
+      "short_region_closed_under_all_positions": true,
+      "two_transition_implementations_agree": true,
+      "disciplines": {
+        "head_only": {
+          "events": 8640,
+          "closed_class_count": 116,
+          "closed_class_size_histogram": {
+            "14": 12,
+            "21": 20,
+            "28": 30,
+            "42": 24,
+            "56": 6,
+            "77": 24
+          },
+          "recurrent_states": 4620,
+          "transient_states": 420,
+          "tall_recurrent_states": 0
+        },
+        "all_positions": {
+          "events": 30240,
+          "closed_class_count": 38,
+          "closed_class_size_histogram": {
+            "42": 6,
+            "91": 12,
+            "126": 6,
+            "154": 12,
+            "336": 2
+          },
+          "recurrent_states": 4620,
+          "transient_states": 420,
+          "tall_recurrent_states": 0
+        }
+      }
+    },
+    {
+      "n": 7,
+      "w": 2,
+      "states": 40320,
+      "short_states": 22624,
+      "short_region_closed_under_all_positions": true,
+      "two_transition_implementations_agree": true,
+      "disciplines": {
+        "head_only": {
+          "events": 70560,
+          "closed_class_count": 196,
+          "closed_class_size_histogram": {
+            "24": 14,
+            "40": 28,
+            "56": 56,
+            "104": 42,
+            "152": 28,
+            "312": 14,
+            "360": 14
+          },
+          "recurrent_states": 22624,
+          "transient_states": 17696,
+          "tall_recurrent_states": 0
+        },
+        "all_positions": {
+          "events": 282240,
+          "closed_class_count": 28,
+          "closed_class_size_histogram": {
+            "528": 14,
+            "1088": 14
+          },
+          "recurrent_states": 22624,
+          "transient_states": 17696,
+          "tall_recurrent_states": 0
+        }
+      }
+    },
+    {
+      "n": 8,
+      "w": 1,
+      "states": 362880,
+      "short_states": 19584,
+      "short_region_closed_under_all_positions": true,
+      "two_transition_implementations_agree": true,
+      "disciplines": {
+        "head_only": {
+          "events": 645120,
+          "closed_class_count": 120,
+          "closed_class_size_histogram": {
+            "36": 24,
+            "54": 8,
+            "72": 24,
+            "162": 56,
+            "936": 8
+          },
+          "recurrent_states": 19584,
+          "transient_states": 343296,
+          "tall_recurrent_states": 0
+        },
+        "all_positions": {
+          "events": 2903040,
+          "closed_class_count": 2,
+          "closed_class_size_histogram": {
+            "9792": 2
+          },
+          "recurrent_states": 19584,
+          "transient_states": 343296,
+          "tall_recurrent_states": 0
+        }
+      }
+    },
+    {
+      "n": 8,
+      "w": 2,
+      "states": 362880,
+      "short_states": 193680,
+      "short_region_closed_under_all_positions": true,
+      "two_transition_implementations_agree": true,
+      "disciplines": {
+        "head_only": {
+          "events": 645120,
+          "closed_class_count": 936,
+          "closed_class_size_histogram": {
+            "36": 24,
+            "54": 80,
+            "72": 296,
+            "108": 48,
+            "144": 48,
+            "162": 104,
+            "171": 16,
+            "198": 48,
+            "216": 16,
+            "270": 32,
+            "306": 24,
+            "342": 32,
+            "378": 32,
+            "405": 32,
+            "432": 16,
+            "576": 16,
+            "648": 32,
+            "792": 16,
+            "846": 16,
+            "936": 8
+          },
+          "recurrent_states": 193680,
+          "transient_states": 169200,
+          "tall_recurrent_states": 0
+        },
+        "all_positions": {
+          "events": 2903040,
+          "closed_class_count": 46,
+          "closed_class_size_histogram": {
+            "2376": 4,
+            "3807": 16,
+            "4068": 8,
+            "4446": 16,
+            "9792": 2
+          },
+          "recurrent_states": 193680,
+          "transient_states": 169200,
+          "tall_recurrent_states": 0
+        }
+      }
+    },
+    {
+      "n": 8,
+      "w": 3,
+      "states": 362880,
+      "short_states": 324000,
+      "short_region_closed_under_all_positions": true,
+      "two_transition_implementations_agree": true,
+      "disciplines": {
+        "head_only": {
+          "events": 645120,
+          "closed_class_count": 1896,
+          "closed_class_size_histogram": {
+            "18": 8,
+            "27": 16,
+            "36": 80,
+            "54": 136,
+            "63": 64,
+            "72": 480,
+            "99": 64,
+            "108": 48,
+            "135": 192,
+            "144": 48,
+            "162": 104,
+            "171": 16,
+            "198": 224,
+            "207": 32,
+            "216": 16,
+            "261": 32,
+            "270": 48,
+            "306": 72,
+            "342": 32,
+            "378": 32,
+            "396": 16,
+            "405": 32,
+            "432": 16,
+            "576": 16,
+            "648": 32,
+            "792": 16,
+            "846": 16,
+            "936": 8
+          },
+          "recurrent_states": 324000,
+          "transient_states": 38880,
+          "tall_recurrent_states": 0
+        },
+        "all_positions": {
+          "events": 2903040,
+          "closed_class_count": 134,
+          "closed_class_size_histogram": {
+            "612": 8,
+            "990": 16,
+            "1341": 32,
+            "1494": 16,
+            "2376": 4,
+            "2673": 16,
+            "3807": 16,
+            "4068": 8,
+            "4446": 16,
+            "9792": 2
+          },
+          "recurrent_states": 324000,
+          "transient_states": 38880,
+          "tall_recurrent_states": 0
+        }
+      }
+    }
+  ]
+}

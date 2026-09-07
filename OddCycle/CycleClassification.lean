@@ -41,5 +41,5 @@ the sharp universal canonical-product-form boundary. The symmetric residual
 is proved for all larger exceptional cycles, with C9/w=2 as an explicit instance.
 The continuous-time path construction proves nonexplosion and measure-one
 recurrence/absorption, and an executable classifier has a linear word-RAM cost bound.
-See CYCLE_CLASSIFICATION.md for declarations and probability conventions.
+See docs/CYCLE_CLASSIFICATION.md and LEAN.md for declarations and probability conventions.
 -/
