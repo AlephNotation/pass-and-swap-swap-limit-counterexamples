@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it using the metadata below."
+type: software
+title: "Odd-Cycle Traps and Product-Form Failure in Limited Pass-and-Swap Queues"
+abstract: >-
+  Mathematical proofs, exact stationary certificates, and reproducible finite
+  checks for counterexamples to transience and product-form claims in limited
+  pass-and-swap queues.
+authors:
+  - given-names: "Ty"
+    family-names: "Daly"
+    email: "tynan.daly@hdr.is"
+repository-code: "https://github.com/AlephNotation/pass-and-swap-swap-limit-counterexamples"
+license: MIT
