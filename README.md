@@ -32,7 +32,7 @@ The classification and sharp boundary are now the manuscript's main results.
 Lean proves them for arbitrary parameters from the actual queue transitions;
 the numerical enumerations below have separately stated finite scopes.
 See [classification details](docs/CYCLE_CLASSIFICATION.md) and
-[the checked revision and commands](verification/EDITORIAL_REPORT.md).
+[the checked revision and commands](verification/REPORT.md).
 
 ## Results and their scopes
 

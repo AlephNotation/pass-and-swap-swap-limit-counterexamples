@@ -10,8 +10,9 @@ The source statements, rather than the manuscript wording, determine the
 assumptions. Unless a row gives a different namespace, declarations below
 are prefixed by `OddCycle.`. Paper references use stable LaTeX labels;
 the PDF supplies their displayed numbers. `verification/ManuscriptStatements.lean`
-prints the key structures and exact theorem signatures; its output is retained
-in `verification/editorial/manuscript-statements.log`.
+prints the key structures and exact theorem signatures. The verification
+package retains its output as `verification/evidence/manuscript-statements.log`;
+generated logs are not tracked in the repository.
 
 ## Main theorem map: assumptions and scope
 
@@ -45,7 +46,7 @@ prefix. Its values and the two queues' allocations need not coincide.
 `oiBalance_eq_positionGenerator` identifies OI balance with the actual
 position-event generator including diagonal subtraction. The short-class
 proof establishes unlimited balance by complete incoming scan inversion and
-telescoping prefix weights. No publisher theorem is introduced as an axiom.
+telescoping prefix weights. No external theorem is introduced as an axiom.
 
 ## Quantifier and evidence checks made during consolidation
 
@@ -61,7 +62,7 @@ telescoping prefix weights. No publisher theorem is introduced as an axiom.
   universally quantified theorem over arbitrary interior words to Lean.
 - Removed class asymmetry as a general explanation of failure. Unit rates
   already fail on the larger exceptional family.
-- The publisher's Theorem 7 also states a partiteness hypothesis. The general
+- Dorsman and Gardner's Theorem 7 also states a partiteness hypothesis. The general
   short-class argument is derived from unlimited Theorem 3 and proved
   independently in Lean, so it does not import an unstated partite assumption.
 - The introduction's `w >= 1` sufficiency remark points to
@@ -123,9 +124,9 @@ imported project modules, including the preserved mixing lemmas. Audits
 permit only `propext`, `Classical.choice`, and `Quot.sound` (or fewer);
 finite reductions use `decide +kernel`. There are no admitted proofs,
 custom axioms, or native-evaluation axioms. Actual commands and outcomes
-for this revision are in [verification/EDITORIAL_REPORT.md](verification/EDITORIAL_REPORT.md),
-with machine-readable logs and source hashes. [PACKAGE.md](PACKAGE.md)
-documents regeneration of the whole verification package.
+for this revision are in [verification/REPORT.md](verification/REPORT.md).
+Machine-readable logs and source hashes accompany the verification package;
+[PACKAGE.md](PACKAGE.md) documents their regeneration and packaging.
 
 ## Detailed balanced-family declarations
 

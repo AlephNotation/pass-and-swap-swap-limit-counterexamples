@@ -72,7 +72,8 @@ above and the cited page images inspected. The archived page-location table
 was confirmed, including printed 217 / PDF 13 for both the 2024 Lemma 1 and
 Theorem 3, printed 240 / PDF 36 for Theorem 7 and Eq. (25), and printed 298 /
 PDF 24 for the 2021 Theorem 5 and Eq. (23). Their SHA-256 values and local
-inspection commands are recorded in `verification/citation_sources.json`.
+inspection commands are recorded in the package's
+`verification/evidence/citation_sources.json`.
 The PDFs are external literature, not editable manuscript dependencies.
 
 Theorem 7 also has a `(w+1)`-partite hypothesis. The manuscript's unrestricted

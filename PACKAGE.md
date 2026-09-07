@@ -3,8 +3,12 @@
 The package contains the revised PDF and self-contained editable LaTeX,
 all project Lean sources, all Python verifiers and regeneration scripts,
 exact certificates, graph inputs, expected results, theorem map, citation
-audit and verification records. No release is published by
-these commands. The earlier public archive is unchanged.
+audit and verification records. In the repository, `verification/` contains
+only the Lean statement-check source and a concise report. Generated logs,
+hashes, rendered pages, and review records belong to a verification run
+directory outside the source tree; the package includes them under
+`verification/evidence/`. No release is published by these commands.
+The earlier public archive is unchanged.
 
 ## Verify the supplied archive
 
@@ -18,7 +22,7 @@ shasum -a 256 -c SHA256SUMS
 covers every regular file except itself, including the source commit and
 verification logs. The neighboring `.tar.gz.sha256` checks the archive file.
 The verification report identifies the exact source commit tested; the
-following records-only commit adds its outcomes. `input_sha256.json`
+following records-only commit adds its outcomes. `verification/evidence/input_sha256.json`
 identifies all checked manuscript, proof, data, and documentation inputs.
 
 ## Environment
@@ -34,12 +38,13 @@ identifies all checked manuscript, proof, data, and documentation inputs.
   Tectonic command. TeX packages are named in the preamble. There are no
   external image, bibliography, or private manuscript source dependencies.
 
-Exact tool versions used for the recorded run are in `verification/*version.log`.
+Exact tool versions used for the packaged run are in
+`verification/evidence/*version.log`.
 
 ## Full automated replay
 
 ```sh
-python3 code/verify_release.py --output-dir /tmp/cycle-verification-replay
+LEAN_NUM_THREADS=1 python3 code/verify_release.py --output-dir /tmp/cycle-verification-replay
 ```
 
 This runs the full Lean build, all four axiom audits, full-root kernel
@@ -54,7 +59,7 @@ on failure. It does not infer success for unrun commands.
 
 The program checks rendered-page equivalence at 110 dpi. Visual inspection
 of the supplied page images is separately recorded in
-`verification/visual_review.json`. Mathematical claim review and the exact
+`verification/evidence/review.json`. Mathematical claim review and the exact
 scope of computed results are documented in `LEAN.md` and the report. The
 program does not claim to automate those reviews.
 
@@ -102,17 +107,25 @@ committed certificate JSON for exact equality.
 
 ## Build a new local package
 
-From a Git checkout after committing the intended files:
+From a Git checkout after committing the intended files and completing the
+full replay above:
 
 ```sh
-python3 code/build_package.py --output /tmp/cycle-classification-verification.tar.gz
+python3 code/build_package.py \
+  --verification-dir /tmp/cycle-verification-replay \
+  --output /tmp/cycle-classification-verification.tar.gz
 ```
 
-The script packages `git archive HEAD`, so unrelated local changes and
-untracked files are not included. All tracked local sources are retained.
-It adds complete file hashes and the exact revision. It does not push,
-create a release or update an archive service.
+The script combines `git archive HEAD` with the explicitly supplied run
+directory. It rejects unsuccessful runs, missing command logs, and checked
+input hashes that differ from the committed sources. All tracked local
+sources are retained; unrelated working-tree files are not included.
+It adds complete file hashes and the exact revision. Reviewed page hashes
+and citation inspection records may be saved alongside the generated logs
+before packaging; the replay command itself does not perform manual review.
+The script does not push, create a release or update an archive service.
 
 The downloaded publisher PDFs are external references, not manuscript
 dependencies. Their URLs, page locations, checksums, and inspection method
-are in `docs/CITATION_AUDIT.md` and `verification/citation_sources.json`.
+are in `docs/CITATION_AUDIT.md` and the packaged
+`verification/evidence/citation_sources.json` and `citation_review.json`.
