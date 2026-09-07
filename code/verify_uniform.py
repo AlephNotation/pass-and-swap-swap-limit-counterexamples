@@ -3,7 +3,7 @@
 
 Python 3.10+, standard library only. Run: python3 verify_uniform.py
 No network, simulation, floating point, external data, or output files are used.
-The proof for every w is in uniform_note.pdf; finite enumeration is supplementary.
+The proof for every w is in paper.pdf; finite enumeration is supplementary.
 All checks remain active with python3 -O.
 """
 from __future__ import annotations
@@ -13,7 +13,7 @@ import json
 import sys
 from fractions import Fraction
 from itertools import combinations, permutations
-from math import comb, factorial
+from math import comb, factorial, lcm
 from typing import Iterable
 
 Queue = tuple[int, ...]
@@ -208,8 +208,17 @@ def check_balanced_region(w: int) -> dict:
     keys = {s: orientation(s, n) for s in states}
     require(all(height(s, n) == w + 1 for s in states), "balanced height")
     weights = {theta: {s: weight(s, theta) for s in states} for theta in PARAMETERS}
-    limited = {theta: dict.fromkeys(states, Fraction(0)) for theta in PARAMETERS}
-    unlimited = {theta: dict.fromkeys(states, Fraction(0)) for theta in PARAMETERS}
+    # Clear a common denominator once. This is exactly the same rational
+    # balance computation, but every event contribution is now an integer.
+    denominators = {theta: lcm(*(v.denominator for v in weights[theta].values()))
+                    for theta in PARAMETERS}
+    integer_weights = {theta: {s: v.numerator * (denominators[theta] // v.denominator)
+                               for s, v in weights[theta].items()}
+                       for theta in PARAMETERS}
+    flow_denominators = {theta: denominators[theta] * theta.denominator
+                         for theta in PARAMETERS}
+    limited = {theta: dict.fromkeys(states, 0) for theta in PARAMETERS}
+    unlimited = {theta: dict.fromkeys(states, 0) for theta in PARAMETERS}
     graph: dict[State, list[State]] = {s: [] for s in states}
     reverse: dict[State, list[State]] = {s: [] for s in states}
     zero: dict[State, list[State]] = {s: [] for s in states}
@@ -242,7 +251,8 @@ def check_balanced_region(w: int) -> dict:
                         removed.add((s, side, pos))
                 for theta in PARAMETERS:
                     # The event rate is the INITIATING job's rate.
-                    flow = weights[theta][s] * (theta if s[side][pos] == 0 else 1)
+                    rate_numerator = theta.numerator if s[side][pos] == 0 else theta.denominator
+                    flow = integer_weights[theta][s] * rate_numerator
                     limited[theta][s] -= flow; limited[theta][t] += flow
                     unlimited[theta][s] -= flow; unlimited[theta][u] += flow
     require(added == {(x, 1, 0)} and removed == {(y, 1, 0)}, "two-flow completeness")
@@ -260,7 +270,7 @@ def check_balanced_region(w: int) -> dict:
     values = {}
     for theta in PARAMETERS:
         require(not any(unlimited[theta].values()), "unlimited product-form control")
-        defect = limited[theta][target]
+        defect = Fraction(limited[theta][target], flow_denominators[theta])
         require(defect == residual_formula(w, theta), "full balance differs from formula")
         if theta == 1:
             require(not any(limited[theta].values()), "symmetric-rate finite control")

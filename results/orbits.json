@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "full_states": 720,
+  "full_height_counts": {
+    "2": 480,
+    "3": 180,
+    "4": 60
+  },
+  "transition_comparisons": 3600,
+  "equivariance_checks": 72000,
+  "orbit_count": 9,
+  "orbit_sizes": [
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20
+  ],
+  "trap_states": 180,
+  "all_position_transitions_in_trap": 900,
+  "representative_all_position_cases": 45,
+  "head_transitions_in_trap": 300,
+  "head_graph_strongly_connected": true,
+  "all_position_closure": true,
+  "unit_head_uniform_stationary": true,
+  "unit_per_position_uniform_stationary": false,
+  "all_position_incoming_counts_by_orbit": [
+    1,
+    1,
+    1,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7
+  ]
+}

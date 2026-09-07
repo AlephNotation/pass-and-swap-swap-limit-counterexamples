@@ -1,0 +1,392 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=0.88in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,booktabs,array,needspace}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Odd-cycle traps and product-form failure}
+\fancyhead[R]{\small Limited pass-and-swap queues}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{3pt}
+\setlength{\emergencystretch}{1.5em}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\rev}{\operatorname{rev}}
+\newcommand{\B}{\mathcal B_w}
+\newcommand{\W}{W_\theta}
+\newcommand{\F}{F_\theta}
+\newcommand{\Qw}{Q_{w,\theta}}
+\newcommand{\Qi}{Q_{\infty,\theta}}
+\newcommand{\emptyq}{\varnothing}
+\title{\vspace{-1.5em}Odd-Cycle Traps and Product-Form Failure\\in Limited Pass-and-Swap Queues}
+\author{Ty Daly}
+\date{September 6, 2026\\\small Consolidated working manuscript}
+\begin{document}
+\thispagestyle{plain}
+\noindent{\Large\bfseries Odd-Cycle Traps and Product-Form Failure\\[3pt]
+in Limited Pass-and-Swap Queues}\par
+\vspace{7pt}
+\noindent Ty Daly\hfill September 6, 2026\par
+\noindent\textit{Consolidated working manuscript}\par
+\vspace{2pt}
+\begin{abstract}
+We disprove the transience conjecture of Dorsman and Gardner for every swap limit $w\ge2$ and exhibit uniform failure of the canonical order-independent product form inside the conjectured $(w+1)$-partite regime. On $C_{2w+1}$, configurations whose placement orientations have two source-to-sink branches of lengths $w$ and $w+1$ form a nonempty closed set under every position completion. This set is one recurrent class when all positions receive positive service. Give one class rate $\theta>0$ and all other classes rate one, identically in both queues. Exactly two incoming flows change relative to unlimited swapping; their difference is nonzero whenever $\theta\ne1$. At $\theta=2$, an explicit state's unnormalized balance defect is $-w/(2w+2)!$. For $w=2$, an exact stationary certificate additionally excludes every queue-wise factorization $A(c)B(d)$. Exhaustive finite checks classify all tall recurrent states for $w=2,3$ and screen all simple bipartite graphs through six vertices at $w=1$. The short-orientation theorem is unaffected, and the one-swap bipartite case remains unresolved by these results.
+\end{abstract}
+
+\section{Introduction and model}
+Pass-and-swap queues augment order-independent (OI) service with a replacement chain initiated by a service completion~\cite{CD}. Dorsman and Gardner~\cite{DG} study, among other extensions, limits on the number of replacements. Their Theorem~7, on printed p.~240, gives the canonical product form for short initial placement orders. Conjecture~1, on printed p.~241, proposes that taller states are transient whenever the swapping graph is $(w+1)$-partite. The paragraph following the conjecture explains how this would extend the product-form conclusion beyond short initial orders.
+
+A failure of product form under swap limits is already given in their Counterexample~2, on printed p.~239, outside the required partite regime. Our contribution is a closed odd-cycle obstruction \emph{inside} that regime, together with a uniform balance calculation showing that the canonical conclusion also fails. The stronger exclusion of arbitrary queue-local factors is established separately for one explicit five-job allocation.
+
+\paragraph{State and replacement rule.}
+A state is $s=(c,d)$, where both sequences are written from head to tail. There is one job per vertex of a finite simple undirected swapping graph. A departure joins the other queue's tail; the population is fixed. Upon a completion at any position, the initiating job replaces the first later job whose class is adjacent to its own. The displaced job continues scanning strictly farther back. After $w$ replacements, or when no later compatible job exists, the current job departs. The initiating completion is not a replacement. These are the explicit rules in~\cite[\S2.3, pp.~211--212; \S3.1, p.~215; \S5, p.~234]{DG}, with the original position-index definition in~\cite[\S3.1, pp.~284--285]{CD}. We use these definitions, rather than the worked Example~8, to specify the transition map.
+
+\paragraph{Service rates.}
+The total-rate functions $\mu,\nu$ are permutation-invariant, and the rate of a completion at position $j$ is the corresponding prefix increment, for example
+\[
+ \Delta\mu(q_1,\ldots,q_j)=\mu(q_1,\ldots,q_j)-\mu(q_1,\ldots,q_{j-1}).
+\]
+An admissible OI allocation has nonnegative increments and positive singleton rates, so a nonempty queue's head has positive rate~\cite[Definition~1, p.~210]{DG}. All rates here are finite and time-homogeneous. An event uses the \emph{initiating} job's completion rate, not necessarily the class rate of the eventual departure.
+
+\paragraph{Placement orientation.}
+Orient each graph edge from its earlier to its later endpoint in
+\begin{equation}\label{eq:order}
+ L(c,d)=c\Vert\rev(d).
+\end{equation}
+With distinct labels, this is the unique orientation satisfying the adherence conditions in~\cite[\S3.1, p.~216]{DG}. Its transitive closure is the placement order. Write $h(s)$ for its longest directed path length, counted in edges. Unlimited P\&S preserves the orientation~\cite[Lemma~1, p.~217]{DG}.
+
+\section{Uniform statement}
+Fix $w\ge2$ and label $C_{2w+1}$ by $0,1,\ldots,2w$, modulo $2w+1$. Call an orientation \emph{balanced} if its edges are the union of two directed paths with disjoint interiors, from a common source to a common sink, of lengths $w$ and $w+1$. Let $\B$ consist of all configurations with a balanced orientation.
+
+Give each position its job's class rate, identically in both queues:
+\begin{equation}\label{eq:rates}
+ r_0=\theta>0,\qquad r_i=1\quad(1\le i\le2w),\qquad
+ \mu(q)=\nu(q)=\sum_{x\in q}r_x.
+\end{equation}
+These functions are OI: their prefix increments are precisely the positive $r_x$. Define
+\begin{equation}\label{eq:weights}
+ \F(q)=\prod_{j=1}^{|q|}\frac{1}{\sum_{i=1}^{j}r_{q_i}},\qquad
+ \F(\emptyq)=1,\qquad \W(c,d)=\F(c)\F(d).
+\end{equation}
+We call~\eqref{eq:weights} the \emph{canonical} weights. They are the prefix-product balance functions displayed below Eq.~(25) of~\cite[p.~240]{DG}; the unlimited tandem law is Theorem~3 and Eq.~(8) on p.~217, originally Theorem~5 and Eq.~(23) of~\cite[p.~298]{CD}. Our generators act on row vectors.
+
+\begin{theorem}[Uniform canonical product-form obstruction]\label{thm:main}
+For every $w\ge2$ and $\theta>0$, $\B$ is a single closed communicating class for~\eqref{eq:rates}. Every state in it has height $w+1$. Set
+\[
+ d_w=(w,w-1,\ldots,1,w+1,w+2,\ldots,2w),\qquad s_w=((0),d_w).
+\]
+The limited generator on $\B$ satisfies
+\begin{equation}\label{eq:main}
+ (\W\Qw)(s_w)=
+ \frac{1}{w!\prod_{k=w}^{2w}(\theta+k)}
+ -\frac{1}{(2w)!(\theta+2w)}.
+\end{equation}
+This is positive for $0<\theta<1$ and negative for $\theta>1$. Thus, for every $\theta\ne1$, the unique stationary law on $\B$ is not proportional to $\W$. At $\theta=2$ the defect is
+\begin{equation}\label{eq:factorial}
+ \boxed{(W_2Q_{w,2})(s_w)=-\frac{w}{(2w+2)!}.}
+\end{equation}
+\end{theorem}
+The proof occupies Sections~\ref{sec:closure}--\ref{sec:balance}. Section~\ref{sec:certificate} strengthens nonfactorization at $w=2$, and Section~\ref{sec:finite} reports the finite classification and graph screen. These claims have deliberately different scopes.
+
+\section{The balanced region and its recurrence}\label{sec:closure}
+\begin{lemma}[Allocation-independent closure]\label{lem:closure}
+The set $\B$ is nonempty, has cardinality
+\begin{equation}\label{eq:size}
+ |\B|=2(2w+1)(2w+2)\binom{2w-1}{w},
+\end{equation}
+and is closed under completions at every queue position, irrespective of the nonnegative rates assigned to those completions.
+\end{lemma}
+\begin{proof}
+Compare a completion in $c$ with its unlimited version. The unlimited chain follows a directed path and therefore uses at most $w+1$ replacements. If it uses at most $w$, the transitions agree, and orientation preservation~\cite[Lemma~1, p.~217]{DG} proves that the successor remains balanced.
+
+Otherwise, the chain traverses the full longer branch from the unique source $u$ to the unique sink $v$. Both endpoints are in $c$. Since every vertex lies between them in $L(c,d)$, all jobs must be in $c$, with $u$ its head and $v$ its tail. Let $p$ be the predecessor of $v$ on the longer branch. The limited transition ejects $p$, whereas the unlimited transition makes one more replacement and ejects $v$. For the same remaining word $R$, the resulting placement orders are
+\[
+ L_{\rm limited}=Rvp,\qquad L_{\rm unlimited}=Rpv.
+\]
+Only the edge $p\to v$ changes orientation. The old longer branch loses one edge and the shorter branch gains the reversed edge; their lengths are again $w,w+1$, now ending at $p$. Exchanging the two queues reverses every oriented edge, so the same argument applies to completions in $d$.
+
+For the count, there are $2(2w+1)$ choices of source and long-branch direction. The $w$ internal vertices of the longer branch interleave with the $w-1$ internal vertices of the shorter branch in $\binom{2w-1}{w}$ ways. The source must be first and the sink last. Each linear extension has $2w+2$ cuts, with the suffix reversed to obtain $d$. This proves~\eqref{eq:size} and nonemptiness.
+\end{proof}
+
+\begin{corollary}[Transience conjecture]\label{cor:transience}
+For every $w\ge2$ and every admissible OI allocation, $\B$ contains a recurrent state of height $w+1>w$. Consequently Conjecture~1 of~\cite[p.~241]{DG} is false for each such $w$.
+\end{corollary}
+\begin{proof}
+A nonempty finite closed set contains a closed communicating class. All its states here have height $w+1$. The odd cycle is three-colorable; refining color classes gives $w+1$ nonempty independent sets, since $2w+1\ge w+1$. Thus $C_{2w+1}$ satisfies the partiteness hypothesis. Deleting zero-rate events cannot destroy closure.
+\end{proof}
+
+\begin{lemma}[Communication with positive position rates]\label{lem:irreducible}
+If every queue position has positive completion rate whenever occupied, $\B$ is one communicating class.
+\end{lemma}
+\begin{proof}
+Fix a placement orientation. A tail completion moves the cut in $L$ by one without changing $L$; both directions are possible. Adjacent incomparable labels $a,b$ in a linear extension can also be exchanged using zero replacements. Put the cut after them, obtaining $(Pab,\rev(T))$. Complete $a$. Incomparability implies that $a,b$ have no swapping edge, so $a$ departs directly, leaving $(Pb,\rev(T)a)$, whose order is $PbaT$. Tail completions restore any desired cut. The reverse exchange is legal by the same construction.
+
+Any two linear extensions are connected by these adjacent exchanges: successively move the next desired label left. Every label crossed is incomparable to it, since their order differs between two linear extensions. Hence all states inducing the fixed orientation communicate by zero-replacement completions.
+
+Index balanced orientations by $(u,\varepsilon)$, where $u$ is the source and $\varepsilon\in\{-1,1\}$ is the direction of the longer branch. Put all jobs in $c$, with the longer branch's internal vertices before the shorter branch's. The head completion follows the longer branch and reverses its final edge as above. It realizes $(u,\varepsilon)\to(u,-\varepsilon)$. Applying the same construction to the reversed orientation in $d$ realizes $(u,\varepsilon)\to(u+\varepsilon,-\varepsilon)$. Arithmetic is modulo $2w+1$.
+
+Both orientation moves are involutions. Their composition shifts $u$ by one in direction $\varepsilon$ while retaining that direction. They connect all $2(2w+1)$ orientations. The within-orientation communication allows the moves to be concatenated from arbitrary configurations. Thus all of $\B$ communicates.
+\end{proof}
+
+For~\eqref{eq:rates}, every position has positive rate. Lemmas~\ref{lem:closure} and~\ref{lem:irreducible} therefore establish the recurrent-class assertion of Theorem~\ref{thm:main}. Without positive non-head rates, Corollary~\ref{cor:transience} still holds, but the preceding irreducibility proof does not apply. Appendix~\ref{app:head} separately proves all-allocation irreducibility for $w=2$.
+
+\section{A two-flow balance identity}\label{sec:balance}
+Let $\Qi$ be the unlimited generator on $\B$. Each fixed-orientation set is closed under unlimited P\&S and is irreducible by the zero-replacement argument just given. The unlimited product-form theorem~\cite[Theorem~3, Eq.~(8), p.~217]{DG} gives $\W\Qi=0$ on each such set and thus on their union. Normalizations may differ between orientations; the \emph{unnormalized} balance identity remains valid. Consequently
+\begin{equation}\label{eq:subtract}
+ \W\Qw=\W(\Qw-\Qi).
+\end{equation}
+Only events whose destinations change can contribute.
+
+\subsection{The exchanged destinations}
+Define
+\begin{align*}
+ x_w&=(w,w-1,\ldots,1,0,w+1,w+2,\ldots,2w),\\
+ y_w&=(w,w+1,w-1,\ldots,1,w+2,\ldots,2w,0),\\
+ X_w&=(\emptyq,x_w),\qquad Y_w=(\emptyq,y_w),\\
+ s'_w&=((2w),(w,w-1,\ldots,1,w+1,\ldots,2w-1,0)).
+\end{align*}
+Empty ranges in these expressions are omitted. All four states $X_w,Y_w,s_w,s'_w$ are balanced. The head completions at $X_w,Y_w$ have rate one, because the initiating label is $w$, not $0$. Their destinations are
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Event & Limit $w$ & Unlimited\\
+\midrule
+Head of $d$ at $X_w$ & $s_w$ & $s'_w$\\
+Head of $d$ at $Y_w$ & $s'_w$ & $s_w$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Indeed, the unrestricted replacement chains are respectively
+\[
+ w,w-1,\ldots,1,0,2w
+ \quad\hbox{and}\quad
+ w,w+1,w+2,\ldots,2w,0.
+\]
+Each uses $w+1$ replacements; suppressing its last replacement gives the limited destination.
+
+\Needspace{9\baselineskip}
+\begin{lemma}[Completeness]\label{lem:two}
+Among events whose limited and unlimited destinations differ, the only gained incoming event at $s_w$ is the head completion at $X_w$, and the only lost incoming event is the head completion at $Y_w$.
+\end{lemma}
+\begin{proof}
+The closure proof shows that every changed event from $\B$ starts at a queue containing all jobs, completes its head, and follows an unrestricted chain of length $w+1$. To arrive at $s_w=((0),d_w)$, that queue must be $d$.
+
+For a limited arrival, the ejected penultimate vertex is $0$ and the unchanged final vertex is the last entry of $d_w$, namely $2w$. The unique simple cycle path of length $w+1$ with final edge $0\to2w$ is $w,w-1,\ldots,0,2w$. Reversing its replacements in the target word uniquely reconstructs $x_w$.
+
+For an unlimited arrival, the ejected final vertex is $0$ and its predecessor is the last entry $2w$ of the output word. The chain is therefore $w,w+1,\ldots,2w,0$, which uniquely reconstructs $y_w$. In either reconstruction, each retained chain label occupies the former position of the next chain label. Replacing these labels back and prepending the removed head recovers exactly one source word. There are no other changed incoming events.
+\end{proof}
+
+Imposing the limit retargets events but does not change their rates. Every event changes the queue lengths, so no self-transition is created and the generator diagonals agree. Combining~\eqref{eq:subtract} with Lemma~\ref{lem:two} gives
+\begin{equation}\label{eq:two}
+ (\W\Qw)(s_w)=\W(X_w)-\W(Y_w).
+\end{equation}
+The calculation has two terms for every $w$.
+
+\subsection{Evaluation and sign}
+In $x_w$, job $0$ appears at position $w+1$. Its first $w$ prefix totals are $1,\ldots,w$; the remaining totals are $\theta+w,\ldots,\theta+2w$. In $y_w$, job $0$ appears last. Hence
+\[
+ \W(X_w)=\frac{1}{w!\prod_{k=w}^{2w}(\theta+k)},\qquad
+ \W(Y_w)=\frac{1}{(2w)!(\theta+2w)},
+\]
+proving~\eqref{eq:main}. To determine the sign, put $P_w(\theta)=\prod_{k=w}^{2w-1}(\theta+k)$. This is strictly increasing for $\theta>0$, and $P_w(1)=(2w)!/w!$. Thus
+\[
+ (\W\Qw)(s_w)=\frac{1}{\theta+2w}
+ \left(\frac{1}{w!P_w(\theta)}-\frac{1}{(2w)!}\right)
+\]
+is positive below $1$ and negative above $1$. Division by the positive normalizing constant $Z_{w,\theta}=\sum_{s\in\B}\W(s)$ cannot remove this defect. Finally,
+\[
+ W_2(X_w)=\frac{w+1}{(2w+2)!},\qquad
+ W_2(Y_w)=\frac{2w+1}{(2w+2)!},
+\]
+which proves~\eqref{eq:factorial} and completes Theorem~\ref{thm:main}.
+
+\subsection{The five-job hand calculation}
+For $w=2$, $s_2=((0),(2,1,3,4))$. At rates $(2,1,1,1,1)$ its canonical weight is $1/48$ and its total outgoing rate is $6$, giving outgoing weighted flow $1/8$. The complete predecessor table, with one-indexed positions, is
+\begin{center}
+\small
+\begin{tabular}{llccc}
+\toprule
+Previous $c$ & Previous $d$ & Completion & $W_2$ & Rate to $s_2$\\
+\midrule
+$(0,4)$ & $(2,1,3)$ & $c$: 1 or 2 & $1/36$ & $3$\\
+$\emptyq$ & $(2,1,0,3,4)$ & $d$: 1 & $1/240$ & $1$\\
+$\emptyq$ & $(2,1,3,4,0)$ & $d$: 3, 4, or 5 & $1/144$ & $4$\\
+$\emptyq$ & $(2,3,1,4,0)$ & $d$: 2 & $1/144$ & $1$\\
+\bottomrule
+\end{tabular}
+\end{center}
+For a completion in $c$, class $4$ must join the other tail and the prior $c$ contains just $0,4$. For a completion in $d$, class $0$ must join an empty $c$; reversing zero, one, or two replacements gives the other three rows. Applying the rule checks all seven events. Thus
+\[
+ \frac{3}{36}+\frac{1}{240}+\frac{4}{144}+\frac{1}{144}-\frac{6}{48}
+ =\frac{11}{90}-\frac18=-\frac1{360}.
+\]
+For general $\theta$ the defect reduces to
+\[
+ (\W Q_{2,\theta})(s_2)
+ =-\frac{(\theta-1)(\theta+6)}{24(\theta+2)(\theta+3)(\theta+4)}.
+\]
+The finite checker derives the complete predecessor list from all 720 configurations, rather than assuming the table is exhaustive.
+
+\section{Excluding every queue-wise factorization at five jobs}\label{sec:certificate}
+Theorem~\ref{thm:main} excludes the prescribed canonical weights, not an unrelated product $KA(c)B(d)$. We retain a stronger, exact finite result for $w=2,\theta=2$.
+
+\begin{proposition}[Certified nonfactorization]\label{prop:nonfactor}
+At rates $(2,1,1,1,1)$ in both queues, the unique stationary law on $\mathcal B_2$ cannot be written as $KA(c)B(d)$, even when $A$ and $B$ are arbitrary queue-local functions.
+\end{proposition}
+\begin{proof}[Exact certificate]
+The file \texttt{data/stationary\_certificate.json} supplies a positive integer weight $v(s)$ for every one of the 180 states of $\mathcal B_2$. Direct integer verification gives
+\[
+ vQ_{2,2}=0,\qquad
+ \sum_{s\in\mathcal B_2}v(s)=29781619500363599243784.
+\]
+The verifier checks the support, positivity, and every balance equation after reconstructing all transitions. By irreducibility, the stationary law is $v/\sum v$.
+
+Let $c_1=(0,1)$, $c_2=(1,0)$, $d_1=(3,2,4)$, and $d_2=(3,4,2)$. All four pairs $(c_i,d_j)$ belong to $\mathcal B_2$. Their integer weights are
+\[
+ \begin{pmatrix}
+ 177097849418281817550&177080689708261370580\\
+ 506774969345262400380&507080673408934957320
+ \end{pmatrix}
+ \equiv
+ \begin{pmatrix}21&78\\68&29\end{pmatrix}\pmod{101}.
+\]
+The determinant is congruent to $21\cdot29-78\cdot68\equiv52\pmod{101}$, so it is nonzero. Any factorization $KA(c)B(d)$ would make this rectangle's determinant zero. Normalization does not affect that property.
+\end{proof}
+
+This proposition uses an exact computational certificate; the arbitrary-$w$ proof in Sections~\ref{sec:closure}--\ref{sec:balance} does not. An optional rational Gaussian-elimination script regenerates the weights using the 45 orbits under reflection fixing class~0 and queue exchange. Verification is performed separately on all 180 states and does not rely on trusting the solver.
+
+\Needspace{12\baselineskip}
+\section{Exhaustive finite results}\label{sec:finite}
+These computations delimit the observed phenomenon. They are finite classifications and checks, not claims about untested graphs or arbitrary $w$.
+
+\subsection{Exactly the tall recurrent set at \texorpdfstring{$w=2,3$}{w=2,3}}
+For $C_5$ with $w=2$ and $C_7$ with $w=3$, we enumerate the entire $(n+1)n!$-state space. We construct both the head-only graph and the graph allowing every position completion, identify strongly connected components, and retain precisely the terminal components. In \emph{both} event graphs, the set of recurrent states with $h>w$ is exactly $\B$; moreover $\B$ is one closed communicating class.
+\begin{center}
+\begin{tabular}{crrrr}
+\toprule
+$w$ & Full states & Short recurrent & Tall recurrent $=|\B|$ & Transient\\
+\midrule
+2 & 720 & 480 & 180 & 60\\
+3 & 40,320 & 36,400 & 1,120 & 2,800\\
+\bottomrule
+\end{tabular}
+\end{center}
+For $w=3$, there are 3,248 height-four states in total: 1,120 are recurrent and 2,128 are transient. All 560 height-five and 112 height-six states are transient. Thus identifying a state as tall, or even as height $w+1$, does not by itself identify the recurrent region. Detailed component-size distributions are in \texttt{results/classification.json}. This is not a classification theorem for larger cycles.
+
+\subsection{Small-graph screen}
+At $w=1$ we test all 61 non-isomorphic simple bipartite graphs with one through six vertices, including disconnected graphs, with one distinct job per vertex. The counts by vertex number are $1,2,3,7,13,35$. The package regenerates these isomorphism classes by vertex addition and exact canonical labeling, and verifies that the supplied graph list is complete. No external graph library is required.
+
+For every graph and every configuration, a reverse search from the short region finds a head-only path to a state of height at most one. The same check passes when all positions can complete. The short region is verified to be closed under all position completions. Hence these finite instances have no tall recurrent states.
+
+At $w=2$, the same tests pass for $K_3$, $K_{1,1,2}$, $K_{1,2,2}$, and $C_5$ with one pendant vertex, with one job per vertex. Across all 65 graphs the screen covers 192,590 states and 1,143,194 all-position events. These results show that the odd-cycle obstruction is not preserved by arbitrary graph modifications, and supply finite evidence for the remaining one-swap question. They establish neither that question in general nor minimality of our counterexample.
+
+\subsection{Uniform-formula checks}
+All position completions are also checked inside the balanced regions below, at $\theta=1/2,1,2,3$.
+\begin{center}
+\begin{tabular}{crrr}
+\toprule
+$w$ & Cycle vertices & $|\B|$ & Position events\\
+\midrule
+2&5&180&900\\
+3&7&1,120&7,840\\
+4&9&6,300&56,700\\
+5&11&33,264&365,904\\
+\bottomrule
+\end{tabular}
+\end{center}
+The checks cover closure, zero-replacement communication within each orientation, communication between orientations, unlimited stationary balance, and the two-flow identity. They compare two transition implementations and separately audit changed incoming events in the complete spaces at $w=2,3$. Explicit source words and orientation moves are checked through $w=50$. At $\theta=1$, the canonical weights pass full stationary balance on the tested balanced regions. These computations supplement, rather than replace, the uniform proof.
+
+\section{Scope and interpretation}
+Partite structure does not force limited P\&S dynamics into a short-orientation region, and it does not guarantee the canonical product form for arbitrary initial states. Here the balanced region is closed for every admissible allocation; with positive rates at every position it is one recurrent class. The balance obstruction is caused by a simple exchange of two destinations whose source weights cease to agree under class asymmetry. No zero rates, unequal queue allocations, or complicated prefix dependence are needed.
+
+Theorem~7 of~\cite[p.~240]{DG} is unaffected: its short-initial-orientation hypothesis fails on $\B$. The uniform theorem excludes the canonical product; Proposition~\ref{prop:nonfactor} excludes every $KA(c)B(d)$ only at $w=2,\theta=2$. An exact balance defect does not by itself quantify performance-prediction errors. No result about the Markov-modulated Conjecture~2 is claimed.
+
+The one-edge reversal is special to this balanced-cycle construction. On the star with edges $\{0,1\},\{1,2\},\{1,3\}$ and $w=1$, the completion
+\[
+ ((0,1,2,3),\emptyq)\longrightarrow((0,2,3),(1))
+\]
+reverses both $1\to2$ and $1\to3$. Nor is orientation alone generally a Markov state: on $C_5$ at limit two, $((0,1,2,4,3),\emptyq)$ and $((0,1),(3,4,2))$ have the same orientation, but only the former permits a completion changing that orientation. A reduced orientation description requires a separate path-lifting or lumpability argument.
+
+The natural remaining questions are whether the one-swap bipartite conjecture holds, which other graph families admit tall recurrent regions, and which allocations retain canonical or alternative product forms on those regions. The finite classification at $w=2,3$ and graph screen are evidence to guide these questions, not answers for unbounded parameters.
+
+\section{Reproducibility}
+The complete standard-library Python suite is run from the package root with
+\begin{center}\texttt{python3 run\_checks.py}\end{center}
+using Python 3.10 or newer. It verifies the five-job certificate, all 45 representative orbit transitions, the uniform balance checks, the full-state classifications, and the small-graph screen. Fresh deterministic JSON is compared with every stored result; a failed identity or mismatch exits nonzero. Checks remain active under \texttt{-O}. An optional command regenerates the stationary certificate rather than merely checking it. The README provides commands, and the citation audit maps each referenced statement to its printed page and PDF page index. No simulation, floating-point tolerance, or truncation of an infinite state space is involved.
+
+\paragraph{Acknowledgment.} This work was assisted by OpenAI's ChatGPT-6 and Anthropic's Claude Fable-5.1.
+
+\Needspace{10\baselineskip}
+\begin{thebibliography}{2}
+\bibitem{DG} Jan-Pieter Dorsman and Kristen Gardner.
+\newblock New directions in pass-and-swap queues.
+\newblock \emph{Queueing Systems} \textbf{107}, 205--256 (2024).
+\newblock \href{https://doi.org/10.1007/s11134-024-09914-1}{doi:10.1007/s11134-024-09914-1}.
+\bibitem{CD} C{\'e}line Comte and Jan-Pieter Dorsman.
+\newblock Pass-and-swap queues.
+\newblock \emph{Queueing Systems} \textbf{98}, 275--331 (2021).
+\newblock \href{https://doi.org/10.1007/s11134-021-09700-3}{doi:10.1007/s11134-021-09700-3}.
+\end{thebibliography}
+
+\appendix
+\section{The five-job class under arbitrary OI allocation}\label{app:head}
+This appendix retains the stronger allocation-independent five-job statement. It is not a claim of head-only irreducibility for every $w$.
+
+Let $\Gamma$ consist of the ten relabelings $x\mapsto\varepsilon x+k\pmod5$, with $\varepsilon=\pm1$, combined with optional queue exchange. The group has order 20 and preserves allowed events, though not necessarily their rates. Queue exchange reverses the orientation and preserves height. Table~\ref{tab:orbits} lists nine representatives $t_i$. A vector lists destination orbits for successive positions in the corresponding queue, not necessarily the representative states themselves.
+\begin{table}[ht]
+\centering\small
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{cllcc}
+\toprule
+$i$&$c$&$d$&$c$: positions $1,2,\ldots$&$d$: positions $1,2,\ldots$\\
+\midrule
+1&$\emptyq$&$(0,1,2,4,3)$&--&$(4,5,5,6,6)$\\
+2&$\emptyq$&$(0,1,4,2,3)$&--&$(5,4,6,5,5)$\\
+3&$\emptyq$&$(0,1,4,3,2)$&--&$(6,6,4,4,4)$\\
+4&$(0)$&$(2,1,3,4)$&$(3)$&$(7,7,9,9)$\\
+5&$(0)$&$(2,3,1,4)$&$(2)$&$(9,9,7,8)$\\
+6&$(0)$&$(2,3,4,1)$&$(1)$&$(8,8,8,7)$\\
+7&$(0,1)$&$(2,3,4)$&$(6,6)$&$(9,9,9)$\\
+8&$(0,1)$&$(3,2,4)$&$(5,5)$&$(7,7,8)$\\
+9&$(0,1)$&$(3,4,2)$&$(4,4)$&$(8,8,7)$\\
+\bottomrule
+\end{tabular}
+\caption{All 45 representative position completions at $w=2$.}\label{tab:orbits}
+\end{table}
+
+\begin{proposition}\label{prop:heads}
+For every admissible OI allocation, $\mathcal B_2$ is a single closed communicating class of 180 states. At equal unit head-only rates, its uniform distribution is stationary.
+\end{proposition}
+\begin{proof}
+The $\Gamma$-action is free: queue exchange cannot fix a state with unequal queue lengths, and a relabeling fixing all occupied positions fixes every label. Representatives of different shorter-queue lengths cannot be equivalent. Within rows 1--3 an equivalence fixes the first two labels $(0,1)$ of $d$; within rows 4--6 it fixes $0$ in $c$ and $2$ at the head of $d$; within rows 7--9 it fixes $(0,1)$ in $c$. These conditions force the identity relabeling. Thus the nine orbits are disjoint and each has size 20. All representatives are balanced, and~\eqref{eq:size} gives $|\mathcal B_2|=180$, so their union is exactly $\mathcal B_2$.
+
+Closure is already proved for all positions. To establish communication using only heads, let $C,D$ denote head completions in the respective queues. From $t_7$,
+\[
+ CCDD:t_7\longmapsto((4,3),(2,1,0))=a(t_7),\qquad
+ CDD:t_7\longmapsto((0,4,3),(2,1))=b(t_7),
+\]
+where $a$ is $x\mapsto4-x$ and $b$ is $x\mapsto2-x$ followed by queue exchange. Both are involutions. Their composition is a rotation by two together with queue exchange, of order ten; $a$ is not one of its powers. They therefore generate all of $\Gamma$. Symmetry transforms these legal paths into paths between the corresponding orbit members, so all states in the orbit of $t_7$ communicate.
+
+The quotient head graph is strongly connected: the walk
+\[
+ 7\to6\to1\to4\to3\to6\to8\to5\to2\to5\to9\to4\to7
+\]
+visits all nine orbits. Lifting these paths, and using communication within the orbit of $t_7$, proves communication throughout $\mathcal B_2$. Every OI allocation retains these head events with positive rates and can only add events inside the closed set.
+
+At unit head rates, incoming orbit incidences are respectively
+\[
+ (6),\ (5),\ (4),\ (1,9),\ (2,8),\ (3,7),\ (4,8),\ (6,9),\ (5,7).
+\]
+Because every orbit is free and has the same size, every state in orbits 1--3 has one incoming head event and every state in the other orbits has two. These equal their outgoing event counts, proving uniform stationary balance. This uniform law is asserted only for these unit head rates, not for arbitrary allocations.
+\end{proof}
+
+The package's \texttt{data/all\_position\_certificate.json} records every actual successor and a relabeling/queue-exchange witness for Table~\ref{tab:orbits}. The orbit verifier checks these records, all 72,000 event/symmetry identities on the full five-job state space, the two displayed paths, and forward and reverse head reachability.
+\end{document}

@@ -1,0 +1,670 @@
+{
+  "status": "PASS",
+  "graphs": 65,
+  "bipartite_w1_graphs": 61,
+  "bipartite_isomorphism_classes_by_vertices": {
+    "1": 1,
+    "2": 2,
+    "3": 3,
+    "4": 7,
+    "5": 13,
+    "6": 35
+  },
+  "coverage_rebuilt_without_external_libraries": true,
+  "total_states": 192590,
+  "all_position_events": 1143194,
+  "all_head_reachability_checks_pass": true,
+  "all_position_reachability_checks_pass": true,
+  "cases": [
+    {
+      "name": "bipartite_n1_atlasG1",
+      "n": 1,
+      "w": 1,
+      "states": 2,
+      "all_position_events": 2,
+      "good_states": 2,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n2_atlasG2",
+      "n": 2,
+      "w": 1,
+      "states": 6,
+      "all_position_events": 12,
+      "good_states": 6,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n2_atlasG3",
+      "n": 2,
+      "w": 1,
+      "states": 6,
+      "all_position_events": 12,
+      "good_states": 6,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n3_atlasG4",
+      "n": 3,
+      "w": 1,
+      "states": 24,
+      "all_position_events": 72,
+      "good_states": 24,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n3_atlasG5",
+      "n": 3,
+      "w": 1,
+      "states": 24,
+      "all_position_events": 72,
+      "good_states": 24,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n3_atlasG6",
+      "n": 3,
+      "w": 1,
+      "states": 24,
+      "all_position_events": 72,
+      "good_states": 16,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n4_atlasG8",
+      "n": 4,
+      "w": 1,
+      "states": 120,
+      "all_position_events": 480,
+      "good_states": 120,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n4_atlasG9",
+      "n": 4,
+      "w": 1,
+      "states": 120,
+      "all_position_events": 480,
+      "good_states": 120,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n4_atlasG10",
+      "n": 4,
+      "w": 1,
+      "states": 120,
+      "all_position_events": 480,
+      "good_states": 80,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n4_atlasG11",
+      "n": 4,
+      "w": 1,
+      "states": 120,
+      "all_position_events": 480,
+      "good_states": 120,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n4_atlasG13",
+      "n": 4,
+      "w": 1,
+      "states": 120,
+      "all_position_events": 480,
+      "good_states": 60,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n4_atlasG14",
+      "n": 4,
+      "w": 1,
+      "states": 120,
+      "all_position_events": 480,
+      "good_states": 50,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n4_atlasG16",
+      "n": 4,
+      "w": 1,
+      "states": 120,
+      "all_position_events": 480,
+      "good_states": 40,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n5_atlasG19",
+      "n": 5,
+      "w": 1,
+      "states": 720,
+      "all_position_events": 3600,
+      "good_states": 720,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n5_atlasG20",
+      "n": 5,
+      "w": 1,
+      "states": 720,
+      "all_position_events": 3600,
+      "good_states": 720,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n5_atlasG21",
+      "n": 5,
+      "w": 1,
+      "states": 720,
+      "all_position_events": 3600,
+      "good_states": 480,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n5_atlasG22",
+      "n": 5,
+      "w": 1,
+      "states": 720,
+      "all_position_events": 3600,
+      "good_states": 720,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n5_atlasG24",
+      "n": 5,
+      "w": 1,
+      "states": 720,
+      "all_position_events": 3600,
+      "good_states": 360,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n5_atlasG25",
+      "n": 5,
+      "w": 1,
+      "states": 720,
+      "all_position_events": 3600,
+      "good_states": 300,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n5_atlasG26",
+      "n": 5,
+      "w": 1,
+      "states": 720,
+      "all_position_events": 3600,
+      "good_states": 480,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n5_atlasG28",
+      "n": 5,
+      "w": 1,
+      "states": 720,
+      "all_position_events": 3600,
+      "good_states": 240,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n5_atlasG29",
+      "n": 5,
+      "w": 1,
+      "states": 720,
+      "all_position_events": 3600,
+      "good_states": 288,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n5_atlasG30",
+      "n": 5,
+      "w": 1,
+      "states": 720,
+      "all_position_events": 3600,
+      "good_states": 216,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n5_atlasG31",
+      "n": 5,
+      "w": 1,
+      "states": 720,
+      "all_position_events": 3600,
+      "good_states": 192,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n5_atlasG37",
+      "n": 5,
+      "w": 1,
+      "states": 720,
+      "all_position_events": 3600,
+      "good_states": 168,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n5_atlasG44",
+      "n": 5,
+      "w": 1,
+      "states": 720,
+      "all_position_events": 3600,
+      "good_states": 144,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG53",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 5040,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG54",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 5040,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG55",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 5040,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG56",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 3360,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG58",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 2520,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG59",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 2100,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG60",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 3360,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG61",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 5040,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG63",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 1680,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG64",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 2016,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG65",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 1512,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG66",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 1344,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG68",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 2520,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG69",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 2100,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG70",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 2240,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG75",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 1176,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG77",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 1680,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG78",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 1176,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG79",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 1064,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG80",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 924,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG81",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 980,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG83",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 854,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG85",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 1680,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG91",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 1008,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG96",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 896,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG98",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 798,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG99",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 840,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG103",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 728,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG105",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 672,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG121",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 756,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG125",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 672,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG128",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 616,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG146",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 672,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG154",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 560,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "bipartite_n6_atlasG175",
+      "n": 6,
+      "w": 1,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 504,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "K3",
+      "n": 3,
+      "w": 2,
+      "states": 24,
+      "all_position_events": 72,
+      "good_states": 24,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "K_1_1_2",
+      "n": 4,
+      "w": 2,
+      "states": 120,
+      "all_position_events": 480,
+      "good_states": 60,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "K_1_2_2",
+      "n": 5,
+      "w": 2,
+      "states": 720,
+      "all_position_events": 3600,
+      "good_states": 144,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    },
+    {
+      "name": "C5_plus_pendant",
+      "n": 6,
+      "w": 2,
+      "states": 5040,
+      "all_position_events": 30240,
+      "good_states": 3052,
+      "head_states_unable_to_reach_good": 0,
+      "all_position_states_unable_to_reach_good": 0
+    }
+  ]
+}

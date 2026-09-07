@@ -1,0 +1,127 @@
+{
+  "status": "PASS",
+  "arithmetic": "exact integers and fractions",
+  "scope": "Finite checks supplement the all-w written proof; they are not independent review.",
+  "balanced_region_checks": [
+    {
+      "w": 2,
+      "vertices": 5,
+      "balanced_states": 180,
+      "position_events": 900,
+      "internal_implementation_comparisons": 1800,
+      "changed_events": 40,
+      "balanced_orientations": 10,
+      "all_position_closure": "PASS",
+      "zero_swap_fibre_connectivity": "PASS",
+      "all_position_strong_connectivity": "PASS",
+      "orientation_generator_moves": 20,
+      "only_changed_incoming_events": "X at the second-queue head gained; Y at that head lost",
+      "unlimited_product_form_control": "PASS",
+      "symmetric_rate_control": "PASS",
+      "target_residuals": {
+        "1/2": "13/3780",
+        "1": "0",
+        "2": "-1/360",
+        "3": "-1/280"
+      },
+      "rate_two_factorial_formula": "-1/360"
+    },
+    {
+      "w": 3,
+      "vertices": 7,
+      "balanced_states": 1120,
+      "position_events": 7840,
+      "internal_implementation_comparisons": 15680,
+      "changed_events": 168,
+      "balanced_orientations": 14,
+      "all_position_closure": "PASS",
+      "zero_swap_fibre_connectivity": "PASS",
+      "all_position_strong_connectivity": "PASS",
+      "orientation_generator_moves": 28,
+      "only_changed_incoming_events": "X at the second-queue head gained; Y at that head lost",
+      "unlimited_product_form_control": "PASS",
+      "symmetric_rate_control": "PASS",
+      "target_residuals": {
+        "1/2": "89/1081080",
+        "1": "0",
+        "2": "-1/13440",
+        "3": "-1/10080"
+      },
+      "rate_two_factorial_formula": "-1/13440"
+    },
+    {
+      "w": 4,
+      "vertices": 9,
+      "balanced_states": 6300,
+      "position_events": 56700,
+      "internal_implementation_comparisons": 113400,
+      "changed_events": 720,
+      "balanced_orientations": 18,
+      "all_position_closure": "PASS",
+      "zero_swap_fibre_connectivity": "PASS",
+      "all_position_strong_connectivity": "PASS",
+      "orientation_generator_moves": 36,
+      "only_changed_incoming_events": "X at the second-queue head gained; Y at that head lost",
+      "unlimited_product_form_control": "PASS",
+      "symmetric_rate_control": "PASS",
+      "target_residuals": {
+        "1/2": "101/88216128",
+        "1": "0",
+        "2": "-1/907200",
+        "3": "-1/665280"
+      },
+      "rate_two_factorial_formula": "-1/907200"
+    },
+    {
+      "w": 5,
+      "vertices": 11,
+      "balanced_states": 33264,
+      "position_events": 365904,
+      "internal_implementation_comparisons": 731808,
+      "changed_events": 3080,
+      "balanced_orientations": 22,
+      "all_position_closure": "PASS",
+      "zero_swap_fibre_connectivity": "PASS",
+      "all_position_strong_connectivity": "PASS",
+      "orientation_generator_moves": 44,
+      "only_changed_incoming_events": "X at the second-queue head gained; Y at that head lost",
+      "unlimited_product_form_control": "PASS",
+      "symmetric_rate_control": "PASS",
+      "target_residuals": {
+        "1/2": "18323/1759911753600",
+        "1": "0",
+        "2": "-1/95800320",
+        "3": "-1/69189120"
+      },
+      "rate_two_factorial_formula": "-1/95800320"
+    }
+  ],
+  "full_space_completeness_audits": [
+    {
+      "w": 2,
+      "full_states": 720,
+      "position_events": 3600,
+      "limited_predecessor_events": 7,
+      "two_changed_incoming_events": "PASS"
+    },
+    {
+      "w": 3,
+      "full_states": 40320,
+      "position_events": 282240,
+      "limited_predecessor_events": 9,
+      "two_changed_incoming_events": "PASS"
+    }
+  ],
+  "explicit_word_checks": {
+    "first_w": 2,
+    "last_w": 50,
+    "parameters": [
+      "1/2",
+      "1",
+      "2",
+      "3"
+    ],
+    "four_transition_identities": "PASS",
+    "factorial_formula_at_rate_two": "PASS"
+  }
+}

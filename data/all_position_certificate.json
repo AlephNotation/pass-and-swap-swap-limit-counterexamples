@@ -1,0 +1,989 @@
+[
+  {
+    "source_orbit": 1,
+    "queue": "D",
+    "position": 1,
+    "target": [
+      [
+        2
+      ],
+      [
+        0,
+        1,
+        4,
+        3
+      ]
+    ],
+    "target_orbit": 4,
+    "symmetry": [
+      -1,
+      2,
+      0
+    ]
+  },
+  {
+    "source_orbit": 1,
+    "queue": "D",
+    "position": 2,
+    "target": [
+      [
+        3
+      ],
+      [
+        0,
+        1,
+        4,
+        2
+      ]
+    ],
+    "target_orbit": 5,
+    "symmetry": [
+      1,
+      3,
+      0
+    ]
+  },
+  {
+    "source_orbit": 1,
+    "queue": "D",
+    "position": 3,
+    "target": [
+      [
+        3
+      ],
+      [
+        0,
+        1,
+        4,
+        2
+      ]
+    ],
+    "target_orbit": 5,
+    "symmetry": [
+      1,
+      3,
+      0
+    ]
+  },
+  {
+    "source_orbit": 1,
+    "queue": "D",
+    "position": 4,
+    "target": [
+      [
+        3
+      ],
+      [
+        0,
+        1,
+        2,
+        4
+      ]
+    ],
+    "target_orbit": 6,
+    "symmetry": [
+      1,
+      3,
+      0
+    ]
+  },
+  {
+    "source_orbit": 1,
+    "queue": "D",
+    "position": 5,
+    "target": [
+      [
+        3
+      ],
+      [
+        0,
+        1,
+        2,
+        4
+      ]
+    ],
+    "target_orbit": 6,
+    "symmetry": [
+      1,
+      3,
+      0
+    ]
+  },
+  {
+    "source_orbit": 2,
+    "queue": "D",
+    "position": 1,
+    "target": [
+      [
+        2
+      ],
+      [
+        0,
+        4,
+        1,
+        3
+      ]
+    ],
+    "target_orbit": 5,
+    "symmetry": [
+      -1,
+      2,
+      0
+    ]
+  },
+  {
+    "source_orbit": 2,
+    "queue": "D",
+    "position": 2,
+    "target": [
+      [
+        3
+      ],
+      [
+        0,
+        4,
+        1,
+        2
+      ]
+    ],
+    "target_orbit": 4,
+    "symmetry": [
+      1,
+      3,
+      0
+    ]
+  },
+  {
+    "source_orbit": 2,
+    "queue": "D",
+    "position": 3,
+    "target": [
+      [
+        3
+      ],
+      [
+        0,
+        1,
+        2,
+        4
+      ]
+    ],
+    "target_orbit": 6,
+    "symmetry": [
+      1,
+      3,
+      0
+    ]
+  },
+  {
+    "source_orbit": 2,
+    "queue": "D",
+    "position": 4,
+    "target": [
+      [
+        3
+      ],
+      [
+        0,
+        1,
+        4,
+        2
+      ]
+    ],
+    "target_orbit": 5,
+    "symmetry": [
+      1,
+      3,
+      0
+    ]
+  },
+  {
+    "source_orbit": 2,
+    "queue": "D",
+    "position": 5,
+    "target": [
+      [
+        3
+      ],
+      [
+        0,
+        1,
+        4,
+        2
+      ]
+    ],
+    "target_orbit": 5,
+    "symmetry": [
+      1,
+      3,
+      0
+    ]
+  },
+  {
+    "source_orbit": 3,
+    "queue": "D",
+    "position": 1,
+    "target": [
+      [
+        2
+      ],
+      [
+        0,
+        4,
+        3,
+        1
+      ]
+    ],
+    "target_orbit": 6,
+    "symmetry": [
+      -1,
+      2,
+      0
+    ]
+  },
+  {
+    "source_orbit": 3,
+    "queue": "D",
+    "position": 2,
+    "target": [
+      [
+        2
+      ],
+      [
+        0,
+        4,
+        3,
+        1
+      ]
+    ],
+    "target_orbit": 6,
+    "symmetry": [
+      -1,
+      2,
+      0
+    ]
+  },
+  {
+    "source_orbit": 3,
+    "queue": "D",
+    "position": 3,
+    "target": [
+      [
+        2
+      ],
+      [
+        0,
+        1,
+        4,
+        3
+      ]
+    ],
+    "target_orbit": 4,
+    "symmetry": [
+      -1,
+      2,
+      0
+    ]
+  },
+  {
+    "source_orbit": 3,
+    "queue": "D",
+    "position": 4,
+    "target": [
+      [
+        2
+      ],
+      [
+        0,
+        1,
+        4,
+        3
+      ]
+    ],
+    "target_orbit": 4,
+    "symmetry": [
+      -1,
+      2,
+      0
+    ]
+  },
+  {
+    "source_orbit": 3,
+    "queue": "D",
+    "position": 5,
+    "target": [
+      [
+        2
+      ],
+      [
+        0,
+        1,
+        4,
+        3
+      ]
+    ],
+    "target_orbit": 4,
+    "symmetry": [
+      -1,
+      2,
+      0
+    ]
+  },
+  {
+    "source_orbit": 4,
+    "queue": "C",
+    "position": 1,
+    "target": [
+      [],
+      [
+        2,
+        1,
+        3,
+        4,
+        0
+      ]
+    ],
+    "target_orbit": 3,
+    "symmetry": [
+      -1,
+      2,
+      0
+    ]
+  },
+  {
+    "source_orbit": 4,
+    "queue": "D",
+    "position": 1,
+    "target": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        3,
+        4
+      ]
+    ],
+    "target_orbit": 7,
+    "symmetry": [
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "source_orbit": 4,
+    "queue": "D",
+    "position": 2,
+    "target": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        3,
+        4
+      ]
+    ],
+    "target_orbit": 7,
+    "symmetry": [
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "source_orbit": 4,
+    "queue": "D",
+    "position": 3,
+    "target": [
+      [
+        0,
+        4
+      ],
+      [
+        2,
+        1,
+        3
+      ]
+    ],
+    "target_orbit": 9,
+    "symmetry": [
+      -1,
+      0,
+      0
+    ]
+  },
+  {
+    "source_orbit": 4,
+    "queue": "D",
+    "position": 4,
+    "target": [
+      [
+        0,
+        4
+      ],
+      [
+        2,
+        1,
+        3
+      ]
+    ],
+    "target_orbit": 9,
+    "symmetry": [
+      -1,
+      0,
+      0
+    ]
+  },
+  {
+    "source_orbit": 5,
+    "queue": "C",
+    "position": 1,
+    "target": [
+      [],
+      [
+        2,
+        3,
+        1,
+        4,
+        0
+      ]
+    ],
+    "target_orbit": 2,
+    "symmetry": [
+      1,
+      2,
+      0
+    ]
+  },
+  {
+    "source_orbit": 5,
+    "queue": "D",
+    "position": 1,
+    "target": [
+      [
+        0,
+        4
+      ],
+      [
+        2,
+        1,
+        3
+      ]
+    ],
+    "target_orbit": 9,
+    "symmetry": [
+      -1,
+      0,
+      0
+    ]
+  },
+  {
+    "source_orbit": 5,
+    "queue": "D",
+    "position": 2,
+    "target": [
+      [
+        0,
+        4
+      ],
+      [
+        2,
+        1,
+        3
+      ]
+    ],
+    "target_orbit": 9,
+    "symmetry": [
+      -1,
+      0,
+      0
+    ]
+  },
+  {
+    "source_orbit": 5,
+    "queue": "D",
+    "position": 3,
+    "target": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        3,
+        4
+      ]
+    ],
+    "target_orbit": 7,
+    "symmetry": [
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "source_orbit": 5,
+    "queue": "D",
+    "position": 4,
+    "target": [
+      [
+        0,
+        4
+      ],
+      [
+        2,
+        3,
+        1
+      ]
+    ],
+    "target_orbit": 8,
+    "symmetry": [
+      -1,
+      0,
+      0
+    ]
+  },
+  {
+    "source_orbit": 6,
+    "queue": "C",
+    "position": 1,
+    "target": [
+      [],
+      [
+        2,
+        3,
+        4,
+        1,
+        0
+      ]
+    ],
+    "target_orbit": 1,
+    "symmetry": [
+      1,
+      2,
+      0
+    ]
+  },
+  {
+    "source_orbit": 6,
+    "queue": "D",
+    "position": 1,
+    "target": [
+      [
+        0,
+        4
+      ],
+      [
+        2,
+        3,
+        1
+      ]
+    ],
+    "target_orbit": 8,
+    "symmetry": [
+      -1,
+      0,
+      0
+    ]
+  },
+  {
+    "source_orbit": 6,
+    "queue": "D",
+    "position": 2,
+    "target": [
+      [
+        0,
+        4
+      ],
+      [
+        2,
+        3,
+        1
+      ]
+    ],
+    "target_orbit": 8,
+    "symmetry": [
+      -1,
+      0,
+      0
+    ]
+  },
+  {
+    "source_orbit": 6,
+    "queue": "D",
+    "position": 3,
+    "target": [
+      [
+        0,
+        4
+      ],
+      [
+        2,
+        3,
+        1
+      ]
+    ],
+    "target_orbit": 8,
+    "symmetry": [
+      -1,
+      0,
+      0
+    ]
+  },
+  {
+    "source_orbit": 6,
+    "queue": "D",
+    "position": 4,
+    "target": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        3,
+        4
+      ]
+    ],
+    "target_orbit": 7,
+    "symmetry": [
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "source_orbit": 7,
+    "queue": "C",
+    "position": 1,
+    "target": [
+      [
+        0
+      ],
+      [
+        2,
+        3,
+        4,
+        1
+      ]
+    ],
+    "target_orbit": 6,
+    "symmetry": [
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "source_orbit": 7,
+    "queue": "C",
+    "position": 2,
+    "target": [
+      [
+        0
+      ],
+      [
+        2,
+        3,
+        4,
+        1
+      ]
+    ],
+    "target_orbit": 6,
+    "symmetry": [
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "source_orbit": 7,
+    "queue": "D",
+    "position": 1,
+    "target": [
+      [
+        0,
+        1,
+        4
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "target_orbit": 9,
+    "symmetry": [
+      1,
+      2,
+      1
+    ]
+  },
+  {
+    "source_orbit": 7,
+    "queue": "D",
+    "position": 2,
+    "target": [
+      [
+        0,
+        1,
+        4
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "target_orbit": 9,
+    "symmetry": [
+      1,
+      2,
+      1
+    ]
+  },
+  {
+    "source_orbit": 7,
+    "queue": "D",
+    "position": 3,
+    "target": [
+      [
+        0,
+        1,
+        4
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "target_orbit": 9,
+    "symmetry": [
+      1,
+      2,
+      1
+    ]
+  },
+  {
+    "source_orbit": 8,
+    "queue": "C",
+    "position": 1,
+    "target": [
+      [
+        0
+      ],
+      [
+        3,
+        2,
+        4,
+        1
+      ]
+    ],
+    "target_orbit": 5,
+    "symmetry": [
+      -1,
+      0,
+      0
+    ]
+  },
+  {
+    "source_orbit": 8,
+    "queue": "C",
+    "position": 2,
+    "target": [
+      [
+        0
+      ],
+      [
+        3,
+        2,
+        4,
+        1
+      ]
+    ],
+    "target_orbit": 5,
+    "symmetry": [
+      -1,
+      0,
+      0
+    ]
+  },
+  {
+    "source_orbit": 8,
+    "queue": "D",
+    "position": 1,
+    "target": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        3,
+        4
+      ]
+    ],
+    "target_orbit": 7,
+    "symmetry": [
+      1,
+      3,
+      1
+    ]
+  },
+  {
+    "source_orbit": 8,
+    "queue": "D",
+    "position": 2,
+    "target": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        3,
+        4
+      ]
+    ],
+    "target_orbit": 7,
+    "symmetry": [
+      1,
+      3,
+      1
+    ]
+  },
+  {
+    "source_orbit": 8,
+    "queue": "D",
+    "position": 3,
+    "target": [
+      [
+        0,
+        1,
+        4
+      ],
+      [
+        3,
+        2
+      ]
+    ],
+    "target_orbit": 8,
+    "symmetry": [
+      -1,
+      3,
+      1
+    ]
+  },
+  {
+    "source_orbit": 9,
+    "queue": "C",
+    "position": 1,
+    "target": [
+      [
+        0
+      ],
+      [
+        3,
+        4,
+        2,
+        1
+      ]
+    ],
+    "target_orbit": 4,
+    "symmetry": [
+      -1,
+      0,
+      0
+    ]
+  },
+  {
+    "source_orbit": 9,
+    "queue": "C",
+    "position": 2,
+    "target": [
+      [
+        0
+      ],
+      [
+        3,
+        4,
+        2,
+        1
+      ]
+    ],
+    "target_orbit": 4,
+    "symmetry": [
+      -1,
+      0,
+      0
+    ]
+  },
+  {
+    "source_orbit": 9,
+    "queue": "D",
+    "position": 1,
+    "target": [
+      [
+        0,
+        1,
+        4
+      ],
+      [
+        3,
+        2
+      ]
+    ],
+    "target_orbit": 8,
+    "symmetry": [
+      -1,
+      3,
+      1
+    ]
+  },
+  {
+    "source_orbit": 9,
+    "queue": "D",
+    "position": 2,
+    "target": [
+      [
+        0,
+        1,
+        4
+      ],
+      [
+        3,
+        2
+      ]
+    ],
+    "target_orbit": 8,
+    "symmetry": [
+      -1,
+      3,
+      1
+    ]
+  },
+  {
+    "source_orbit": 9,
+    "queue": "D",
+    "position": 3,
+    "target": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        3,
+        4
+      ]
+    ],
+    "target_orbit": 7,
+    "symmetry": [
+      1,
+      3,
+      1
+    ]
+  }
+]

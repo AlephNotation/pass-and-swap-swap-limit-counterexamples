@@ -1,0 +1,126 @@
+{
+  "status": "PASS",
+  "scope": "Complete state spaces, one distinct job per cycle vertex.",
+  "cases": [
+    {
+      "w": 2,
+      "vertices": 5,
+      "full_states": 720,
+      "height_counts": {
+        "2": 480,
+        "3": 180,
+        "4": 60
+      },
+      "balanced_states": 180,
+      "disciplines": {
+        "head_only": {
+          "events": 1200,
+          "recurrent_states": 660,
+          "transient_states": 60,
+          "recurrent_by_height": {
+            "2": 480,
+            "3": 180
+          },
+          "transient_by_height": {
+            "4": 60
+          },
+          "closed_class_count": 21,
+          "closed_class_size_histogram": {
+            "18": 10,
+            "30": 10,
+            "180": 1
+          },
+          "tall_recurrent_equals_balanced": true,
+          "balanced_single_closed_class": true
+        },
+        "all_positions": {
+          "events": 3600,
+          "recurrent_states": 660,
+          "transient_states": 60,
+          "recurrent_by_height": {
+            "2": 480,
+            "3": 180
+          },
+          "transient_by_height": {
+            "4": 60
+          },
+          "closed_class_count": 11,
+          "closed_class_size_histogram": {
+            "48": 10,
+            "180": 1
+          },
+          "tall_recurrent_equals_balanced": true,
+          "balanced_single_closed_class": true
+        }
+      }
+    },
+    {
+      "w": 3,
+      "vertices": 7,
+      "full_states": 40320,
+      "height_counts": {
+        "2": 22624,
+        "3": 13776,
+        "4": 3248,
+        "5": 560,
+        "6": 112
+      },
+      "balanced_states": 1120,
+      "disciplines": {
+        "head_only": {
+          "events": 70560,
+          "recurrent_states": 37520,
+          "transient_states": 2800,
+          "recurrent_by_height": {
+            "2": 22624,
+            "3": 13776,
+            "4": 1120
+          },
+          "transient_by_height": {
+            "4": 2128,
+            "5": 560,
+            "6": 112
+          },
+          "closed_class_count": 351,
+          "closed_class_size_histogram": {
+            "24": 14,
+            "40": 42,
+            "56": 112,
+            "104": 98,
+            "152": 56,
+            "312": 14,
+            "360": 14,
+            "1120": 1
+          },
+          "tall_recurrent_equals_balanced": true,
+          "balanced_single_closed_class": true
+        },
+        "all_positions": {
+          "events": 282240,
+          "recurrent_states": 37520,
+          "transient_states": 2800,
+          "recurrent_by_height": {
+            "2": 22624,
+            "3": 13776,
+            "4": 1120
+          },
+          "transient_by_height": {
+            "4": 2128,
+            "5": 560,
+            "6": 112
+          },
+          "closed_class_count": 71,
+          "closed_class_size_histogram": {
+            "264": 14,
+            "360": 28,
+            "528": 14,
+            "1088": 14,
+            "1120": 1
+          },
+          "tall_recurrent_equals_balanced": true,
+          "balanced_single_closed_class": true
+        }
+      }
+    }
+  ]
+}
