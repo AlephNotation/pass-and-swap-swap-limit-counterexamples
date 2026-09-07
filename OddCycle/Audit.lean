@@ -1,5 +1,7 @@
 import OddCycle.Conclusions
 import OddCycle.GeneralClosure
+import OddCycle.GeneralHeight
+import OddCycle.GeneralCommunication
 
 /-! Print the trusted axioms used by the principal claims. Computational
 certificates use kernel reduction. No native evaluation axiom is needed. -/
@@ -11,6 +13,12 @@ certificates use kernel reduction. No native evaluation axiom is needed. -/
 #print axioms OddCycle.balanced_transition
 #print axioms OddCycle.balanced_events_closed
 #print axioms OddCycle.balanced_region_nonempty_closed
+#print axioms OddCycle.balanced_height
+#print axioms OddCycle.reachable_of_orientation_eq
+#print axioms OddCycle.branch_head_transition
+#print axioms OddCycle.balanced_communication
+#print axioms OddCycle.balanced_reachable_closed
+#print axioms OddCycle.balanced_positive_rate_communication
 #print axioms OddCycle.FiveJob.mem_support_iff
 #print axioms OddCycle.FiveJob.support_height
 #print axioms OddCycle.FiveJob.support_closed

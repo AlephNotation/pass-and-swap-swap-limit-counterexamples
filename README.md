@@ -6,8 +6,9 @@ Start with **paper.pdf**, the consolidated manuscript. **paper.tex** is its
 self-contained LaTeX source. This package merges the uniform theorem with the
 earlier five-job nonfactorization certificate and finite graph experiments.
 
-A partial **Lean 4 formalization** proves balanced-region nonemptiness and
-closure for every w >= 2, and checks the five-job dynamics and certificates.
+A partial **Lean 4 formalization** proves balanced-region nonemptiness, height,
+closure, and communication with positive position rates for every w >= 2,
+and checks the five-job dynamics and certificates.
 See [LEAN.md](LEAN.md) for the exact proof scope and build commands.
 
 ## One-command verification
