@@ -1,5 +1,7 @@
 # Recurrence and Product-Form Stationarity in Swap-Limited Queues on Cycles
 
+[![Lean proofs](https://github.com/AlephNotation/pass-and-swap-swap-limit-counterexamples/actions/workflows/lean.yml/badge.svg)](https://github.com/AlephNotation/pass-and-swap-swap-limit-counterexamples/actions/workflows/lean.yml)
+
 [Paper (PDF)](paper.pdf) · [Editable LaTeX](paper.tex) · [Theorem/Lean map](LEAN.md) · [Verification package](PACKAGE.md)
 
 The manuscript classifies all recurrent configurations of two closed-tandem
@@ -71,13 +73,17 @@ and 1,179,360 events per generator, comparing two transition implementations.
 
 ```sh
 lake build
-lake env lean OddCycle/Audit.lean
-lake env lean OddCycle/CycleClassificationAudit.lean
-lake env lean OddCycle/StructuralTheoryAudit.lean
-lake env lean OddCycle/IndistinguishabilityAudit.lean
+lake env lean verification/ManuscriptStatements.lean
+python3 -B code/check_axioms.py
 lake env leanchecker --verbose OddCycle
 python3 -B code/export_lean_certificate.py --check
 ```
+
+[GitHub Actions](.github/workflows/lean.yml) runs these machine-proof checks
+on every push and pull request, and can also be run manually. The four
+axiom audits reject dependencies outside `propext`, `Classical.choice`,
+and `Quot.sound`, including `sorryAx`. CI uses the pinned Lean toolchain
+and Mathlib dependency, and replays the full `OddCycle` library.
 
 All Lean modules, including the preserved structural and path-law proofs,
 remain in the default build. [PACKAGE.md](PACKAGE.md) gives the complete

@@ -18,10 +18,9 @@ import subprocess
 import sys
 import time
 
+from check_axioms import AUDITS, check_log
+
 ROOT = Path(__file__).resolve().parent.parent
-AUDITS = ['Audit', 'CycleClassificationAudit', 'StructuralTheoryAudit',
-          'IndistinguishabilityAudit']
-ALLOWED_AXIOMS = {'propext', 'Classical.choice', 'Quot.sound'}
 
 
 def digest(path):
@@ -92,14 +91,7 @@ def main():
         for audit in AUDITS:
             run('axioms-'+audit, ['lake', 'env', 'lean', 'OddCycle/'+audit+'.lean'])
             log = (out/('axioms-'+audit+'.log')).read_text()
-            dependencies = re.findall(r"depends on axioms:\s*\[([^]]*)\]", log, re.S)
-            require(dependencies, f'{audit}: no axiom declarations found')
-            names = {name.strip() for group in dependencies for name in group.split(',') if name.strip()}
-            require(names <= ALLOWED_AXIOMS, f'{audit}: unexpected axioms {names-ALLOWED_AXIOMS}')
-            require('sorryAx' not in log, f'{audit}: admitted proof dependency')
-            audited = len(dependencies) + log.count('does not depend on any axioms')
-            checked('axiom-set-'+audit, {'printed_declarations': audited,
-                                        'axioms': sorted(names)})
+            checked('axiom-set-'+audit, check_log(log))
         run('kernel-replay', ['lake', 'env', 'leanchecker', '--verbose', 'OddCycle'])
         run('python-suite', [sys.executable, '-B', 'run_checks.py'])
         run('python-suite-optimized', [sys.executable, '-B', '-O', 'run_checks.py'])

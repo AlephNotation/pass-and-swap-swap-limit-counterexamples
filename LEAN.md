@@ -84,6 +84,17 @@ is a fresh complete reproduction of the stated C9 experiment. The unavailable
 
 ## Build, axiom audits, and kernel replay
 
+The [Lean proofs workflow](.github/workflows/lean.yml) runs the full default
+build, manuscript statement checks, all four audits, full-root kernel replay,
+and the generated-certificate consistency check on pushes and pull requests.
+It also supports manual runs. `python3 -B code/check_axioms.py` runs and
+validates all four audits locally; CI and the release verifier share its
+allowlist validation. A missing audit output, failed Lean command, or axiom
+outside `propext`, `Classical.choice`, and `Quot.sound` fails the check.
+The audit scope is the declarations listed in those four audit modules;
+kernel replay covers the full `OddCycle` library. CI sets
+`LEAN_NUM_THREADS=1` for kernel replay to bound Mathlib memory use.
+
 ```sh
 lake exe cache get
 lake build
