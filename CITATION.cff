@@ -11,4 +11,5 @@ authors:
     family-names: "Daly"
     email: "tynan.daly@hdr.is"
 repository-code: "https://github.com/AlephNotation/pass-and-swap-swap-limit-counterexamples"
+doi: "10.5281/zenodo.22575717"
 license: MIT

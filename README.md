@@ -1,5 +1,7 @@
 # Odd-cycle traps and product-form failure: complete package
 
+[![DOI](https://zenodo.org/badge/1359616826.svg)](https://doi.org/10.5281/zenodo.22575717)
+
 Start with **paper.pdf**, the consolidated manuscript. **paper.tex** is its
 self-contained LaTeX source. This package merges the uniform theorem with the
 earlier five-job nonfactorization certificate and finite graph experiments.
