@@ -88,19 +88,3 @@ the packages named in the preamble is sufficient:
 pdflatex paper.tex
 pdflatex paper.tex
 ```
-
-## Contents
-
-- `paper.pdf`, `paper.tex`: merged manuscript and exact source.
-- `run_checks.py`: complete verification entry point.
-- `code/`: six component scripts, including optional certificate regeneration.
-- `data/`: stationary weights, the 45-event orbit certificate, and screen graphs.
-- `results/`: five deterministic result files from executed checks.
-- `CITATION_AUDIT.md`: page-image-verified source locations and equation numbers.
-- `QA.md`: build and package-validation record.
-
-The two transition implementations are internal cross-checks. The package
-provides mathematical proofs, finite certificates, and executable checks, not
-a proof-assistant formalization or a claim of external peer review.
-
-The assistance acknowledgment is in the manuscript.
