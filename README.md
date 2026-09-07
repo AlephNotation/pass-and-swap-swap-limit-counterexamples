@@ -98,10 +98,7 @@ pdflatex paper.tex
 - `data/`: stationary weights, the 45-event orbit certificate, and screen graphs.
 - `results/`: five deterministic result files from executed checks.
 - `CITATION_AUDIT.md`: page-image-verified source locations and equation numbers.
-- `CHANGELOG.md`: scope and consolidation changes.
-- `email.txt`: short covering email for the original authors.
 - `QA.md`: build and package-validation record.
-- `SHA256SUMS`: content hashes (check with `sha256sum -c SHA256SUMS`).
 
 The two transition implementations are internal cross-checks. The package
 provides mathematical proofs, finite certificates, and executable checks, not
