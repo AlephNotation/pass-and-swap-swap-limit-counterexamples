@@ -95,3 +95,17 @@ the packages named in the preamble is sufficient:
 pdflatex paper.tex
 pdflatex paper.tex
 ```
+
+## Citation
+
+If you use the results, code, or Lean proofs, please cite:
+
+```bibtex
+@misc{daly2026oddcycle,
+  author = {Daly, Tynan},
+  title  = {{Odd-Cycle Traps and Product-Form Failure in Limited Pass-and-Swap Queues}},
+  year   = {2026},
+  doi    = {10.5281/zenodo.22575717},
+  url    = {https://doi.org/10.5281/zenodo.22575717}
+}
+```
