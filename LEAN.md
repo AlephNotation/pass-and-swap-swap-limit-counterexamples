@@ -14,6 +14,14 @@ experiments retain their separate Python checks.
 Lean reconstructs the replacement dynamics. It does not import Python
 transition tables or assume the Python checks are correct.
 
+The [structural-theory extension](STRUCTURAL_THEORY.md), imported by the default
+build, proves the queue-length generator and canonical-marginal identities,
+including full canonical defects invisible to length-observable balance tests.
+It also supplies generic finite-kernel and Poisson-averaged bottleneck bounds.
+The complete continuous-time queue mixing theorem still has the explicitly
+listed obligations in that document. Its audit is
+`OddCycle/StructuralTheoryAudit.lean`.
+
 ## Run
 
 Lean and Mathlib are pinned to 4.28.0. With Elan installed, run from this

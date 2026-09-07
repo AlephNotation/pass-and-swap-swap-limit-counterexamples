@@ -22,6 +22,13 @@ The continuous-time process is measurable and nonexplosive; an executable
 recurrence classifier has a proved linear bound in a word-RAM cost model.
 This extension is separate from the consolidated manuscript above.
 
+The [structural extension](STRUCTURAL_THEORY.md) proves that queue-length
+generators under position-indexed service are independent of the swapping
+graph and budget. It also proves canonical length marginals and an arbitrary-size
+family where all length-observable balance identities hold despite full
+canonical failure. The document develops a stronger slow-mixing argument;
+that continuous-time mixing theorem is not yet fully formalized.
+
 ## One-command verification
 
 Python **3.10 or newer**, standard library only:

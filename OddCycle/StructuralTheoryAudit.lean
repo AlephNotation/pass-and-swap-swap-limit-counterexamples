@@ -1,0 +1,36 @@
+import OddCycle.StructuralTheory
+
+#print axioms OddCycle.transition_first_length
+#print axioms OddCycle.lengthPositionDifference_eq
+#print axioms OddCycle.lengthGenerator_eq
+#print axioms OddCycle.constant_lengthGenerator
+#print axioms OddCycle.lengthGenerator_budget_independent
+#print axioms OddCycle.byLengthCapacity_increment
+#print axioms OddCycle.positiveByLengthAllocation
+#print axioms OddCycle.capacity_lengthGenerator
+#print axioms OddCycle.ClosedClass.cut_mem
+#print axioms OddCycle.ClosedClass.wordCutEquiv
+#print axioms OddCycle.ClosedClass.length_weight_sum
+#print axioms OddCycle.ClosedClass.length_weight_at
+#print axioms OddCycle.ClosedClass.normalized_length_marginal
+#print axioms OddCycle.oiCanonicalWeight_byLength
+#print axioms OddCycle.ClosedClass.canonical_length_marginal
+#print axioms OddCycle.lengthLaw_simplex
+#print axioms OddCycle.lengthCanonical_detailed_balance
+#print axioms OddCycle.lengthCanonical_generator_sum
+#print axioms OddCycle.ClosedClass.canonical_length_observables
+#print axioms OddCycle.unit_exceptional_hidden_defect
+#print axioms OddCycle.balanced_orientation_change_head
+#print axioms OddCycle.balanced_orientation_change_boundary
+#print axioms OddCycle.balanced_orientation_change_unique_position
+#print axioms OddCycle.FiniteMarkov.evolve_simplex
+#print axioms OddCycle.FiniteMarkov.evolve_dominated
+#print axioms OddCycle.FiniteMarkov.mass_sub_le_totalVariation
+#print axioms OddCycle.FiniteMarkov.totalVariation_mixture
+#print axioms OddCycle.FiniteMarkov.bottleneck_lower
+#print axioms OddCycle.FiniteMarkov.half_bottleneck_lower
+#print axioms OddCycle.FiniteMarkov.poisson_first_moment
+#print axioms OddCycle.FiniteMarkov.poissonEvolve_simplex
+#print axioms OddCycle.FiniteMarkov.poissonEvolve_stationary
+#print axioms OddCycle.FiniteMarkov.poisson_bottleneck_lower
+#print axioms OddCycle.FiniteMarkov.poisson_half_bottleneck_lower
