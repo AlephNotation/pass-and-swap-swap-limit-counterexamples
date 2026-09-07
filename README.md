@@ -20,11 +20,19 @@ an exceptional length has a failing allocation, not necessarily failure for
 every allocation. Safe-length sufficiency holds already for `w >= 1`.
 Every even cycle is safe under these hypotheses.
 
+For `n >= 3` and `w >= 2`, Conjecture 1 restricted to cycles with one job
+per vertex fails whenever `n % (2*w) == 1`, **for every admissible OI
+allocation**, including head-only service. At every other length it holds
+under strictly positive position rates. Every cycle meets the partite
+hypothesis because three colors suffice. Removing positivity from the
+validity direction remains open; the finite head-only checks below support
+that possibility without proving it.
+
 The classification and sharp boundary are now the manuscript's main results.
 Lean proves them for arbitrary parameters from the actual queue transitions;
 the numerical enumerations below have separately stated finite scopes.
 See [classification details](docs/CYCLE_CLASSIFICATION.md) and
-[the checked revision and commands](verification/REPORT.md).
+[the checked revision and commands](verification/EDITORIAL_REPORT.md).
 
 ## Results and their scopes
 
@@ -39,6 +47,7 @@ See [classification details](docs/CYCLE_CLASSIFICATION.md) and
 | No factorization `K*A(c)*B(d)` | C5/w=2, rates `(2,1,1,1,1)` in both queues | Exact stationary certificate, nonzero rectangle determinant, Lean |
 | Head-only communication of `B_2` | Every admissible OI allocation, even with zero non-head rates | Nine-orbit proof, Lean connectivity, finite checks |
 | C5/w=2 and C7/w=3 state counts and head-only classifications | Entire finite state spaces; both event supports | Python SCC checks; all-position structure also follows from general Lean theorem |
+| No tall recurrence in seven nonexceptional cycle instances | `n=6,8` with `w=1,2,3`, and `n=7,w=2`; head-only and all-position service | Complete Python SCC checks, not a general zero-non-head-rate theorem |
 | One-swap bipartite screen | All 61 nonisomorphic simple bipartite graphs through six vertices | Python exact graph coverage and reachability checks |
 
 The odd-cycle examples at `w=1` do not satisfy Conjecture 1's bipartite
@@ -70,6 +79,10 @@ coverage, and compares fresh output with every `results/*.json` file. It
 does not use simulation, tolerances, or the network. `--output-dir PATH`
 saves fresh copies. The C9 check enumerates all 131,040 exceptional states
 and 1,179,360 events per generator, comparing two transition implementations.
+The nonexceptional head-only checks cover 1,144,080 state/budget cases;
+on C6/w=2 they find 68 closed classes under head-only service and 20 under
+all-position service. No tall recurrent states occur in any of these seven
+instances. The complete records are in [head_cycles.json](results/head_cycles.json).
 
 ```sh
 lake build

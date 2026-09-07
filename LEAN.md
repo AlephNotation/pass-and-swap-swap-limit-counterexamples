@@ -11,7 +11,7 @@ assumptions. Unless a row gives a different namespace, declarations below
 are prefixed by `OddCycle.`. Paper references use stable LaTeX labels;
 the PDF supplies their displayed numbers. `verification/ManuscriptStatements.lean`
 prints the key structures and exact theorem signatures; its output is retained
-in `verification/manuscript-statements.log`.
+in `verification/editorial/manuscript-statements.log`.
 
 ## Main theorem map: assumptions and scope
 
@@ -20,6 +20,7 @@ in `verification/manuscript-statements.log`.
 | Complete recurrent classification (`thm:classification`) | `CycleState.terminal_iff_runs`; `PositivePositionAllocation.continuous_recurrent_iff_runs` | Valid states on `C_n`, `n >= 3`, `w >= 1`; stochastic statement requires positive finite rates at every occupied position. No OI assumption. |
 | Complete list of closed classes | `closed_class_classification`; `ClosedClass.short_fiber`; `ClosedClass.exceptional_family` | `ClosedClass n w states` means a nonempty duplicate-free list, valid states, closure under every completion, and event communication. Positivity identifies these with stochastic closed classes. Lists are compared up to permutation. |
 | Tall-class existence and uniqueness | `exists_tall_terminal_iff`; `exceptionalStates_closedClass`; `exceptionalRuns_communicate` | `n >= 3`, `w >= 1`; exists iff `n=2kw+1`, `k >= 1`. All exceptional configurations, not only representatives, communicate. |
+| Cycle boundary for Conjecture 1 (`cor:conjecture`) | Failure: `exceptionalRuns_transition`, `CycleState.exceptional_recurrent_state`, `exceptionalStates_closedClass`; validity: `CycleState.terminal_short_of_nonexceptional_length`, `PositivePositionAllocation.continuous_recurrent_iff_runs`; arithmetic: `exceptional_length_iff_mod` | `n >= 3`, `w >= 2`, one job per vertex. At exceptional lengths every admissible OI allocation has a tall recurrent state; closure and recurrent-state existence require no positive non-head rates. At other lengths validity is proved under positive position rates. Three-colorability supplies the partite hypothesis. This is a corollary of the listed declarations, not a new named Lean theorem. |
 | Exactly `2n` exceptional orientations | `exceptionalParameter_covers`; `exceptionalParameter_injective`; `exceptional_orientation_count` | Actual labeled orientations at exceptional lengths. This counts orientations, not full configurations. |
 | Closure under nonnegative allocations | `exceptionalRuns_transition`; `CycleState.exceptional_recurrent_state` | Operational closure has no rate assumption. The recurrence-existence theorem allows only legal events or self steps in an arbitrary finite kernel. This does not prove general irreducibility with zero non-head rates. |
 | Eventual residence in one class | `PositivePositionAllocation.continuous_eventually_one_class` | Same positive-position hypotheses; almost-sure event on the constructed physical-time path space. |
@@ -63,6 +64,16 @@ telescoping prefix weights. No publisher theorem is introduced as an axiom.
 - The publisher's Theorem 7 also states a partiteness hypothesis. The general
   short-class argument is derived from unlimited Theorem 3 and proved
   independently in Lean, so it does not import an unstated partite assumption.
+- The introduction's `w >= 1` sufficiency remark points to
+  `ClosedClass.safe_normalized_oi` (`ClassClassification.lean`), not to either
+  sharpness equivalence, both of which require `w >= 2` and `n >= 3`.
+- The Conjecture 1 corollary needs positive position rates only for its
+  validity direction at nonexceptional lengths. Exceptional closure gives
+  failure for every admissible OI allocation, including head-only service.
+  Dorsman and Gardner's Appendix C.2 emphasizes that OI assumptions guarantee
+  positive heads only. Their Lemma 3 uses at most `w+1` colors, so every cycle
+  meets the partite hypothesis for `w >= 2`. Removing positivity from the
+  validity direction is not proved in this development.
 
 ## Separately computed results
 
@@ -73,6 +84,7 @@ telescoping prefix weights. No publisher theorem is introduced as an axiom.
 | C9 complete exceptional-class enumeration | `verify_nine.py` / `results/nine_job.json` | 131,040 states, 18 orientations, 1,179,360 events per generator; 16,560 nonzero limited residuals, zero unlimited residuals, target -3 in integer scaling. |
 | Five-job certificate and orbit table | `verify_five.py`, `verify_orbits.py` / corresponding JSON | Exact 180-state certificate, 45 representative events, 72,000 symmetry identities, unit-head balance. |
 | Small-graph screen | `verify_screen.py` / `results/screen.json` | All 61 simple bipartite graphs on 1..6 vertices at w=1; four named graphs at w=2; 192,590 states, 1,143,194 all-position events. |
+| Head-only service on nonexceptional cycles | `verify_head_cycles.py` / `results/head_cycles.json` | Seven pairs: `(6,1)`, `(6,2)`, `(6,3)`, `(7,2)`, `(8,1)`, `(8,2)`, `(8,3)`. Complete SCC checks under both supports; 1,144,080 state/budget cases, 2,031,840 head events, 9,082,080 all-position events. No tall recurrence; C6/w=2 has 68 head-only classes versus 20 all-position classes. Finite evidence only. |
 
 The general classification is proved in Lean; its computed state counts
 are not thereby claimed as separate formal cardinality theorems. The older
@@ -111,7 +123,7 @@ imported project modules, including the preserved mixing lemmas. Audits
 permit only `propext`, `Classical.choice`, and `Quot.sound` (or fewer);
 finite reductions use `decide +kernel`. There are no admitted proofs,
 custom axioms, or native-evaluation axioms. Actual commands and outcomes
-for this revision are in [verification/REPORT.md](verification/REPORT.md),
+for this revision are in [verification/EDITORIAL_REPORT.md](verification/EDITORIAL_REPORT.md),
 with machine-readable logs and source hashes. [PACKAGE.md](PACKAGE.md)
 documents regeneration of the whole verification package.
 

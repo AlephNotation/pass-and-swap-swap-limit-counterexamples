@@ -72,6 +72,7 @@ python3 code/verify_five.py --certificate data/stationary_certificate.json
 python3 code/verify_orbits.py
 python3 code/verify_uniform.py
 python3 code/verify_classification.py
+python3 code/verify_head_cycles.py
 python3 code/verify_nine.py
 python3 code/verify_screen.py
 ```
@@ -79,7 +80,11 @@ python3 code/verify_screen.py
 `verify_screen.py` regenerates the complete bipartite graph list and checks
 coverage. `verify_nine.py` enumerates the entire C9 exceptional class and
 checks both generators with integer flows. The complete suite compares
-fresh JSON objects with all six committed `results/*.json` files.
+fresh JSON objects with all seven committed `results/*.json` files.
+The additional `verify_head_cycles.py` check enumerates seven nonexceptional
+cycle instances under head-only and all-position service. It shares the
+existing full-state transition enumeration and SCC algorithm with the
+earlier C5/C7 check, whose recorded results are unchanged.
 
 ## Stationary certificate
 

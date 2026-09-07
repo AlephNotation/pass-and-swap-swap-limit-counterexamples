@@ -11,6 +11,8 @@ These checks add no propositions or proof assumptions. -/
 #check OddCycle.PositivePositionAllocation.continuous_recurrent_iff_runs
 #check OddCycle.PositivePositionAllocation.continuous_eventually_one_class
 #check OddCycle.exists_tall_terminal_iff
+#check OddCycle.CycleState.terminal_short_of_nonexceptional_length
+#check OddCycle.exceptional_length_iff_mod
 #check OddCycle.exceptionalStates_closedClass
 #check OddCycle.exceptionalRuns_transition
 #check OddCycle.exceptionalRuns_communicate
@@ -24,6 +26,8 @@ These checks add no propositions or proof assumptions. -/
 #check OddCycle.CircularRun.terminal_iff
 #check OddCycle.short_class_normalized_oi
 #check OddCycle.ClosedClass.safe_normalized_oi
+#check OddCycle.ClosedClass.safe_oi_stationary
+#check OddCycle.cycle_canonical_sharpness
 #check OddCycle.cycle_normalized_canonical_sharpness
 #check OddCycle.balanced_is_exceptional
 #check OddCycle.balanced_cardinality

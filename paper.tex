@@ -3,6 +3,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern,microtype,amsmath,amssymb,amsthm,booktabs,array,needspace}
 \usepackage[hidelinks]{hyperref}
+\hypersetup{pdfauthor={Tynan Daly}}
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
@@ -29,7 +30,7 @@
 
 \newcommand{\T}{\mathcal T_{n,w}}
 \title{Recurrence and Product-Form Stationarity\\in Swap-Limited Queues on Cycles}
-\author{Ty Daly}
+\author{Tynan Daly}
 \date{September 7, 2026}
 \begin{document}
 \maketitle
@@ -39,6 +40,8 @@ We classify the recurrent configurations of two pass-and-swap queues in closed t
 
 \section{Introduction and main results}\label{sec:intro}
 Limiting a pass-and-swap replacement chain can change both the recurrent configurations and their stationary probabilities. The central question is which configurations survive indefinitely once a finite swap budget is imposed. For cycle swapping graphs, we give a complete answer and use it to determine precisely when the canonical product form is guaranteed for every strictly positive OI allocation.
+
+Pass-and-swap queues model scheduling and load-distribution protocols in machine clusters where compatibility constraints determine which jobs each machine can serve~\cite[pp.~277--278]{CD}. Their replacement chains describe how a service completion can move jobs through a sequence of compatible positions. A product-form stationary law expresses a configuration's probability through explicit queue-wise factors and one normalizing constant, enabling exact performance calculations without solving a separate balance equation for every state.
 
 Comte and Dorsman~\cite{CD} introduced pass-and-swap (P\&S) queues as an extension of order-independent (OI) queues. Dorsman and Gardner~\cite{DG} proved that their canonical stationary law survives a swap limit when the initial placement order is short, and conjectured transience of taller configurations under a partiteness hypothesis. Our classification identifies all short classes and the unique possible tall class. It places the earlier balanced family $\mathcal B_w$ in the larger family $\mathcal T_{n,w}$, and separates the structural recurrence question from the allocation-dependent balance question.
 
@@ -90,10 +93,19 @@ For $n\ge3$ and $w\ge2$, the following are equivalent:
 \end{enumerate}
 \end{theorem}
 
-This is universal validity over allocations. At an exceptional length it asserts the existence of an allocation violating canonical stationarity, not failure for every allocation. It is not a criterion for stationarity of an individually specified allocation. The sufficiency direction holds already for $w\ge1$: every nonexceptional cycle, in particular every even cycle, has only short recurrent classes. A law started outside those classes may converge to a mixture of classwise stationary laws; one globally normalized $W$ is not asserted.
+This is universal validity over allocations. At an exceptional length it asserts the existence of an allocation violating canonical stationarity, not failure for every allocation. It is not a criterion for stationarity of an individually specified allocation. The sufficiency direction holds already for $w\ge1$ by Corollary~\ref{cor:positive}\footnote{Formalized as \texttt{ClosedClass.safe\_normalized\_oi}; the sharpness equivalences require $w\ge2$.}: every nonexceptional cycle, in particular every even cycle, has only short recurrent classes. A law started outside those classes may converge to a mixture of classwise stationary laws; one globally normalized $W$ is not asserted.
 
 \paragraph{Relation to Conjecture 1.}
-Theorem~7 and Eq.~(25) of~\cite[p.~240]{DG} concern short initial placement orders and are unaffected. Conjecture~1 on printed p.~241 proposes transience of tall states on a $(w+1)$-partite graph. For every $w\ge2$, $C_{2w+1}$ is three-colorable, and its color classes can be refined to exactly $w+1$ nonempty independent sets. The nonempty closed exceptional set therefore refutes that transience claim inside its partite regime, even if non-head rates vanish. The same coloring observation applies to the larger exceptional cycles. At $w=1$ these cycles are odd and not bipartite: they are not counterexamples under the conjecture's hypothesis. The arbitrary-graph one-swap bipartite problem remains unresolved by this work. Counterexample~2 of~\cite[p.~239]{DG} already gives product-form failure outside the relevant partite regime.
+Conjecture~1 of~\cite[p.~241]{DG} proposes transience of tall states on a $(w+1)$-partite graph. Every cycle is three-colorable, hence $(w+1)$-partite for $w\ge2$, where partiteness means a coloring with at most $w+1$ colors, as in~\cite[Lemma~3, pp.~252--253]{DG}. The recurrence results give the following boundary, with different service assumptions in its two directions.
+
+\begin{corollary}[Cycle boundary for Conjecture 1]\label{cor:conjecture}
+For $n\ge3$ and $w\ge2$, with one job per vertex of $C_n$, Conjecture~1 fails for every admissible OI allocation, allowing zero non-head rates, whenever $n\equiv1\pmod{2w}$. For every other $n$, it holds under strictly positive service at every occupied position.
+\end{corollary}
+\begin{proof}
+At an exceptional length, $\T$ is nonempty and closed under every position completion. Under any admissible OI allocation it therefore contains a recurrent state, necessarily of height $w+1$. At every other length, Theorem~\ref{thm:classification} makes all tall states transient when position rates are strictly positive.
+\end{proof}
+
+Removing positivity from the validity direction remains open. Dorsman and Gardner explicitly note that their OI conditions guarantee positive head rates only~\cite[Appendix~C.2, p.~254]{DG}. Our finite checks in Section~\ref{sec:finite} find no tall recurrent states on the tested nonexceptional cycles under head-only service either, suggesting that this hypothesis may be removable. At $w=1$ the exceptional cycles are odd and fail the bipartite hypothesis; the arbitrary-graph one-swap bipartite problem remains unresolved. Theorem~7 and Eq.~(25) of~\cite[p.~240]{DG}, which concern short initial placement orders, are unaffected. Counterexample~2 of~\cite[p.~239]{DG} gives product-form failure outside the relevant partite regime.
 
 The proof proceeds from actual completions to exact orientation moves (Section~\ref{sec:quotient}), then from circular runs to terminal classes (Section~\ref{sec:runs}). Short-class balance proves the positive direction (Section~\ref{sec:positive}); complementary exceptional-family calculations prove sharpness (Section~\ref{sec:failures}). The five-job exclusion of all queue-wise factors, a short queue-length consequence, and finite verification follow in Sections~\ref{sec:certificate}--\ref{sec:finite}.
 
@@ -411,14 +423,14 @@ This proposition uses an exact computational certificate; the arbitrary-$w$ proo
 
 
 \section{A queue-length consequence}\label{sec:length}
-At unit position rates, $K=|c|$ decreases at rate $K$ and increases at rate $n-K$, independently of job order, swapping graph, and budget. Its birth--death generator therefore determines the same length-process law for any two initial laws with the same length marginal. Every placement word in a closed class occurs with all $n+1$ cuts, so the number of configurations at each length is the same. Since $W(c,d)=1/(|c|!|d|!)$, the normalized canonical length marginal at $j$ is $2^{-n}\binom nj$, the stationary law of this birth--death chain. On $\T$ with $w\ge1$, $k\ge2$, it consequently agrees with the marginal of an actual stationary law, although the canonical candidate is not stationary by Theorem~\ref{thm:unit}. The entire continuous-time length trajectories have identical laws under these two initializations. The nonzero residual $D=\widehat\pi Q$ also satisfies $\sum_{s:|c|=j}D(s)=0$ for every $j$. The generator identity extends to the proved position-indexed capacities. Detailed path-measure conventions are recorded in \texttt{LEAN.md}. This consequence specifies no convergence timescale.
+At unit position rates, $K=|c|$ decreases at rate $K$ and increases at rate $n-K$, independently of job order, swapping graph, and budget. Its birth--death generator therefore determines the same length-process law for any two initial laws with the same length marginal. Every placement word in a closed class occurs with all $n+1$ cuts, so the number of configurations at each length is the same. Since $W(c,d)=1/(|c|!|d|!)$, the normalized canonical length marginal at $j$ is $2^{-n}\binom nj$, the stationary law of this birth--death chain. On $\T$ with $w\ge1$, $k\ge2$, it consequently agrees with the marginal of an actual stationary law, although the canonical candidate is not stationary by Theorem~\ref{thm:unit}. The entire continuous-time length trajectories have identical laws under these two initializations. The nonzero residual $D=\widehat\pi Q$ also satisfies $\sum_{s:|c|=j}D(s)=0$ for every $j$. Detailed path-measure conventions and extensions to length-dependent service capacities are recorded in \texttt{LEAN.md}. This consequence specifies no convergence timescale.
 
 \Needspace{12\baselineskip}
 \section{Exhaustive finite results}\label{sec:finite}
-These computations give numerical state counts and check additional service supports and graphs. They supplement the arbitrary-size positive-position classification; the head-only cases and noncycle screen have their own finite scopes.
+The following exact computations supplement the general classification with state counts, head-only service supports, and noncycle graphs.
 
-\subsection{Exactly the tall recurrent set at \texorpdfstring{$w=2,3$}{w=2,3}}
-For $C_5$ with $w=2$ and $C_7$ with $w=3$, we enumerate the entire $(n+1)n!$-state space. We construct both the head-only graph and the graph allowing every position completion, identify strongly connected components, and retain precisely the terminal components. In \emph{both} event graphs, the set of recurrent states with $h>w$ is exactly $\B$; moreover $\B$ is one closed communicating class.
+\subsection{Complete cycle state spaces}
+Terminal-component enumeration of all $(n+1)n!$ configurations on $C_5/w=2$ and $C_7/w=3$, for both head-only and all-position completions, gives the following counts. In each graph, $\B$ is the unique tall recurrent class.
 \begin{center}
 \begin{tabular}{crrrr}
 \toprule
@@ -429,14 +441,14 @@ $w$ & Full states & Short recurrent & Tall recurrent $=|\B|$ & Transient\\
 \bottomrule
 \end{tabular}
 \end{center}
-For $w=3$, there are 3,248 height-four states in total: 1,120 are recurrent and 2,128 are transient. All 560 height-five and 112 height-six states are transient. Thus identifying a state as tall, or even as height $w+1$, does not by itself identify the recurrent region. Detailed component-size distributions are in \texttt{results/classification.json}. The all-position conclusions now also follow from Theorem~\ref{thm:classification}; these numerical counts and the C7 head-only classification remain separately computed results.
+For $w=3$, the 3,248 height-four states split into 1,120 recurrent and 2,128 transient states; all 560 height-five and 112 height-six states are transient. Component sizes are recorded in \texttt{results/classification.json}. Theorem~\ref{thm:classification} gives the all-position structure; these counts and the C7 head-only classification are separately computed.
+
+For the seven nonexceptional pairs $(n,w)\in(\{6,8\}\times\{1,2,3\})\cup\{(7,2)\}$, both supports give no tall recurrent states. Head-only service on $C_6/w=2$ has 68 closed classes, versus 20 for all-position service (\texttt{results/head\_cycles.json}). These are finite checks.
 
 \subsection{Small-graph screen}
-At $w=1$ we test all 61 non-isomorphic simple bipartite graphs with one through six vertices, including disconnected graphs, with one distinct job per vertex. The counts by vertex number are $1,2,3,7,13,35$. The package regenerates these isomorphism classes by vertex addition and exact canonical labeling, and verifies that the supplied graph list is complete. No external graph library is required.
+With one job per vertex, all 61 nonisomorphic simple bipartite graphs through six vertices pass the $w=1$ screen, including disconnected graphs. Their counts are $1,2,3,7,13,35$; vertex addition and exact canonical labeling verify completeness. Every configuration has a head-only path to the short region, which is closed under all position completions, ruling out tall recurrence.
 
-For every graph and every configuration, a reverse search from the short region finds a head-only path to a state of height at most one. The same check passes when all positions can complete. The short region is verified to be closed under all position completions. Hence these finite instances have no tall recurrent states.
-
-At $w=2$, the same tests pass for $K_3$, $K_{1,1,2}$, $K_{1,2,2}$, and $C_5$ with one pendant vertex, with one job per vertex. Across all 65 graphs the screen covers 192,590 states and 1,143,194 all-position events. These results show that the odd-cycle obstruction is not preserved by arbitrary graph modifications, and supply finite evidence for the remaining one-swap question. They establish neither that question in general nor minimality of our counterexample.
+The same tests at $w=2$ pass for $K_3$, $K_{1,1,2}$, $K_{1,2,2}$, and $C_5$ with one pendant vertex. These 65 graphs cover 192,590 states and 1,143,194 all-position events. The screen settles neither the general one-swap problem nor counterexample minimality.
 
 \subsection{Uniform-formula checks}
 All position completions are also checked inside the balanced regions below, at $\theta=1/2,1,2,3$.
@@ -452,11 +464,11 @@ $w$ & Cycle vertices & $|\B|$ & Position events\\
 \bottomrule
 \end{tabular}
 \end{center}
-The checks cover closure, zero-replacement communication within each orientation, communication between orientations, unlimited stationary balance, and the two-flow identity. They compare two transition implementations and separately audit changed incoming events in the complete spaces at $w=2,3$. Explicit source words and orientation moves are checked through $w=50$. On the family $n=2w+1$, at $\theta=1$, the canonical weights pass full stationary balance on the tested balanced regions $w=2,3,4,5$. This is computational evidence, not an asserted all-$w$ stationarity theorem. These computations supplement, rather than replace, the uniform proof.
+Two transition implementations check closure, communication within and between orientations, unlimited balance, and the two-flow identity. Complete-space predecessor audits cover $w=2,3$; explicit source words and orientation moves are checked through $w=50$. On the family $n=2w+1$ at $\theta=1$, full canonical balance passes for $w=2,3,4,5$: computational evidence, not an all-$w$ stationarity theorem.
 
 
 \subsection{Complete exceptional-class check on \texorpdfstring{$C_9$}{C9}}
-The unit-rate check enumerates all 131,040 configurations in $\mathcal T_{9,2}$, with 18 orientations and 1,179,360 position events for each of the limited and unlimited generators. It checks closure and compares two transition implementations. Using the integer weights $\binom9{|c|}=9!W(c,d)$, every unlimited residual is zero. Limited residuals are nonzero at 16,560 states, with value $-3$ at the target of Section~\ref{sec:nine}, and sum to zero at each queue length. The gained and lost event lists are complete on this support. These numerical counts are reproduced in \texttt{results/nine\_job.json}; the general residual theorem is proved independently of them.
+Two transition implementations check all 131,040 states in $\mathcal T_{9,2}$, its 18 orientations, and 1,179,360 events per generator. With integer weights $\binom9{|c|}=9!W(c,d)$, unlimited residuals all vanish; limited residuals are nonzero at 16,560 states, equal $-3$ at the target in Section~\ref{sec:nine}, and sum to zero at each length. Closure and complete gained/lost predecessor lists are also checked. The counts in \texttt{results/nine\_job.json} are independent checks of Theorem~\ref{thm:unit}.
 
 \section{Conclusion}\label{sec:conclusion}
 On cycles, a finite swap budget has an exact structural effect: the recurrent classes are the short orientation fibers and, precisely at $n=2kw+1$, one exceptional class with a single extra edge among otherwise full runs. The operational-to-orientation equivalence makes this a classification of the original queues. It yields a sharp universal canonical boundary for $w\ge2$, with different counterexample allocations covering the first and larger exceptional cycles. The five-job certificate goes further by excluding all queue-wise factors for one explicit allocation, and the head-only argument proves stronger rate robustness for that class. Neither strengthening is claimed for every exceptional cycle.
@@ -484,11 +496,9 @@ Lean verifies Theorems~\ref{thm:classification}, \ref{thm:sharp}, \ref{thm:balan
 
 \appendix
 \section{The five-job class under arbitrary OI allocation}\label{app:head}
-This appendix retains the stronger allocation-independent five-job statement. It is not a claim of head-only irreducibility for every $w$.
+Here admissible OI allocations have nonnegative prefix increments and positive singleton capacities~\cite[Definition~1, p.~210]{DG}. Heads therefore receive positive service, while other rates may vanish.
 
-Here an admissible OI allocation has nonnegative prefix increments and positive singleton capacities, as in~\cite[Definition~1, p.~210]{DG}; every nonempty queue consequently has a positive head rate. Non-head increments may vanish.
-
-Let $\Gamma$ consist of the ten relabelings $x\mapsto\varepsilon x+k\pmod5$, with $\varepsilon=\pm1$, combined with optional queue exchange. The group has order 20 and preserves allowed events, though not necessarily their rates. Queue exchange reverses the orientation and preserves height. Table~\ref{tab:orbits} lists nine representatives $t_i$. A vector lists destination orbits for successive positions in the corresponding queue, not necessarily the representative states themselves.
+The 20 symmetries in $\Gamma$ combine $x\mapsto\pm x+k\pmod5$ with optional queue exchange. They preserve allowed events, but need not preserve rates. Table~\ref{tab:orbits} gives representatives $t_i$; each vector lists destination orbits for successive queue positions.
 \begin{table}[ht]
 \centering\small
 \renewcommand{\arraystretch}{1.12}
@@ -514,27 +524,22 @@ $i$&$c$&$d$&$c$: positions $1,2,\ldots$&$d$: positions $1,2,\ldots$\\
 For every admissible OI allocation, $\mathcal B_2$ is a single closed communicating class of 180 states. At equal unit head-only rates, its uniform distribution is stationary.
 \end{proposition}
 \begin{proof}
-The $\Gamma$-action is free: queue exchange cannot fix a state with unequal queue lengths, and a relabeling fixing all occupied positions fixes every label. Representatives of different shorter-queue lengths cannot be equivalent. Within rows 1--3 an equivalence fixes the first two labels $(0,1)$ of $d$; within rows 4--6 it fixes $0$ in $c$ and $2$ at the head of $d$; within rows 7--9 it fixes $(0,1)$ in $c$. These conditions force the identity relabeling. Thus the nine orbits are disjoint and each has size 20. All representatives are balanced, and~\eqref{eq:size} gives $|\mathcal B_2|=180$, so their union is exactly $\mathcal B_2$.
+The action is free because queue lengths differ and all labels are distinct. Shorter-queue length separates rows 1--3, 4--6, and 7--9; within each group an equivalence fixes two distinct labels and hence is the identity. These nine balanced orbits have $9\cdot20=180$ states, exhausting $\mathcal B_2$ by~\eqref{eq:size}.
 
-Closure is already proved for all positions. To establish communication using only heads, let $C,D$ denote head completions in the respective queues. From $t_7$,
+\Needspace{8\baselineskip}
+Closure holds for all positions. Write $C,D$ for head completions. From $t_7$,
 \[
  CCDD:t_7\longmapsto((4,3),(2,1,0))=a(t_7),\qquad
  CDD:t_7\longmapsto((0,4,3),(2,1))=b(t_7),
 \]
-where $a$ is $x\mapsto4-x$ and $b$ is $x\mapsto2-x$ followed by queue exchange. Both are involutions. Their composition is a rotation by two together with queue exchange, of order ten; $a$ is not one of its powers. They therefore generate all of $\Gamma$. Symmetry transforms these legal paths into paths between the corresponding orbit members, so all states in the orbit of $t_7$ communicate.
-
-The quotient head graph is strongly connected: the walk
+where $a(x)=4-x$ and $b$ combines $x\mapsto2-x$ with queue exchange. These involutions generate $\Gamma$: their product has order ten and $a$ is not one of its powers. Equivariance lifts the paths to every orbit member, proving communication within the orbit of $t_7$. The head walk
 \[
  7\to6\to1\to4\to3\to6\to8\to5\to2\to5\to9\to4\to7
 \]
-visits all nine orbits. Lifting these paths, and using communication within the orbit of $t_7$, proves communication throughout $\mathcal B_2$. Every OI allocation retains these head events with positive rates and can only add events inside the closed set.
+visits all nine orbits; lifting it through that communicating orbit proves communication throughout $\mathcal B_2$. Every admissible allocation retains these head events with positive rates.
 
-At unit head rates, incoming orbit incidences are respectively
-\[
- (6),\ (5),\ (4),\ (1,9),\ (2,8),\ (3,7),\ (4,8),\ (6,9),\ (5,7).
-\]
-Because every orbit is free and has the same size, every state in orbits 1--3 has one incoming head event and every state in the other orbits has two. These equal their outgoing event counts, proving uniform stationary balance. This uniform law is asserted only for these unit head rates, not for arbitrary allocations.
+At unit head rates, the table and free group action give one incoming event per state in orbits 1--3 and two in each other orbit. These match the outgoing counts, proving uniform balance for this allocation.
 \end{proof}
 
-The package's \texttt{data/all\_position\_certificate.json} records every actual successor and a relabeling/queue-exchange witness for Table~\ref{tab:orbits}. The orbit verifier checks these records, all 72,000 event/symmetry identities on the full five-job state space, the two displayed paths, and forward and reverse head reachability.
+The exact successors and symmetry witnesses are in \texttt{data/all\_position\_certificate.json}. The verifier checks them, all 72,000 event/symmetry identities on the full five-job space, both displayed paths, and forward/reverse head reachability.
 \end{document}

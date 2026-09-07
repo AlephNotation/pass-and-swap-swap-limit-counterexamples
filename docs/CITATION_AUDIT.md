@@ -26,6 +26,8 @@ Publisher PDF: https://link.springer.com/content/pdf/10.1007/s11134-024-09914-1.
 | Counterexample 2 | 239 | 35 | Earlier product-form failure with w=1 and a complete three-class graph, hence outside the required bipartite regime. |
 | **Theorem 7 and Eq. (25)** | **240** | **36** | Short-placement-order result. Eq. (25) is the stationary law; the explicit prefix-product formulas for Phi and Lambda are in an **unnumbered display immediately below it**. |
 | **Conjecture 1** | **241** | **37** | Transience of taller states on a (w+1)-partite graph. The following paragraph describes the intended product-form consequence. |
+| Lemma 3 and its proof | 252-253 | 48-49 | Partiteness is used in the at-most-color sense: the reverse implication constructs at most w+1 independent vertex sets. Every cycle therefore meets the hypothesis when w>=2. |
+| Appendix C.2, allocation caveat | 254 | 50 | Explicitly notes that OI assumptions ensure positive service only at the heads. The manuscript's Conjecture 1 corollary needs positive position rates for validity at nonexceptional lengths; exceptional closure gives failure without this extra assumption. |
 
 The current manuscript cites the explicit definition of the swap limit, not
 Example 8 as evidence that the implemented transitions are correct. It does not
@@ -44,6 +46,7 @@ Publisher PDF: https://link.springer.com/content/pdf/10.1007/s11134-021-09700-3.
 | Item used in the revised manuscript | Printed page | PDF page | Verified location and use |
 |---|---:|---:|---|
 | Section 3.1, definition | 284-285 | 10-11 | The formal minimum-index replacement recursion and resulting queue appear on p. 285. |
+| Introduction, machine-cluster applications | 277-278 | 3-4 | Motivation for P&S models through scheduling and load distribution subject to machine-job compatibility constraints. |
 | **Theorem 5 and Eq. (23)** | **298** | **24** | Original unlimited two-queue tandem product form; the normalizer is Eq. (24) on that page. |
 
 **Equation numbers are paper-specific.** Eq. (25) on p. 298 of the 2021 paper is
@@ -77,3 +80,11 @@ short-fiber proof uses the unlimited theorem after proving communication;
 Lean proves this balance identity independently. Conjecture 1 retains that
 partiteness hypothesis. For w=1 it requires bipartiteness, so odd-cycle
 examples do not refute it. The public archive has not been updated.
+
+The follow-up corollary in `paper.tex` fixes one job per cycle vertex and
+separates the directions: exceptional lengths fail for every admissible OI
+allocation; nonexceptional lengths are proved valid under positive position
+rates. It does not claim general validity with zero non-head rates. The
+motivating paragraph uses the 2021 introduction's machine-cluster
+applications; the product-form explanation concerns the manuscript's
+classwise normalized law.

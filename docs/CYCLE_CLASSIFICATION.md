@@ -15,6 +15,21 @@ model with an assumed run rewrite rule or assume the paper's product-form theore
 
 ## Main statements
 
+For `n >= 3` and `w >= 2`, Conjecture 1 on cycles with one job per vertex
+fails at `n % (2*w) == 1` for every admissible OI allocation, including
+head-only service: the exceptional set is nonempty, tall, and closed under
+every position event. At all other lengths the classification proves
+validity under positive position rates. Removing that restriction from the
+validity direction remains open. All cycles are three-colorable, so the
+`(w+1)`-partite hypothesis imposes no further restriction in this range.
+
+`code/verify_head_cycles.py` checks the seven nonexceptional pairs
+`{6,8} × {1,2,3}` and `(7,2)` by complete SCC enumeration under both
+head-only and all-position service. Neither support has tall recurrent
+states in those cases. This is evidence for removing positivity from the
+validity direction, not a proof. `results/head_cycles.json` records all
+class counts, including 68 versus 20 on C6/w=2.
+
 All declarations below are in namespace `OddCycle`.
 
 | Result | Declaration |
