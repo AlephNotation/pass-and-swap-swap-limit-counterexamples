@@ -7,7 +7,7 @@ abstract: >-
   checks for counterexamples to transience and product-form claims in limited
   pass-and-swap queues.
 authors:
-  - given-names: "Ty"
+  - given-names: "Tynan"
     family-names: "Daly"
     email: "tynan.daly@hdr.is"
 repository-code: "https://github.com/AlephNotation/pass-and-swap-swap-limit-counterexamples"
