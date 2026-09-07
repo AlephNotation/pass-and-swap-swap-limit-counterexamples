@@ -22,6 +22,12 @@ The complete continuous-time queue mixing theorem still has the explicitly
 listed obligations in that document. Its audit is
 `OddCycle/StructuralTheoryAudit.lean`.
 
+The [exact indistinguishability theorem](QUEUE_LENGTH_INDISTINGUISHABILITY.md)
+connects the unit-rate exceptional family's canonical failure to equality of
+entire continuous-time length-trajectory laws. Its comparison initialization
+is proved invariant at every physical time, using the existing exponential
+clock construction. The audit is `OddCycle/IndistinguishabilityAudit.lean`.
+
 ## Run
 
 Lean and Mathlib are pinned to 4.28.0. With Elan installed, run from this

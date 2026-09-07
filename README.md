@@ -29,6 +29,13 @@ family where all length-observable balance identities hold despite full
 canonical failure. The document develops a stronger slow-mixing argument;
 that continuous-time mixing theorem is not yet fully formalized.
 
+The [queue-length indistinguishability theorem](QUEUE_LENGTH_INDISTINGUISHABILITY.md)
+is now formalized for every unit-rate `C_(2kw+1)`, `w >= 1`, `k >= 2`.
+The nonstationary normalized canonical candidate and an actual stationary
+initialization give exactly the same law of the entire continuous-time
+queue-length trajectory. The theorem includes cancellation of the residual at
+every length and an explicit C9/w=2 example in the same model.
+
 ## One-command verification
 
 Python **3.10 or newer**, standard library only:
