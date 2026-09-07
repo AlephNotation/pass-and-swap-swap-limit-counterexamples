@@ -196,6 +196,12 @@ target directly, without assuming the cited unlimited product-form theorem.
 
 ## Scope boundary
 
+The newer complete-cycle classification is a separate development. Its
+checked components and outstanding obligations are listed in
+[CYCLE_CLASSIFICATION.md](CYCLE_CLASSIFICATION.md). The run rewrite theorem
+is checked for arbitrary sizes, but the complete operational classification
+and the larger-cycle symmetric product-form obstruction are not yet proved.
+
 The continuous-time sample-path construction, holding times, and their
 measure-theoretic connection to the embedded chain are not formalized.
 The checked probability conclusion is precisely convergence of finite-step
