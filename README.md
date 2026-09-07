@@ -1,5 +1,6 @@
 # Recurrence and Product-Form Stationarity in Swap-Limited Queues on Cycles
 
+[![DOI](https://zenodo.org/badge/1359616826.svg)](https://doi.org/10.5281/zenodo.22575717)
 [![Lean proofs](https://github.com/AlephNotation/pass-and-swap-swap-limit-counterexamples/actions/workflows/lean.yml/badge.svg)](https://github.com/AlephNotation/pass-and-swap-swap-limit-counterexamples/actions/workflows/lean.yml)
 
 [Paper (PDF)](paper.pdf) · [Editable LaTeX](paper.tex) · [Theorem/Lean map](LEAN.md) · [Verification package](PACKAGE.md)
