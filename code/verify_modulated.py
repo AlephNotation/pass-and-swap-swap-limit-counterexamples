@@ -8,6 +8,7 @@ carry implementation. The verifier does not call the stationary solver.
 import argparse
 from itertools import permutations
 import json
+from math import comb
 from pathlib import Path
 
 from verify_five import balanced, check, complete, complete_carried, transition
@@ -44,6 +45,12 @@ def verify_certificate(data):
     total = sum(weights.values())
     check(total == data['total_weight'], 'certificate total')
     residual = {s: 0 for s in support}
+    # At unit position rates, 5! times the canonical weight is binomial(5, |c|).
+    # Check both fixed-mode generators and their joint modulation on the same
+    # operational event graph used for the distinguished-rate certificate.
+    unit_weights = {(s, b): comb(5, len(s[0])) for s, b in support}
+    unit_residual = {s: 0 for s in support}
+    unit_queue_residual = {s: 0 for s in support}
     graph = {s: [] for s in support}
     reverse = {s: [] for s in support}
     count = 0
@@ -65,10 +72,20 @@ def verify_certificate(data):
             check(target != state, 'unexpected self-event')
             residual[state] -= weights[state] * rate
             residual[target] += weights[state] * rate
+            unit_residual[state] -= unit_weights[state]
+            unit_residual[target] += unit_weights[state]
+            if target[1] == b:
+                unit_queue_residual[state] -= unit_weights[state]
+                unit_queue_residual[target] += unit_weights[state]
             graph[state].append(target)
             reverse[target].append(state)
             count += 1
     check(not any(residual.values()), 'stationary balance failed')
+    check(not any(unit_queue_residual.values()), 'unit-rate fixed-mode canonical balance')
+    check(not any(unit_residual.values()), 'unit-rate modulated canonical balance')
+    unit_mode_totals = [sum(v for (s, b), v in unit_weights.items() if b == mode)
+                        for mode in (0, 1)]
+    check(unit_mode_totals == [960, 960], 'unit-rate canonical normalizers')
     start = (RECTANGLE[0], 0)
     check(reachable(start, graph) == support and reachable(start, reverse) == support,
           'joint chain is not irreducible')
@@ -86,7 +103,16 @@ def verify_certificate(data):
             'rectangle_mode': 0, 'rectangle_states': RECTANGLE,
             'rectangle_weights': values, 'rectangle_mod_101': [v % 101 for v in values],
             'determinant': determinant, 'determinant_mod_101': determinant % 101,
-            'mode_dependent_queue_factorization_impossible': True}
+            'mode_dependent_queue_factorization_impossible': True,
+            'unit_rate_comparison': {
+                'class_rates': [1, 1, 1, 1, 1],
+                'fixed_mode_canonical_balance': ['PASS', 'PASS'],
+                'joint_canonical_balance': 'PASS',
+                'integer_mode_weights': unit_mode_totals,
+                'integer_total_weight': sum(unit_mode_totals),
+                'canonical_queue_normalizer': 8,
+                'stationary_law': '1 / (16 * |c|! * |d|!)',
+                'queue_and_mode_independent': True}}
 
 
 def main():

@@ -1,10 +1,10 @@
 # Verification report
 
 Revision: the `even-cycles-modulated-budget` branch. The
-[Lean proofs workflow](https://github.com/AlephNotation/pass-and-swap-swap-limit-counterexamples/actions/workflows/lean.yml)
-records the exact commit SHA and full machine-proof results for every push.
-The checks below completed locally on 7 September 2026 before committing
-this revision.
+[branch's CI runs](https://github.com/AlephNotation/pass-and-swap-swap-limit-counterexamples/actions/workflows/lean.yml?query=branch%3Aeven-cycles-modulated-budget)
+record the exact commit SHA and full machine-proof results for every push.
+The proof revision is `68f5d5fe5eb8f28828253eea80d4d678044bdeb5`.
+The checks below completed locally on 7 September 2026 before that commit.
 
 | Command actually run | Result |
 |---|---|
@@ -18,7 +18,7 @@ this revision.
 | `python3 -B code/export_modulated_certificate.py --check` | Passed; new Lean data matches the integer certificate |
 | Two complete `tectonic --keep-logs --keep-intermediates --outdir DIR paper.tex` builds | Passed; no warnings or box problems, all internal references resolve |
 
-The final PDF has 16 pages. Rendered pages were visually inspected, including
+That PDF had 16 pages. Rendered pages were visually inspected, including
 both new statements and the certificate calculation. The author is **Tynan
 Daly**; the assistance acknowledgment is unchanged.
 
@@ -29,6 +29,26 @@ The new modulated example fixes C5, budgets two/unlimited, class rates
 Lean proves the actual generator's unique stationary probability law and
 excludes arbitrary real queue factors even when they depend on the mode.
 [LEAN.md](../LEAN.md) gives the exact declaration map and scope.
+
+The feedback follow-up changes no Lean source, certificate, or build settings.
+It adds the exact unit-rate comparison to the existing modulated verifier,
+clarifies Conjecture 2's hypotheses from the complete publisher statement,
+and links the README to CI logs. Its local checks on 7 September 2026 were:
+
+| Command actually run | Result |
+|---|---|
+| `python3 -B run_checks.py` | Passed; all eight expected result files reproduced, including the new unit-rate comparison |
+| `python3 -B -O code/verify_modulated.py` | Passed; JSON equals `results/modulated.json` |
+| Two complete `tectonic --keep-logs --keep-intermediates --outdir DIR paper.tex` builds | Passed; no TeX warnings, box problems, or unresolved references |
+| `pdftoppm -r 100 -png DIR/paper.pdf DIR/page` and visual inspection | All 17 pages reviewed; enlarged review of the modulated section and final proof page |
+| `git diff --check` | Passed |
+
+The current PDF has 17 pages. The author and assistance acknowledgment are
+unchanged. Unit rates give the normalized joint law
+`1 / (16 * |c|! * |d|!)` on the same 360-state support. This is an exact finite
+check, not a new Lean theorem. Both fixed-mode generators and joint balance
+were checked with integer weights; the distinguished-rate certificate remains
+unchanged and still verifies.
 
 Full independent kernel replay was not repeated locally for this change.
 CI runs `lake env leanchecker --verbose OddCycle`, alongside the full build,

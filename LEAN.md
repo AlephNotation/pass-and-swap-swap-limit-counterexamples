@@ -90,6 +90,7 @@ telescoping prefix weights. No external theorem is introduced as an axiom.
 | Five-job certificate and orbit table | `verify_five.py`, `verify_orbits.py` / corresponding JSON | Exact 180-state certificate, 45 representative events, 72,000 symmetry identities, unit-head balance. |
 | Small-graph screen | `verify_screen.py` / `results/screen.json` | All 61 simple bipartite graphs on 1..6 vertices at w=1; four named graphs at w=2; 192,590 states, 1,143,194 all-position events. |
 | Modulated five-job certificate | `verify_modulated.py` / `results/modulated.json`; `data/modulated_certificate.json` | All 360 states and 2,160 events; independent closure, communication and integer-balance checks. Budgets 2/unlimited, unit switching. Limited-mode rectangle `(35,59;6,1)` modulo 101 has determinant 85. The solver uses 90 orbits; the verifier uses the full state space. |
+| Modulated five-job unit-rate comparison | `verify_modulated.py` / `results/modulated.json`, `unit_rate_comparison` | The same support and switches, but all class rates one. Integer weights `binomial(5, length(c))` balance both fixed-mode generators and the joint chain. Normalized law `1 / (16 * length(c)! * length(d)!)`; queue and mode are independent. Exact finite check, not a new Lean theorem or an all-`w` balanced-family result. |
 | Head-only service on nonexceptional cycles | `verify_head_cycles.py` / `results/head_cycles.json` | Seven pairs: `(6,1)`, `(6,2)`, `(6,3)`, `(7,2)`, `(8,1)`, `(8,2)`, `(8,3)`. Complete SCC checks under both supports; 1,144,080 state/budget cases, 2,031,840 head events, 9,082,080 all-position events. No tall recurrence; C6/w=2 has 68 head-only classes versus 20 all-position classes. Finite evidence only. |
 
 The general classification is proved in Lean; its computed state counts
@@ -155,8 +156,11 @@ limit is assumed: both environment transition rates are exactly one.
 `ModulatedAudit.lean` audits these statements and the even-cycle specializations.
 
 Conjecture 2 on printed p. 245 asserts product form for an exogenous swap-limit
-modulator. The example is a genuine two-mode process on a three-partite graph,
-with positive OI service. It starts in the tall class. The swapping-graph
+modulator, without an explicit short-initial-order restriction. The latter
+appears in Theorem 7.1 on p. 240, not as a standing assumption of Section 5.2.2,
+which also discusses tall initial states. The example is a genuine two-mode
+process on a three-partite graph, with positive OI service. It starts in the
+tall class and refutes Conjecture 2 as stated. The swapping-graph
 modulation theorem (Theorem 6) is a different statement and is unaffected.
 
 ## Detailed balanced-family declarations

@@ -86,5 +86,27 @@
   ],
   "determinant": 3692263129782551898295072792589172464209481242077253217951956329761032985951791791506400,
   "determinant_mod_101": 85,
-  "mode_dependent_queue_factorization_impossible": true
+  "mode_dependent_queue_factorization_impossible": true,
+  "unit_rate_comparison": {
+    "class_rates": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "fixed_mode_canonical_balance": [
+      "PASS",
+      "PASS"
+    ],
+    "joint_canonical_balance": "PASS",
+    "integer_mode_weights": [
+      960,
+      960
+    ],
+    "integer_total_weight": 1920,
+    "canonical_queue_normalizer": 8,
+    "stationary_law": "1 / (16 * |c|! * |d|!)",
+    "queue_and_mode_independent": true
+  }
 }

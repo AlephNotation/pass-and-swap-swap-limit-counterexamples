@@ -430,7 +430,9 @@ This proposition uses an exact computational certificate; the arbitrary-$w$ proo
 
 
 \section{Markov-modulated swap limits}\label{sec:modulated}
-Conjecture~2 of~\cite[p.~245]{DG} proposes product form when an exogenous Markov process controls the swap limit. The exceptional class permits a direct test with both limited and unlimited service. Keep $C_5$, one job per vertex, and the additive class rates $(2,1,1,1,1)$ in both queues. Independently of queue events, let the environment jump $L\to U$ and $U\to L$ at rate one. Mode $L$ uses budget two, and mode $U$ allows unlimited replacements; switching changes only the mode. On
+Conjecture~2 of~\cite[p.~245]{DG} proposes product form when an exogenous Markov process controls the swap limit in the tandem of its Section~5.2.2. Its statement has no short-initial-order restriction; that hypothesis appears explicitly in Theorem~7.1 of~\cite[p.~240]{DG}. We address Conjecture~2 as stated, including initial states in a tall closed class.
+
+Keep $C_5$, one job per vertex, and the additive class rates $(2,1,1,1,1)$ in both queues. Independently of queue events, let the environment jump $L\to U$ and $U\to L$ at rate one. Mode $L$ uses budget two, and mode $U$ allows unlimited replacements; switching changes only the mode. On
 \[
  \mathcal S=\mathcal B_2\times\{L,U\},
 \]
@@ -470,6 +472,14 @@ The determinant is congruent to $35\cdot1-59\cdot6\equiv85\pmod{101}$, so it is 
 \end{proof}
 
 The graph is three-partite and both allocations are strictly positive and OI. The example starts in the height-three class, which both modes preserve. It concerns modulation of the \emph{budget}; the swapping-graph modulation theorem of~\cite[Theorem~6]{DG} is unaffected. The rational solver uses 90 symmetry orbits, but the independent verifier and Lean certificate check operate on all 360 original states. The Lean development also proves closure, communication, normalization, the generator identity, uniqueness, and exclusion of mode-dependent queue factors.
+
+\paragraph{Unit-rate comparison.}
+With unit service at every position and the same modulation, the stationary law on $\mathcal S$ is instead
+\[
+ \pi(c,d,b)=\frac{1}{16\,|c|!\,|d|!}
+           =\pi_{\rm can}(c,d)\rho(b),\qquad \rho(L)=\rho(U)=\tfrac12.
+\]
+The exact finite check in \texttt{code/verify\_modulated.py} verifies that the canonical queue law balances both fixed-mode generators and their joint modulation. Thus class asymmetry matters for this five-job comparison; the larger exceptional cycles in Section~\ref{sec:larger} already fail at unit rates.
 
 \section{A queue-length consequence}\label{sec:length}
 At unit position rates, $K=|c|$ decreases at rate $K$ and increases at rate $n-K$, independently of job order, swapping graph, and budget. Its birth--death generator therefore determines the same length-process law for any two initial laws with the same length marginal. Every placement word in a closed class occurs with all $n+1$ cuts, so the number of configurations at each length is the same. Since $W(c,d)=1/(|c|!|d|!)$, the normalized canonical length marginal at $j$ is $2^{-n}\binom nj$, the stationary law of this birth--death chain. On $\T$ with $w\ge1$, $k\ge2$, it consequently agrees with the marginal of an actual stationary law, although the canonical candidate is not stationary by Theorem~\ref{thm:unit}. The entire continuous-time length trajectories have identical laws under these two initializations. The nonzero residual $D=\widehat\pi Q$ also satisfies $\sum_{s:|c|=j}D(s)=0$ for every $j$. Detailed path-measure conventions and extensions to length-dependent service capacities are recorded in \texttt{LEAN.md}. This consequence specifies no convergence timescale.

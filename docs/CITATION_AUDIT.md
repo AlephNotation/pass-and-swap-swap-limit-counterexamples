@@ -91,10 +91,22 @@ motivating paragraph uses the 2021 introduction's machine-cluster
 applications; the product-form explanation concerns the manuscript's
 classwise normalized law.
 
-The Conjecture 2 page (printed 245 / PDF 41) was separately rendered and
-visually inspected for the modulation extension. Its statement imposes no
-explicit short-initial-order restriction. The counterexample uses positive
-OI service, a three-partite C5, and a genuine two-state environment switching
-between budget two and unlimited service at unit rates. Its initial states
-belong to the tall exceptional class. The result concerns budget modulation;
-Theorem 6 concerns swapping-graph modulation and is not contradicted.
+The complete [Conjecture 2 statement (printed 245 / PDF 41)](https://link.springer.com/content/pdf/10.1007/s11134-024-09914-1.pdf#page=41)
+was checked in the publisher PDF, including its conclusion, and cross-checked
+against the publisher HTML. In paraphrase: take the two-queue closed tandem
+of Section 5.2.2, let an exogenous Markov chain with environment state `b`
+determine the swap limit, and include `b` in the joint state; the conjecture
+asserts that the stationary distribution has product form.
+
+No short-initial-order restriction appears in that statement. Section 5.2.2
+imposes the partite-graph framework; Theorem 7.1 on p. 240 explicitly adds a
+short-initial-order hypothesis, and the discussion on p. 241 then considers
+tall initial states. Thus the short-order condition is not a standing
+assumption of the whole subsection. The paragraph before Conjecture 2
+explicitly allows an unlimited mode.
+
+The manuscript therefore addresses **Conjecture 2 as stated**. The example
+uses positive OI service, a three-partite C5, and a two-state environment
+switching between budget two and unlimited service at unit rates. Its initial
+states belong to the tall exceptional class. It does not contradict the
+short-initial-order Theorem 7.1 or the swapping-graph modulation Theorem 6.

@@ -33,11 +33,17 @@ At `w=1`, every even cycle has exactly two closed classes, the two alternating
 orientations, under positive position rates. Thus the one-swap conjecture is
 confirmed on this infinite bipartite family in that regime.
 
-A separate C5 certificate refutes the proposed Markov-modulated product form:
+A separate C5 certificate refutes Conjecture 2 as stated:
 an independent environment switches between budget two and unlimited swaps
 at rate one in each direction, with class rates `(2,1,1,1,1)` in both queues.
 Its 360-state closed class has a unique stationary law admitting no queue-wise
 factors, even if the factors depend on the environment mode.
+The conjecture has no explicit short-initial-order restriction; Theorem 7.1
+does. See the [publisher-source audit](docs/CITATION_AUDIT.md).
+With unit position rates and the same two-mode switching, the canonical
+queue law times the uniform mode law is stationary on this C5 class:
+`pi(c,d,b) = 1 / (16 * |c|! * |d|!)`. This comparison is an exact finite
+check, not a general claim about all exceptional cycles.
 
 The classification and sharp boundary remain the manuscript's main results.
 Lean proves them for arbitrary parameters from the actual queue transitions;
@@ -105,11 +111,16 @@ python3 -B code/export_lean_certificate.py --check
 python3 -B code/export_modulated_certificate.py --check
 ```
 
-[GitHub Actions](.github/workflows/lean.yml) runs these machine-proof checks
+[GitHub Actions](https://github.com/AlephNotation/pass-and-swap-swap-limit-counterexamples/actions/workflows/lean.yml) runs these machine-proof checks
 on every push and pull request, and can also be run manually. The five
 axiom audits reject dependencies outside `propext`, `Classical.choice`,
 and `Quot.sound`, including `sorryAx`. CI uses the pinned Lean toolchain
 and Mathlib dependency, and replays the full `OddCycle` library. It also runs the complete Python suite.
+For the audit output, open the run for the desired commit and its
+**Enforce the axiom allowlist in all audits** step. The
+[branch's CI runs and logs](https://github.com/AlephNotation/pass-and-swap-swap-limit-counterexamples/actions/workflows/lean.yml?query=branch%3Aeven-cycles-modulated-budget)
+record the commit, status, and each check's output; the
+[workflow source](.github/workflows/lean.yml) specifies the commands.
 
 All Lean modules, including the preserved structural and path-law proofs,
 remain in the default build. [PACKAGE.md](PACKAGE.md) gives the complete

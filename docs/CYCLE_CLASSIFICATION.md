@@ -202,3 +202,9 @@ certificate is in `data/modulated_certificate.json`; the generator and
 nonfactorization theorems are in `OddCycle.ModulatedStationary`. This is a
 finite complement to the general cycle classification, not a new claim
 about arbitrary graphs or every modulated allocation.
+With unit position rates on the same C5 support and the same switches,
+the canonical queue law times the uniform mode law is stationary instead.
+The exact finite check verifies both fixed-mode balances and joint balance,
+with normalized weights `1 / (16 * |c|! * |d|!)`. This is a computed
+comparison, separate from the Lean nonfactorization theorem at rates
+`(2,1,1,1,1)` and from the larger exceptional-family failure at unit rates.
