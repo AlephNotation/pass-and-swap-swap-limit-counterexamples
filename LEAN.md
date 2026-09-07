@@ -5,10 +5,11 @@ arguments for every w ≥ 2, as well as the five-job certificate. It also proves
 the finite Markov-chain recurrence and stationary-vector results and connects
 them to the queue's original transitions and balance equations.
 
-The probability statements concern the embedded completion chain: the
-probability of returning within n steps tends to one. A continuous-time
-sample-path process is not constructed. The C7 classification, graph screen,
-and other finite experiments remain outside Lean.
+The cycle extension also constructs the continuous-time sample-path process
+from the completion kernel and independent exponential clocks. Lean checks
+measurability, nonexplosion, recurrence, and almost-sure absorption into one
+communicating class. The C7 classification, graph screen, and other finite
+experiments retain their separate Python checks.
 
 Lean reconstructs the replacement dynamics. It does not import Python
 transition tables or assume the Python checks are correct.
@@ -196,18 +197,32 @@ target directly, without assuming the cited unlimited product-form theorem.
 
 ## Scope boundary
 
-The newer complete-cycle classification is a separate development. Its
-checked components and outstanding obligations are listed in
-[CYCLE_CLASSIFICATION.md](CYCLE_CLASSIFICATION.md). The run rewrite theorem
-is checked for arbitrary sizes, but the complete operational classification
-and the larger-cycle symmetric product-form obstruction are not yet proved.
+The newer complete-cycle classification is developed in
+`OddCycle/CycleClassification.lean`; its theorem map is in
+[CYCLE_CLASSIFICATION.md](CYCLE_CLASSIFICATION.md). The arbitrary-size
+operational classification, exceptional-class uniqueness and exact orientation
+count, positive-position completion kernel, recurrence and absorption, general
+OI canonical stationarity, and sharp product-form boundary are checked.
+The larger-cycle unit-rate residual includes complete predecessor counting and
+actual exceptional-class membership. C9/w=2 is an explicit checked specialization.
 
-The continuous-time sample-path construction, holding times, and their
-measure-theoretic connection to the embedded chain are not formalized.
-The checked probability conclusion is precisely convergence of finite-step
-return probabilities to one. Arbitrary OI allocations enter the general
-recurrence result through their completion-supported stochastic kernel;
-the distinguished-rate kernel is constructed explicitly.
+Recurrence and absorption hold on the explicitly constructed probability
+space of continuous-time paths. The infinite completion trajectory uses
+Ionescu--Tulcea; independent unit exponentials are divided by the current
+state's total rate. The proof checks exponential completion probabilities,
+measurability, nonexplosion, legal transitions, and transfer of the finite-chain
+return and avoidance formulas. Almost every path eventually stays in one
+of the classified communicating classes. Stationarity uses the original
+continuous-time generator's balance equations.
+
+`CycleClassifier.classify_continuous_recurrence` connects an executable rank-array
+and run classifier to this continuous-time recurrence event. Its cost is at
+most `33*n + 18` units in the explicitly instrumented word-RAM model, including
+placement construction and array initialization. This is an algorithmic
+operation bound, not a bit-complexity or compiler wall-time guarantee.
+
+The new working proof's reported JSON experiments are not Lean proofs; their
+files were not present in this checkout and are not assumed by the theorems.
 
 The C7 classification, small-graph screen, and other finite experiments in
 the manuscript are verified by the Python suite, not by these Lean proofs.

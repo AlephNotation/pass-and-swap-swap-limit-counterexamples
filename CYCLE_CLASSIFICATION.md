@@ -1,95 +1,165 @@
-# Complete-cycle classification: Lean proof status
+# Cycle classification: Lean formalization
 
-This development formalizes components of the working proof supplied on
-7 September 2026. **The complete operational classification and the new
-product-form theorems are not yet formalized.** No theorem assumes the missing
-classification as an axiom, and no finite screen replaces a general proof.
+The arbitrary-size operational classification (Theorem A), positive OI
+product-form result (Corollary B), and sharp canonical boundary (Theorem C)
+from the working proof of 7 September 2026 are proved in Lean. The new
+unit-rate residual is proved on the actual exceptional recurrent class for
+all `w ≥ 1, k ≥ 2`, including completeness of both predecessor lists.
+The continuous-time recurrence and absorption statements and the linear-time
+classifier claim are also formalized, with the cost model specified below.
 
-The new entry point is `OddCycle/CycleClassification.lean`. It reuses the
-repository's original `Valid`, `orientation`, `height`, `carry`, `complete`,
-`transition`, and `EventReachable` definitions.
+Entry point: `OddCycle/CycleClassification.lean`. The development uses the
+original repository definitions of `Valid`, `orientation`, `height`, `carry`,
+`complete`, `transition`, and `EventReachable`. It does not replace the queue
+model with an assumed run rewrite rule or assume the paper's product-form theorem.
 
-## Checked arbitrary-size results
+## Main statements
 
-| Part of the argument | Checked declaration |
+All declarations below are in namespace `OddCycle`.
+
+| Result | Declaration |
 |---|---|
-| Reachability lifts through communicating fibers | `ReachabilityQuotient.reach_iff` |
-| Terminal components correspond under that quotient | `ReachabilityQuotient.terminal_iff` |
-| Application to actual queue-state orientation fibers | `CycleState.orientation_reachable_iff`, `CycleState.terminal_orientation_iff` |
-| Run count cannot decrease | `CircularRun.Reach.length_le` |
-| Deficit cannot increase along a path with unchanged run count | `CircularRun.Reach.deficit_le` |
-| Exact terminal classification of the circular-composition rewrite relation | `CircularRun.terminal_iff` |
-| Exceptional composition means precisely one long run | `CircularRun.exceptional_iff_one_long` |
-| Exceptional composition with an even run count implies `n = 2*k*w + 1` | `CircularRun.exceptional_cycle_length` |
-| All parameters `(a,b)` communicate under `(a,b) → (a+w,!b)` at exceptional lengths | `ExceptionalCycle.communication` |
-| The parameter space has cardinality `2*n` | `ExceptionalCycle.parameter_count` |
-| Alternating-block encoding reconstructs the input word | `CircularWord.encode_linearRuns` |
-| Circular extraction yields positive lengths summing to the word length | `CircularWord.circularRuns_positive`, `CircularWord.circularRuns_sum` |
-| Nonconstant words yield an even number of circular runs | `CircularWord.circularRuns_even` |
-| Actual valid cycle orientations are nonconstant | `orientation_nonconstant` |
-| Actual exceptional run patterns require an exceptional cycle length | `exceptionalRuns_cycle_length` |
-| No even cycle state has the exceptional run pattern | `even_cycle_not_exceptional` |
-| A sufficient path-length budget agrees with the unlimited scan | `carry_eq_unlimited_of_paths` |
-| Actual transitions preserve short orientations | `transition_short_orientation` |
-| Placement height depends only on orientation | `height_eq_of_orientation_eq` |
-| Reachable states of a short state are exactly its orientation fiber | `short_reachable_iff` |
-| Every short queue state belongs to a terminal event component | `short_terminal` |
-| Terminal components of a finite stochastic kernel have return probability tending to one | `FiniteMarkov.terminal_returnBy_tendsto_one` |
-| The corresponding return result for legal completion kernels positive on every event | `CycleState.terminal_returnBy_tendsto_one` |
-| Every actual short state has return probability tending to one for those kernels | `CycleState.short_returnBy_tendsto_one` |
-| The scan frontier reconstructs the actual limited completion | `scanFrontier_result` |
-| The processed part of a scan preserves edge order | `scanFrontier_edgeEquiv` |
-| A nonempty untouched suffix certifies budget exhaustion | `scanFrontier_exhausted` |
-| Only one cycle neighbor can remain untouched after a positive budget | `scanFrontier_unique_cycle_neighbor` |
-| A changed event in either queue can change only the final edge of a directed path of `w+1` edges, with the second-queue placement reversed | `transition_changed_path` |
-| Budgets at least `n-1` preserve every valid orientation | `large_budget_preserves_orientation` |
+| Exact operational orientation moves | `orientationStep_iff_circularFlip` |
+| Recurrence test on actual queue states | `CycleState.terminal_iff_runs` |
+| All closed communicating classes are short fibers or the unique exceptional family | `closed_class_classification` |
+| Short class equals its entire orientation fiber | `short_reachable_iff`, `ClosedClass.short_fiber` |
+| Tall class exists exactly at `n = 2*k*w + 1` | `exists_tall_terminal_iff` |
+| Every position completion preserves the exceptional set, independently of rates | `exceptionalRuns_transition` |
+| All exceptional queue configurations communicate | `exceptionalRuns_communicate` |
+| Exceptional class has exactly `2*n` actual orientations | `exceptional_orientation_count` |
+| Previous balanced class is the `k=1` exceptional class, for `w ≥ 2` | `balanced_is_exceptional` |
+| Completion probabilities constructed from arbitrary positive position rates | `PositivePositionAllocation.kernel`, `kernel_pos_iff` |
+| Return probability tends to one exactly at the classified states | `PositivePositionAllocation.recurrent_iff_runs` |
+| Probability of avoiding all recurrent states tends to zero | `PositivePositionAllocation.classified_absorption` |
+| At nonexceptional lengths, probability of avoiding all short states tends to zero | `PositivePositionAllocation.short_absorption` |
+| Under nonnegative event support, the exceptional set still contains a recurrent state | `CycleState.exceptional_recurrent_state` |
+| General unlimited OI predecessor identity | `OICapacity.unlimited_partial_balance` |
+| General unlimited OI canonical balance | `unlimited_oi_stationary` |
+| Normalized positive canonical law on each short class | `short_class_normalized_oi` |
+| Normalized canonical law on every recurrent class at safe lengths | `ClosedClass.safe_normalized_oi` |
+| Every even cycle is safe | `even_recurrent_oi_stationary` |
+| Complete gained and lost event lists for the unit-rate family | `unit_gained_predecessors`, `unit_lost_predecessors` |
+| Actual target orientation and exceptional gained-source membership | `unit_target_orientation`, `unit_gain_exceptional` |
+| Exact residual `(1 - 2*w*(k-1))/n!` for every larger exceptional cycle | `unit_exceptional_residual` |
+| Unit allocation fails canonical stationarity there | `unit_exceptional_not_stationary` |
+| Universal canonical stationarity iff `n % (2*w) ≠ 1`, for `w ≥ 2` | `cycle_canonical_sharpness` |
+| The same equivalence for normalized probability weights | `cycle_normalized_canonical_sharpness` |
+| Explicit C9 / w=2 residual `-1/120960` | `NineJobCycle.residual` |
+| Measurable continuous-time queue process | `PositivePositionAllocation.process_measurable` |
+| Completion epochs diverge: no explosion | `PositivePositionAllocation.process_nonexplosive` |
+| Exponential completion law and exact service-rate identity | `PositivePositionAllocation.completion_law`, `completion_rate_identity` |
+| Actual continuous-time recurrence iff the run criterion | `PositivePositionAllocation.continuous_recurrent_iff_runs` |
+| Almost-sure absorption, and short absorption at safe lengths | `PositivePositionAllocation.continuous_classified_absorption`, `continuous_short_absorption` |
+| Almost every timed path eventually stays in one classified communicating class | `PositivePositionAllocation.continuous_eventually_one_class` |
+| Executable rank-array classifier with a linear cost bound | `CycleClassifier.classify_continuous_recurrence` |
 
-Names in the table are in namespace `OddCycle`. All bounds are arbitrary;
-these are structural proofs, not checks up to a selected cycle length.
+`ClosedClass` means a nonempty, duplicate-free list of valid queue states,
+closed under every actual completion, with every pair connected by actual
+completion events. Class comparisons use list permutation, so enumeration
+order has no mathematical significance. The recurrence and classification
+predicates are defined independently; their equivalence is proved.
 
-`CircularRun.Step` acts on lists of run lengths. Its rotation edges reselect
-the first run; its other edges are boundary donations and interior splits.
-Its terminal theorem is **not** an operational classification theorem until
-the correspondence to actual binary orientations and queue events is proved.
-Likewise `ExceptionalCycle.Parameter` counts abstract long-run parameters;
-the injective correspondence to actual orientations is still required.
+## Product-form proof and sharpness
 
-## Outstanding obligations
+`OICapacity` is a permutation-invariant total service capacity with zero empty
+capacity. Its occupied-position rates are the actual prefix increments.
+`PositiveOIAllocation` requires strictly positive increments on every valid
+queue prefix. Both queues may have different allocations.
 
-1. Prove the complete local-move lemma in both directions against
-   `CycleState.OrientationStep`, including realizability of each permitted
-   flip. Necessity is checked as a directed-path statement for both queues;
-   its identification with the circular binary-block condition remains.
-2. Identify maximal circular runs and their maximum with the original
-   directed-path height; connect the binary flip relation to
-   `CircularRun.Step`. The extractor's reconstruction, positivity, sum, and
-   parity are checked, but these further characterizations are not yet proved.
-3. Lift the exceptional parameter moves to the actual orientations, prove
-   their injectivity and coverage, and finish Theorem A on actual queue states.
-4. Finish eventual entrance and the continuous-time consequences. The
-   connection from terminal event components to convergence of finite-step
-   return probabilities is checked for legal completion kernels positive on
-   every event. A continuous-time sample-path construction, holding times,
-   and the associated measure-theoretic transfer are not formalized. The
-   `Terminal` predicate itself means a terminal strongly connected component
-   of a directed event graph; it does not define recurrence by fiat.
-5. Formalize the classwise canonical stationary law for general OI
-   prefix-increment allocations, rather than just additive class rates.
-6. Prove the new symmetric gained/lost predecessor completeness and its
-   general residual `(1 - 2*w*(k-1))/n!` on the actual exceptional class.
-   The existing balanced-cycle obstruction remains separate.
+The unlimited balance proof reverses all incoming scans and telescopes their
+weights. The predecessor parametrization is proved complete. On short classes,
+limited and unlimited events coincide, giving canonical balance; positivity
+then supplies a finite, positive normalizer and a probability distribution.
+`oiBalance_eq_positionGenerator` identifies this balance expression with the
+sum over the original queue-position events, including diagonal subtraction.
 
-These are mathematical proof obligations, not hypotheses hidden in a theorem
-named after the requested classification. The supplied Python/JSON checks were
-not present in this checkout and are not imported as proof evidence.
+For sharpness, `unit_exceptional_residual` constructs the interior topological
+order, verifies both target and gained source are in the exceptional class,
+and counts exactly one gained event and `2*w*(k-1)` lost events. The helper
+lemmas' support-membership premises are discharged in this theorem. For `k=1`,
+`oiBalance_additive` connects the general OI generator to the existing
+rate-two defect proof. The final equivalence quantifies over all positive OI
+allocations and all actual closed communicating classes.
 
-## Verify
+The concrete C9 instance is:
+
+- Swapping graph: edges `{i,(i+1) mod 9}`.
+- Budget: `w=2` replacements; the initiating completion is not counted.
+- Allocation: rate one at every occupied position in both queues.
+- Target, head to tail: `([0], [7,8,6,3,4,5,2,1])`.
+- Gained source: `([], [7,8,0,6,3,4,5,2,1])`, completing the second-queue head.
+- Canonical weight: `1/(|c|! |d|!)`.
+- Balance residual at the target: `-1/120960`.
+
+`NineJobCycle.target_member`, `recurrent_class`, `gained_event`, and `residual`
+check these claims; the residual specializes the general proof rather than
+enumerating all C9 states.
+
+## Probability conventions and scope
+
+The completion kernel is constructed from arbitrary positive, state-dependent,
+time-homogeneous position rates; OI allocations instantiate it directly.
+`MarkovPathMeasure` constructs an infinite trajectory measure by Ionescu--Tulcea.
+`MarkovPathHitting` and `MarkovPathReturn` identify finite avoidance and return
+formulas with measurable events on that space. No lumpability is assumed.
+
+`ExponentialClocks` constructs independent unit exponential clocks and proves
+that they are positive and have divergent sum almost surely, using
+Borel--Cantelli. Restricting to this measure-one set gives a probability space
+on which every clock path has these properties. `ClockedPath` divides each
+clock by the current state's total rate. Finite state space and positive rates
+give strictly increasing, divergent completion epochs. `TimedStateMeasurable`
+checks the state at each real time is measurable and constant between epochs.
+
+The trajectory and clocks have a product law. `TimedJumpLaw` proves the first
+completion's exponential waiting law and destination probabilities. The total
+rate times each destination probability equals the sum of the corresponding
+original position rates. Almost every trajectory uses legal transitions.
+`CycleContinuousTime` proves recurrence on this timed probability space and
+almost-sure eventual residence in one classified communicating class. Return
+means visiting the starting state after the first completion epoch, excluding
+the initial holding interval. The stationary statements use the original
+continuous-time generator's balance equations.
+
+## Executable classifier and complexity
+
+`CycleClassifier.classify n w s` returns a Boolean and its instrumented cost.
+It builds `c ++ reverse(d)`, writes each label's rank to an array, reads the
+cycle's edge bits, extracts circular runs, and scans the run lengths once.
+`classify_correct` identifies its answer with the original `ShortRuns` or
+`ExceptionalRuns` predicates. `classify_continuous_recurrence` proves that the
+answer is true exactly when the continuous-time return event has probability
+one, and that its cost is at most **`33*n + 18`** for every valid input.
+
+The cost model counts bounded word-RAM operations: list inspection and cons,
+array read/write, word arithmetic, and comparisons. It explicitly charges all
+list traversals and array initialization. Array construction uses a single
+mutable owner; array updates are constant-cost RAM operations. Words must hold
+the input budget and intermediate integer quantities. The claim is O(n) in
+this model, not arbitrary-precision bit complexity, Lean kernel reduction
+time, or a guarantee about a particular compiled executable's wall time.
+
+## External claims and experiments
+
+Literature priority and the reported exhaustive Python/JSON experiments are
+not Lean proofs. `cycle_checks.json`, `symmetric_checks.json`, and
+`nine_job_checks.json` were not present in this checkout and are not used as
+proof evidence. Existing manuscript experiments retain their Python checks.
+
+These distinctions do not supply assumptions to the classification, OI balance,
+or sharpness theorems. No theorem assumes its intended conclusion. No external
+mathematical peer review is claimed.
+
+## Verification
 
 ```sh
-lake build OddCycle.CycleClassification
+lake build
 lake env lean OddCycle/CycleClassificationAudit.lean
 lake env leanchecker OddCycle.CycleClassification
 ```
 
-There are no `sorry` declarations, custom mathematical axioms, or native
-evaluation axioms in these files.
+The audit lists dependencies of the principal declarations. They use only
+Lean's standard `propext`, `Classical.choice`, and `Quot.sound` axioms (or fewer).
+There are no admitted proofs, custom mathematical axioms, or native-evaluation
+axioms. The main results have arbitrary bounds; finite calculations are confined
+to concrete specializations and use kernel-checked reduction.
