@@ -116,7 +116,7 @@ pdflatex paper.tex
 Alternatively, `tectonic paper.tex` performs the necessary reference passes.
 The recorded verification uses two complete Tectonic builds and inspects the
 rendered pages. See [citation audit](docs/CITATION_AUDIT.md) for publisher-PDF
-page locations. [email.txt](email.txt) is an unsent covering draft.
+page locations.
 
 ## Citation and archive status
 

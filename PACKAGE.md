@@ -3,7 +3,7 @@
 The package contains the revised PDF and self-contained editable LaTeX,
 all project Lean sources, all Python verifiers and regeneration scripts,
 exact certificates, graph inputs, expected results, theorem map, citation
-audit, unsent email, and verification records. No release is published by
+audit and verification records. No release is published by
 these commands. The earlier public archive is unchanged.
 
 ## Verify the supplied archive
@@ -106,7 +106,7 @@ python3 code/build_package.py --output /tmp/cycle-classification-verification.ta
 The script packages `git archive HEAD`, so unrelated local changes and
 untracked files are not included. All tracked local sources are retained.
 It adds complete file hashes and the exact revision. It does not push,
-send the covering email, create a release, or update an archive service.
+create a release or update an archive service.
 
 The downloaded publisher PDFs are external references, not manuscript
 dependencies. Their URLs, page locations, checksums, and inspection method

@@ -30,7 +30,7 @@ def digest(path):
 def inputs():
     paths = [ROOT / p for p in ['OddCycle.lean', 'lakefile.toml',
              'lake-manifest.json', 'lean-toolchain', 'paper.tex', 'paper.pdf',
-             'README.md', 'LEAN.md', 'PACKAGE.md', 'CITATION.cff', 'email.txt',
+             'README.md', 'LEAN.md', 'PACKAGE.md', 'CITATION.cff',
              'run_checks.py', 'verification/ManuscriptStatements.lean']]
     for directory, pattern in [('OddCycle', '*.lean'), ('code', '*.py'),
                                ('data', '*.json'), ('results', '*.json'),
