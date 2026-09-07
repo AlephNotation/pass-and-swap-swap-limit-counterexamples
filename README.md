@@ -1,138 +1,121 @@
-# Odd-cycle traps and product-form failure: complete package
+# Recurrence and Product-Form Stationarity in Swap-Limited Queues on Cycles
 
-[![DOI](https://zenodo.org/badge/1359616826.svg)](https://doi.org/10.5281/zenodo.22575717)
+[Paper (PDF)](paper.pdf) · [Editable LaTeX](paper.tex) · [Theorem/Lean map](LEAN.md) · [Verification package](PACKAGE.md)
 
-Start with **paper.pdf**, the consolidated manuscript. **paper.tex** is its
-self-contained LaTeX source. This package merges the uniform theorem with the
-earlier five-job nonfactorization certificate and finite graph experiments.
+The manuscript classifies all recurrent configurations of two closed-tandem
+queues with one distinct job per vertex of `C_n`, `n >= 3`, and replacement
+budget `w >= 1`, under strictly positive service at every occupied position.
+Each short orientation (all circular run lengths at most `w`) gives one closed
+communicating class. The only other class is `T_(n,w)`: exactly one run has
+length `w+1`, and all others have length `w`. It exists exactly at
+`n=2kw+1`, `k >= 1`, is unique, and contains exactly `2n` orientations with
+all their linear extensions and cuts. All other configurations are transient.
 
-A **Lean 4 formalization** proves the general balanced-region cardinality,
-height, closure, communication, two-flow identity, and canonical defect for
-every w >= 2, alongside the five-job certificates. It also proves finite-chain
-return-probability and stationary-law results and connects them to the queue
-model. The cycle extension constructs the continuous-time process and proves
-its recurrence and absorption results. Finite experiments remain separate.
-See [LEAN.md](LEAN.md) for the exact proof scope and build commands.
+For `n >= 3`, **`w >= 2`**, canonical product form is stationary on every
+closed class **for every pair of strictly positive OI allocations** if and
+only if `n % (2*w) != 1`. This is a universal statement over allocations:
+an exceptional length has a failing allocation, not necessarily failure for
+every allocation. Safe-length sufficiency holds already for `w >= 1`.
+Every even cycle is safe under these hypotheses.
 
-The new [cycle-classification formalization](OddCycle/CycleClassification.lean) proves
-the arbitrary-size recurrent-class classification, general positive OI laws on
-short classes, and the sharp canonical boundary `n % (2*w) != 1`. It includes
-the larger-cycle unit-rate counterexamples and the explicit C9/w=2 residual.
-The continuous-time process is measurable and nonexplosive; an executable
-recurrence classifier has a proved linear bound in a word-RAM cost model.
-This extension is separate from the consolidated manuscript above.
+The classification and sharp boundary are now the manuscript's main results.
+Lean proves them for arbitrary parameters from the actual queue transitions;
+the numerical enumerations below have separately stated finite scopes.
+See [classification details](docs/CYCLE_CLASSIFICATION.md) and
+[the checked revision and commands](verification/REPORT.md).
 
-The [structural extension](OddCycle/StructuralTheory.lean) proves that queue-length
-generators under position-indexed service are independent of the swapping
-graph and budget. It also proves canonical length marginals and an arbitrary-size
-family where all length-observable balance identities hold despite full
-canonical failure. The document develops a stronger slow-mixing argument;
-that continuous-time mixing theorem is not yet fully formalized.
+## Results and their scopes
 
-The [queue-length indistinguishability theorem](OddCycle/QueueLengthIndistinguishability.lean)
-is now formalized for every unit-rate `C_(2kw+1)`, `w >= 1`, `k >= 2`.
-The nonstationary normalized canonical candidate and an actual stationary
-initialization give exactly the same law of the entire continuous-time
-queue-length trajectory. The theorem includes cancellation of the residual at
-every length and an explicit C9/w=2 example in the same model.
-The exact assumptions, residual, and verification commands are recorded in
-[LEAN.md](LEAN.md#exact-queue-length-indistinguishability).
+| Result | Assumptions / support | Evidence |
+|---|---|---|
+| Complete recurrent-class classification, exceptional uniqueness and `2n` orientations | `n >= 3`, `w >= 1`; positive service at every occupied position | Structural proof and Lean |
+| Exceptional closure; existence of a recurrent state | `n=2kw+1`, `w,k >= 1`; closure survives nonnegative event rates | Structural proof and Lean |
+| Sharp universal canonical boundary | `n >= 3`, `w >= 2`; both queues have positive OI prefix increments | Structural proof and Lean |
+| First exceptional case `B_w=T_(2w+1,w)`; exact two-flow formula | `w >= 2`; identical additive allocations `r_0=theta>0`, other rates one; nonzero for `theta != 1` | Written calculation and Lean |
+| Larger exceptional-family canonical failure | `w >= 1`, `k >= 2`; unit rate at every position; residual `[1-2w(k-1)]/n!` | Written calculation and Lean |
+| C9/w=2 target `([0],[7,8,6,3,4,5,2,1])` | Unit position rates; unnormalized residual `-1/120960` | Lean specialization and complete class enumeration |
+| No factorization `K*A(c)*B(d)` | C5/w=2, rates `(2,1,1,1,1)` in both queues | Exact stationary certificate, nonzero rectangle determinant, Lean |
+| Head-only communication of `B_2` | Every admissible OI allocation, even with zero non-head rates | Nine-orbit proof, Lean connectivity, finite checks |
+| C5/w=2 and C7/w=3 state counts and head-only classifications | Entire finite state spaces; both event supports | Python SCC checks; all-position structure also follows from general Lean theorem |
+| One-swap bipartite screen | All 61 nonisomorphic simple bipartite graphs through six vertices | Python exact graph coverage and reachability checks |
 
-## One-command verification
+The odd-cycle examples at `w=1` do not satisfy Conjecture 1's bipartite
+hypothesis. The arbitrary-graph one-swap bipartite problem remains unresolved.
+The five-job exclusion of *all* queue-wise factors is not generalized to all
+exceptional cycles. On the family `n=2w+1`, canonical balance at `theta=1`
+for the tested `w=2,3,4,5` is computational evidence, not an all-`w` theorem.
 
-Python **3.10 or newer**, standard library only:
+At unit position rates, queue length decreases at rate `K` and increases at
+rate `n-K`, regardless of order, graph, or budget. Equal numbers of cuts at
+each length make the canonical marginal correct on a closed class. On the
+proved larger exceptional family, the nonstationary canonical candidate and
+a stationary law therefore give the same entire length-process law. This
+short consequence is in the paper; [path-law details](LEAN.md#exact-queue-length-indistinguishability)
+remain in the formalization. It does not establish a mixing timescale.
+The preserved, unfinished mixing work is scoped in [future work](docs/FUTURE_WORK.md).
+
+## Verification
+
+Python 3.10 or newer, standard library only:
 
 ```sh
 python3 run_checks.py
-```
-
-The suite reconstructs the model, verifies every requested check, and compares
-fresh deterministic JSON with all recorded results. It exits nonzero on a failed
-identity or a mismatch. It does not use the network or modify its data files.
-On Windows, `py -3` may replace `python3`.
-
-All checks remain active under optimization:
-
-```sh
 python3 -O run_checks.py
 ```
 
-The full suite enumerates more than a million transitions; allow time for it to
-finish. To save fresh result copies, use `--output-dir PATH`. No command uses
-floating-point tolerances or stochastic simulation.
-
-## What the results establish
-
-| Result | Scope | Basis |
-|---|---|---|
-| Balanced-region closure and recurrent-state existence | Every w >= 2; every admissible OI allocation | Written proof |
-| A single recurrent class B_w | Every w >= 2; positive service at every position | Written proof |
-| Canonical prefix-product failure | Every w >= 2; one class rate theta > 0 with theta != 1, all others rate 1 in both queues | Written two-flow calculation |
-| No alternative factorization K*A(c)*B(d) | w=2, theta=2 | Exact positive integer stationary certificate and a nonzero rectangle determinant |
-| Head-only connectivity of B_2 | All admissible OI allocations | Written nine-orbit argument; exhaustive finite verification |
-| B_w is exactly the tall recurrent set | C5/w=2 and C7/w=3; head-only and all-position event graphs | Complete-state SCC classification |
-| No tall recurrent states in the small-graph screen | 61 non-isomorphic simple bipartite graphs on 1..6 vertices at w=1; four named w=2 graphs | Complete-state reachability checks |
-
-The classification does **not** assert that every height-(w+1) state is balanced.
-For C7 at w=3 there are 3,248 height-four states; only 1,120 are recurrent.
-The two-flow theorem concerns the canonical product. The arbitrary-factor
-exclusion is not claimed for every w. The one-swap general case remains open
-in this work.
-
-## Direct component commands
+The suite reconstructs transitions, checks exact certificates and graph
+coverage, and compares fresh output with every `results/*.json` file. It
+does not use simulation, tolerances, or the network. `--output-dir PATH`
+saves fresh copies. The C9 check enumerates all 131,040 exceptional states
+and 1,179,360 events per generator, comparing two transition implementations.
 
 ```sh
-python3 code/verify_five.py --certificate data/stationary_certificate.json
-python3 code/verify_orbits.py
-python3 code/verify_uniform.py
-python3 code/verify_classification.py
-python3 code/verify_screen.py
+lake build
+lake env lean OddCycle/Audit.lean
+lake env lean OddCycle/CycleClassificationAudit.lean
+lake env lean OddCycle/StructuralTheoryAudit.lean
+lake env lean OddCycle/IndistinguishabilityAudit.lean
+lake env leanchecker --verbose OddCycle
+python3 -B code/export_lean_certificate.py --check
 ```
 
-`verify_uniform.py` defaults to all balanced states at w=2,3,4,5 with four
-rational rate choices, complete-space changed-predecessor audits at w=2,3,
-and explicit-word tests through w=50. Finite tests supplement the all-w proof.
+All Lean modules, including the preserved structural and path-law proofs,
+remain in the default build. [PACKAGE.md](PACKAGE.md) gives the complete
+verification runner, toolchain setup, certificate regeneration, PDF build,
+file hashes, and archive instructions. [LEAN.md](LEAN.md) records precise
+declarations and logical dependencies.
 
-`verify_screen.py` independently regenerates all bipartite isomorphism classes
-through six vertices by vertex addition and degree-partitioned canonical
-labeling. The bundled graph list is then checked for exact coverage before the
-queue experiments run; no NetworkX installation is required.
-
-## Regenerate the stronger stationary certificate
-
-Checking the certificate requires no stationary solver. To reproduce its
-construction as well, run:
+## Regenerate the stationary certificate
 
 ```sh
-python3 code/regenerate_certificate.py --output regenerated_certificate.json
-python3 code/verify_five.py --certificate regenerated_certificate.json
+python3 code/regenerate_certificate.py --output /tmp/regenerated_certificate.json
+python3 code/verify_five.py --certificate /tmp/regenerated_certificate.json
 ```
 
-The generator uses rational Gaussian elimination on the remaining 45 symmetry
-orbits, then supplies weights on all 180 states. The verifier reconstructs the
-full generator and checks all balance equations directly. It rejects a changed
-weight, missing state, or invalid support.
+Rational Gaussian elimination constructs weights using 45 symmetry orbits;
+the independent verifier checks all 180 original states and every balance
+equation. The exact certificates, graph inputs, and expected outputs remain
+editable and included.
 
-## Build the paper
+## Build the manuscript
 
-No bibliography or image files are needed. A standard LaTeX installation with
-the packages named in the preamble is sufficient:
+`paper.tex` is self-contained, with an inline bibliography and no external
+figures or private source dependencies. With standard LaTeX packages:
 
 ```sh
 pdflatex paper.tex
 pdflatex paper.tex
 ```
 
-## Citation
+Alternatively, `tectonic paper.tex` performs the necessary reference passes.
+The recorded verification uses two complete Tectonic builds and inspects the
+rendered pages. See [citation audit](docs/CITATION_AUDIT.md) for publisher-PDF
+page locations. [email.txt](email.txt) is an unsent covering draft.
 
-If you use the results, code, or Lean proofs, please cite:
+## Citation and archive status
 
-```bibtex
-@misc{daly2026oddcycle,
-  author = {Daly, Tynan},
-  title  = {{Odd-Cycle Traps and Product-Form Failure in Limited Pass-and-Swap Queues}},
-  year   = {2026},
-  doi    = {10.5281/zenodo.22575717},
-  url    = {https://doi.org/10.5281/zenodo.22575717}
-}
-```
+The existing public archive [10.5281/zenodo.22575717](https://doi.org/10.5281/zenodo.22575717)
+is the earlier release; this local manuscript consolidation does not update
+that archive. Cite this revision by its title and the commit recorded in the
+verification report. `CITATION.cff` describes this repository revision and
+identifies the earlier archive separately.

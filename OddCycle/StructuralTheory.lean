@@ -7,5 +7,5 @@ import OddCycle.QueueLengthIndistinguishability
 length generator, exact canonical length marginals, joint defects invisible to
 length observables, exact continuous-time queue-length indistinguishability,
 and probability bounds for the developing mixing theory.
-See STRUCTURAL_THEORY.md for the proved scope and remaining continuous-time
-mixing obligations. -/
+See LEAN.md for the proved scope and docs/FUTURE_WORK.md for remaining
+continuous-time mixing obligations. -/

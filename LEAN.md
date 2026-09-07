@@ -1,107 +1,110 @@
-# Lean verification
+# Lean verification and manuscript theorem map
 
-Lean checks the general balanced-region, two-flow, and canonical obstruction
-arguments for every w ≥ 2, as well as the five-job certificate. It also proves
-the finite Markov-chain recurrence and stationary-vector results and connects
-them to the queue's original transitions and balance equations.
+The main entry point is `OddCycle.CycleClassification`, imported by the
+default `OddCycle` build. It proves the arbitrary-size recurrent-class
+classification and sharp canonical product-form boundary for the actual
+two-queue completion rule. Existing balanced-family, finite-certificate,
+structural, and continuous-time path-law proofs remain included.
 
-The cycle extension also constructs the continuous-time sample-path process
-from the completion kernel and independent exponential clocks. Lean checks
-measurability, nonexplosion, recurrence, and almost-sure absorption into one
-communicating class. The C7 classification, graph screen, and other finite
-experiments retain their separate Python checks.
+The source statements, rather than the manuscript wording, determine the
+assumptions. Unless a row gives a different namespace, declarations below
+are prefixed by `OddCycle.`. Paper references use stable LaTeX labels;
+the PDF supplies their displayed numbers. `verification/ManuscriptStatements.lean`
+prints the key structures and exact theorem signatures; its output is retained
+in `verification/manuscript-statements.log`.
 
-Lean reconstructs the replacement dynamics. It does not import Python
-transition tables or assume the Python checks are correct.
+## Main theorem map: assumptions and scope
 
-The [structural-theory extension](OddCycle/StructuralTheory.lean), imported by the default
-build, proves the queue-length generator and canonical-marginal identities,
-including full canonical defects invisible to length-observable balance tests.
-It also supplies generic finite-kernel and Poisson-averaged bottleneck bounds.
-The complete continuous-time queue mixing theorem remains unfinished. Its audit is
-`OddCycle/StructuralTheoryAudit.lean`.
+| Manuscript claim / label | Actual declarations | Exact scope |
+|---|---|---|
+| Complete recurrent classification (`thm:classification`) | `CycleState.terminal_iff_runs`; `PositivePositionAllocation.continuous_recurrent_iff_runs` | Valid states on `C_n`, `n >= 3`, `w >= 1`; stochastic statement requires positive finite rates at every occupied position. No OI assumption. |
+| Complete list of closed classes | `closed_class_classification`; `ClosedClass.short_fiber`; `ClosedClass.exceptional_family` | `ClosedClass n w states` means a nonempty duplicate-free list, valid states, closure under every completion, and event communication. Positivity identifies these with stochastic closed classes. Lists are compared up to permutation. |
+| Tall-class existence and uniqueness | `exists_tall_terminal_iff`; `exceptionalStates_closedClass`; `exceptionalRuns_communicate` | `n >= 3`, `w >= 1`; exists iff `n=2kw+1`, `k >= 1`. All exceptional configurations, not only representatives, communicate. |
+| Exactly `2n` exceptional orientations | `exceptionalParameter_covers`; `exceptionalParameter_injective`; `exceptional_orientation_count` | Actual labeled orientations at exceptional lengths. This counts orientations, not full configurations. |
+| Closure under nonnegative allocations | `exceptionalRuns_transition`; `CycleState.exceptional_recurrent_state` | Operational closure has no rate assumption. The recurrence-existence theorem allows only legal events or self steps in an arbitrary finite kernel. This does not prove general irreducibility with zero non-head rates. |
+| Eventual residence in one class | `PositivePositionAllocation.continuous_eventually_one_class` | Same positive-position hypotheses; almost-sure event on the constructed physical-time path space. |
+| Same-orientation communication (`lem:fiber`) | `reachable_of_orientation_eq`; `CycleState.orientation_reachable_iff`; `ReachabilityQuotient.reach_iff` | Actual zero-replacement paths between valid configurations, all cuts and linear extensions; positivity makes the paths available. |
+| Exact operational/path-flip equivalence (`lem:local`) | `transition_changed_path`; `cycle_path_realize_flip`; `orientationStep_iff_pathFlip`; `orientationStep_iff_circularFlip` | `n >= 3`, `w >= 1`; existence of a nontrivial quotient edge, not an orientation Markov kernel. |
+| Run classification (`sec:runs`) | `CircularRun.terminal_iff`; `CircularRun.exceptional_iff_one_long`; `BinaryCycle.terminal_iff`; `CycleState.terminal_iff_runs` | The run relation is proved equivalent to the original quotient; recurrence is not defined to mean the proposed run test. |
+| Positive canonical law (`cor:positive`) | `unlimited_oi_stationary`; `short_class_normalized_oi`; `ClosedClass.safe_normalized_oi` | `n >= 3`, `w >= 1`, `n % (2*w) != 1`; each queue has its own `PositiveOIAllocation n`. Normalization, positivity, and original generator balance are proved. |
+| Sharp universal boundary (`thm:sharp`) | `cycle_canonical_sharpness`; **`cycle_normalized_canonical_sharpness`** | **`n >= 3`, `w >= 2`**. Quantifies over every pair of positive OI allocations and every actual closed class. Equivalence is with universal validity, not allocation-specific validity. |
+| Balanced case is the first exceptional class | `balanced_is_exceptional`; `balanced_cardinality` | `w >= 2`; `B_w=T_(2w+1,w)`; `2(2w+1)(2w+2) choose(2w-1,w)` full states. |
+| Uniform two-flow obstruction (`thm:balanced`, `lem:two`) | `two_flow_completeness`; `uniform_two_flow_identity`; `uniform_defect`; `uniform_defect_pos`; `uniform_defect_neg`; `uniform_defect_two` | `w >= 2`; same additive rates in both queues, `r_0=theta>0`, other rates 1; exact defect nonzero iff `theta != 1`. At 2 it is `-w/(2w+2)!`. Zero at the displayed target when theta=1 is not a full all-w stationarity proof. |
+| Unit-rate larger family (`thm:unit`) | `unit_target_orientation`; `unit_gain_exceptional`; `unit_gained_predecessors`; `unit_lost_predecessors`; **`unit_exceptional_residual`** | `w >= 1`, `k >= 2`, `n=2kw+1`; unit position rates; on `exceptionalStates n w`; target uses the constructed `unitInterior n w k`. Residual `[1-2w(k-1)]/n!` includes complete predecessor counting and support membership. |
+| Explicit C9 (`eq:nine`) | `NineJobCycle.target_member`; `NineJobCycle.recurrent_class`; `NineJobCycle.gained_event`; `NineJobCycle.residual` | `n=9`, `w=2`, unit position rates; target `([0],[7,8,6,3,4,5,2,1])`; unnormalized defect `-1/120960`. No enumeration needed for the Lean specialization. |
+| Five-job four-predecessor result (`sec:five`) | `FiveJob.canonical_defect`; `FiveJob.canonical_scaled_not_stationary` | `n=5`, `w=2`, additive rates `(2,1,1,1,1)` in each queue. Complete table also reconstructed by `verify_five.py`. |
+| Exclusion of all queue-wise factors (`prop:nonfactor`) | `FiveJob.certificate_stationary`; `FiveJob.certificate_total`; `FiveJob.normalized_certificate_not_product` | Exact C5 allocation above. Nonfactorization over every characteristic-zero field, including real factors. Not a theorem for all exceptional cycles. |
+| Head-only communication (`prop:heads`) | `FiveJob.head_communication`; `FiveJob.support_closed` | `n=5`, `w=2`; any allocation retaining positive heads, including all admissible OI allocations. The nine-orbit table and uniform law at equal unit head rates are separately checked in Python. |
+| Partiteness | `partiteColor_proper`; `partiteColor_surjective` | `C_(2w+1)`, `w >= 2`, exactly `w+1` nonempty colors. Odd cycles at `w=1` are not bipartite and do not refute Conjecture 1 under its hypothesis. |
+| Linear executable recurrence test | `CycleClassifier.classify_correct`; `CycleClassifier.classify_cost`; `CycleClassifier.classify_continuous_recurrence` | Valid state, `n >= 3`, `w >= 1`; bound `33*n+18` in the instrumented bounded-word RAM model, not bit complexity or measured runtime. |
 
-The [exact indistinguishability theorem](OddCycle/QueueLengthIndistinguishability.lean)
-connects the unit-rate exceptional family's canonical failure to equality of
-entire continuous-time length-trajectory laws. Its comparison initialization
-is proved invariant at every physical time, using the existing exponential
-clock construction. The audit is `OddCycle/IndistinguishabilityAudit.lean`.
+`PositiveOIAllocation n` is an OI capacity (permutation-invariant total rate,
+zero empty capacity) with positive prefix increments on every valid queue
+prefix. Its values and the two queues' allocations need not coincide.
+`oiBalance_eq_positionGenerator` identifies OI balance with the actual
+position-event generator including diagonal subtraction. The short-class
+proof establishes unlimited balance by complete incoming scan inversion and
+telescoping prefix weights. No publisher theorem is introduced as an axiom.
 
-## Exact queue-length indistinguishability
+## Quantifier and evidence checks made during consolidation
 
-Fix `w >= 1`, `k >= 2`, and `n=2kw+1`. Use one distinct job per vertex of
-`C_n`, with edges `{i,(i+1) mod n}`. Every occupied position in both queues has
-rate one: the OI capacities are `mu(q)=nu(q)=|q|`. The budget allows `w`
-replacements after an initiating completion. The support is the proved
-closed communicating class `C=T_(n,w)`, with one circular orientation run of
-length `w+1` and the other `2k-1` runs of length `w`.
+- Kept `w >= 1` for recurrence and safe-length sufficiency; retained **`w >= 2`**
+  for the sharp universal equivalence. No claim is made to settle its omitted
+  one-swap cases or the arbitrary-graph bipartite conjecture.
+- Distinguished structural closure for nonnegative allocations from
+  irreducibility under positive position rates; the C5 head-only result has
+  its own stronger support hypothesis.
+- Restricted all-factor nonfactorization to the explicit C5 certificate.
+- The family unit-rate residual uses a particular interior order constructed
+  in Lean. The paper fixes that construction; it does not attribute an extra
+  universally quantified theorem over arbitrary interior words to Lean.
+- Removed class asymmetry as a general explanation of failure. Unit rates
+  already fail on the larger exceptional family.
+- The publisher's Theorem 7 also states a partiteness hypothesis. The general
+  short-class argument is derived from unlimited Theorem 3 and proved
+  independently in Lean, so it does not import an unstated partite assumption.
 
-Let `W(c,d)=1/(|c|! |d|!)`, `Z_C=sum_{s in C} W(s)>0`, and
-`hat_pi=W/Z_C`. The declaration
-`OddCycle.unit_exceptional_queue_length_indistinguishability` proves together:
+## Separately computed results
 
-- `hat_pi` is a probability vector and is not invariant under the actual
-  completion kernel.
-- A stationary comparison vector `pi` exists on that same class. Under `pi`,
-  the full configuration distribution remains `pi` at every physical time.
-- The entire continuous-time queue-length trajectory has the same law under
-  `hat_pi` and `pi`, as an equality of measures on `NNReal -> Nat` with its
-  coordinate-generated sigma algebra.
-- For `D=hat_pi Q`, every length fiber has zero total residual, while the
-  explicit family target has residual `[1-2w(k-1)]/(n! Z_C)<0`.
+| Claim | Packaged check / expected result | Scope |
+|---|---|---|
+| C5 and C7 full state counts, terminal SCCs under heads and all positions | `verify_classification.py` / `results/classification.json` | C5/w2: 720 states, 180 tall recurrent; C7/w3: 40,320 states, 1,120 tall recurrent. C7 has 3,248 height-four states, of which 2,128 are transient. |
+| Uniform-formula balanced-region controls | `verify_uniform.py` / `results/uniform.json` | Entire `B_w` at w=2,3,4,5, theta=1/2,1,2,3; source words through w=50. Canonical balance at theta=1 is computational evidence only on this tested part of **n=2w+1**. |
+| C9 complete exceptional-class enumeration | `verify_nine.py` / `results/nine_job.json` | 131,040 states, 18 orientations, 1,179,360 events per generator; 16,560 nonzero limited residuals, zero unlimited residuals, target -3 in integer scaling. |
+| Five-job certificate and orbit table | `verify_five.py`, `verify_orbits.py` / corresponding JSON | Exact 180-state certificate, 45 representative events, 72,000 symmetry identities, unit-head balance. |
+| Small-graph screen | `verify_screen.py` / `results/screen.json` | All 61 simple bipartite graphs on 1..6 vertices at w=1; four named graphs at w=2; 192,590 states, 1,143,194 all-position events. |
 
-Thus every measurable test based only on queue-length observations has the
-same distribution under these two initializations. The proof uses the existing
-queue process and exponential clocks, and connects the original OI residual
-to the actual completion-kernel residual.
+The general classification is proved in Lean; its computed state counts
+are not thereby claimed as separate formal cardinality theorems. The older
+working note mentioned `cycle_checks.json`, `symmetric_checks.json`, and
+`nine_job_checks.json`, which were absent from this checkout. They have not
+been represented as supplied or replayed. The new `results/nine_job.json`
+is a fresh complete reproduction of the stated C9 experiment. The unavailable
+65-parameter quotient and 32-pair source-word reports are not paper evidence.
 
-For the explicit `C9`, budget `w=2`, all rates one, the target is
-`((0),(7,8,6,3,4,5,2,1))`. It lies in `T_(9,2)`, with circular run lengths
-`3,2,2,2`. Its unnormalized residual is `-1/120960`, and its normalized
-residual is `-1/(120960 Z_C)`. The concrete declaration is
-`OddCycle.NineJobCycle.queue_length_indistinguishability`.
-
-```sh
-lake build
-lake env lean OddCycle/IndistinguishabilityAudit.lean
-lake env leanchecker OddCycle.QueueLengthIndistinguishability
-```
-
-Verification on 7 September 2026: full build passed (3014 jobs), all 40 audited
-declarations use only `propext`, `Classical.choice`, and `Quot.sound`, and kernel
-replay passed. There are no proof holes, added axioms, or native-decision proofs
-in this extension.
-
-This theorem gives no quantitative convergence time. The separate balanced-family
-slow-mixing proof still needs the operational symmetry and half-arc flow count,
-the length coupling estimate, and the identification of the Poisson-averaged
-law with the existing clocked process. Its full-queue obstruction is not
-transferred to the larger exceptional families here.
-
-## Run
-
-Lean and Mathlib are pinned to 4.28.0. With Elan installed, run from this
-directory:
+## Build, axiom audits, and kernel replay
 
 ```sh
 lake exe cache get
 lake build
 lake env lean OddCycle/Audit.lean
+lake env lean OddCycle/CycleClassificationAudit.lean
+lake env lean OddCycle/StructuralTheoryAudit.lean
+lake env lean OddCycle/IndistinguishabilityAudit.lean
 lake env leanchecker --verbose OddCycle
 python3 -B code/export_lean_certificate.py --check
 ```
 
-The cache command downloads prebuilt Mathlib dependencies. Allow several
-minutes for a first build of the finite proofs. Incremental builds reuse the
-checked declarations.
+The cache command is first-install setup. The full replay includes all
+imported project modules, including the preserved mixing lemmas. Audits
+permit only `propext`, `Classical.choice`, and `Quot.sound` (or fewer);
+finite reductions use `decide +kernel`. There are no admitted proofs,
+custom axioms, or native-evaluation axioms. Actual commands and outcomes
+for this revision are in [verification/REPORT.md](verification/REPORT.md),
+with machine-readable logs and source hashes. [PACKAGE.md](PACKAGE.md)
+documents regeneration of the whole verification package.
 
-`lake build` checks the proofs. `Audit.lean` prints the axioms used by the
-principal claims. `leanchecker` independently replays the project's compiled
-declarations through Lean's kernel. The Python command checks
-that the committed certificate data still match their JSON source and
-deterministic path witnesses; Python is not needed to check the Lean proofs.
-
-## General queue theorems
+## Detailed balanced-family declarations
 
 These declarations are in namespace `OddCycle`:
 
@@ -116,11 +119,11 @@ These declarations are in namespace `OddCycle`:
 | States with the same orientation communicate | `reachable_of_orientation_eq` |
 | All valid balanced states communicate | `balanced_communication` |
 | Every intermediate state stays balanced and valid | `balanced_reachable_closed` |
-| Lemma 4 with positive position rates explicit | `balanced_positive_rate_communication` |
+| Balanced communication with positive position rates explicit | `balanced_positive_rate_communication` |
 | Proper coloring using exactly w+1 nonempty colors | `partiteColor_proper`, `partiteColor_surjective` |
 | Only full-queue head events can change with the budget | `balanced_changed_event_head` |
 | Unique source reconstruction for a changed incoming event | `balanced_changed_head_injective` |
-| Exactly the gained X and lost Y events in Lemma 5 | `two_flow_completeness` |
+| Exactly the gained X and lost Y changed events | `two_flow_completeness` |
 | Difference of limited and unlimited balance, with arbitrary weights and class rates | `two_flow_balance_difference` |
 | Exhaustive unlimited incoming-event list at the target | `targetOccurrences_complete` |
 | Unlimited canonical balance at the target, proved directly | `unlimited_target_balance` |
@@ -132,7 +135,7 @@ These declarations are in namespace `OddCycle`:
 | Normalized canonical weights are positive and sum to one | `normalizedCanonicalWeight_pos`, `normalizedCanonicalWeight_sum` |
 | These normalized weights fail stationarity when theta≠1 | `normalizedCanonicalWeight_not_stationary` |
 
-All assertions of Lemma 2 are proved. Closure has no rate assumptions:
+Balanced closure has no rate assumptions:
 arbitrary nonnegative rates, including zero, select from events already
 proved safe. Communication allows rates to depend on the entire state,
 queue, and position, and requires positivity only at occupied positions.
@@ -259,35 +262,85 @@ not use Lemma 1 of reference [1] in the paper, so it constitutes an independent
 proof. The general balance proof likewise verifies unlimited balance at the
 target directly, without assuming the cited unlimited product-form theorem.
 
-## Scope boundary
 
-The newer complete-cycle classification is developed in
-[OddCycle/CycleClassification.lean](OddCycle/CycleClassification.lean). The arbitrary-size
-operational classification, exceptional-class uniqueness and exact orientation
-count, positive-position completion kernel, recurrence and absorption, general
-OI canonical stationarity, and sharp product-form boundary are checked.
-The larger-cycle unit-rate residual includes complete predecessor counting and
-actual exceptional-class membership. C9/w=2 is an explicit checked specialization.
+## Exact queue-length indistinguishability
 
-Recurrence and absorption hold on the explicitly constructed probability
-space of continuous-time paths. The infinite completion trajectory uses
-Ionescu--Tulcea; independent unit exponentials are divided by the current
-state's total rate. The proof checks exponential completion probabilities,
-measurability, nonexplosion, legal transitions, and transfer of the finite-chain
-return and avoidance formulas. Almost every path eventually stays in one
-of the classified communicating classes. Stationarity uses the original
-continuous-time generator's balance equations.
+Fix `w >= 1`, `k >= 2`, and `n=2kw+1`. Use one distinct job per vertex of
+`C_n`, with edges `{i,(i+1) mod n}`. Every occupied position in both queues has
+rate one: the OI capacities are `mu(q)=nu(q)=|q|`. The budget allows `w`
+replacements after an initiating completion. The support is the proved
+closed communicating class `C=T_(n,w)`, with one circular orientation run of
+length `w+1` and the other `2k-1` runs of length `w`.
 
-`CycleClassifier.classify_continuous_recurrence` connects an executable rank-array
-and run classifier to this continuous-time recurrence event. Its cost is at
-most `33*n + 18` units in the explicitly instrumented word-RAM model, including
-placement construction and array initialization. This is an algorithmic
-operation bound, not a bit-complexity or compiler wall-time guarantee.
+Let `W(c,d)=1/(|c|! |d|!)`, `Z_C=sum_{s in C} W(s)>0`, and
+`hat_pi=W/Z_C`. The declaration
+`OddCycle.unit_exceptional_queue_length_indistinguishability` proves together:
 
-The new working proof's reported JSON experiments are not Lean proofs; their
-files were not present in this checkout and are not assumed by the theorems.
+- `hat_pi` is a probability vector and is not invariant under the actual
+  completion kernel.
+- A stationary comparison vector `pi` exists on that same class. Under `pi`,
+  the full configuration distribution remains `pi` at every physical time.
+- The entire continuous-time queue-length trajectory has the same law under
+  `hat_pi` and `pi`, as an equality of measures on `NNReal -> Nat` with its
+  coordinate-generated sigma algebra.
+- For `D=hat_pi Q`, every length fiber has zero total residual, while the
+  explicit family target has residual `[1-2w(k-1)]/(n! Z_C)<0`.
 
-The C7 classification, small-graph screen, and other finite experiments in
-the manuscript are verified by the Python suite, not by these Lean proofs.
-The manuscript as a whole should therefore not be described as fully
-formalized.
+Thus every measurable test based only on queue-length observations has the
+same distribution under these two initializations. The proof uses the existing
+queue process and exponential clocks, and connects the original OI residual
+to the actual completion-kernel residual.
+
+For the explicit `C9`, budget `w=2`, all rates one, the target is
+`((0),(7,8,6,3,4,5,2,1))`. It lies in `T_(9,2)`, with circular run lengths
+`3,2,2,2`. Its unnormalized residual is `-1/120960`, and its normalized
+residual is `-1/(120960 Z_C)`. The concrete declaration is
+`OddCycle.NineJobCycle.queue_length_indistinguishability`.
+
+```sh
+lake build
+lake env lean OddCycle/IndistinguishabilityAudit.lean
+lake env leanchecker OddCycle.QueueLengthIndistinguishability
+```
+
+The consolidation's full build, axiom counts, and kernel replay are recorded
+in `verification/REPORT.md`. No proof statement in this extension was changed
+for the manuscript rewrite.
+
+This theorem gives no quantitative convergence time. The separate balanced-family
+slow-mixing proof still needs the operational symmetry and half-arc flow count,
+the length coupling estimate, and the identification of the Poisson-averaged
+law with the existing clocked process. Its full-queue obstruction is not
+transferred to the larger exceptional families here.
+
+
+The queue-length result is a consequence of autonomous aggregate rates and
+equal-cut counting. Its measure-theoretic implementation does not supply a
+mixing-time bound. The original balance residual, rather than only an
+embedded-kernel defect, is identified in `ClosedClass.unit_balance` and
+`ClosedClass.unitCanonical_residual_by_length`.
+
+For full continuous-time recurrence, `MarkovPathMeasure` constructs infinite
+completion trajectories by Ionescu--Tulcea. `ExponentialClocks` constructs
+independent unit exponential clocks, proves positivity and divergence, and
+restricts to their measure-one good set. `ClockedPath` divides these clocks
+by each state's total rate; finiteness and positivity imply nonexplosion.
+`TimedJumpLaw` verifies the waiting-time and destination laws, and
+`CycleContinuousTime` proves recurrence and eventual residence in one class.
+Return is after the first completion epoch, excluding the initial holding
+interval. General stationary assertions use the original continuous-time
+generator, not an unadjusted embedded-chain stationary vector.
+
+The exact generator identities for position-indexed or length-dependent
+capacities are `lengthGenerator_eq`, `lengthGenerator_budget_independent`,
+and `capacity_lengthGenerator`. Equal-cut counting and canonical marginals
+are `ClosedClass.wordCutEquiv`, `normalized_length_marginal`, and
+`canonical_length_marginal`. The explicit nonstationarity/path-law family
+retains unit rates and `k >= 2`; no broader failure example is inferred.
+
+## Preserved unfinished work
+
+The default build still includes all structural, finite-bottleneck, and
+Poisson-evolution modules. [docs/FUTURE_WORK.md](docs/FUTURE_WORK.md) lists
+their exact completed scope and the missing obligations for a quantitative
+continuous-time mixing theorem. No such theorem is a manuscript claim.

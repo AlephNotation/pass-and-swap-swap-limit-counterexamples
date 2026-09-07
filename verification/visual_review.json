@@ -1,0 +1,35 @@
+{
+  "reviewer": "Codex",
+  "reviewed_utc": "2026-09-07T19:46:30.366739+00:00",
+  "pdf_sha256": "da07ffb37c7c520eed00939c347b0c907941c200a132fd5a0753dff4c89a664c",
+  "pages": 15,
+  "render_command": "pdftoppm -r 110 -png paper.pdf /tmp/cycle-manuscript-render/pages/page",
+  "page_sha256": {
+    "page-01.png": "d30bd38de2ae01538d0254b1e79729c5e9356a8c81410e653ea04266afac108b",
+    "page-02.png": "075a96cd1b42e41884a5cb1c4fcd08184a8d9f5d66f5a257dbd3eb3b5b7c8ea6",
+    "page-03.png": "d9d3f9f9671048755c127d2d74ccb61e3cac2957c4dc4eb7db192703b2e878d8",
+    "page-04.png": "7f6c6e03400448ab3c31c2104bc65c30883176ad75dcce30dd33bde34a555764",
+    "page-05.png": "f76cd1642dd9b0e773bae5260c86e6168f809c471d2f73657dcfc4d921c0eb39",
+    "page-06.png": "ffc366a11ccd9ef978a989e796cebe394728e50e5be4277fd799d59ca2b5cca7",
+    "page-07.png": "b6d10bd6579b0dc17ef77ca85234c4c8100d9bc64467908704d4e05c1a94360e",
+    "page-08.png": "fee896d30e900732fc4ec2ac24fc73273df0f224fd184f4fed874b6e7125a857",
+    "page-09.png": "6a1050eaefe72407654abe991b4dd4dbaa508832f4a34409304664e236c1db42",
+    "page-10.png": "fbd0f0b4e6c44705b251ebfc9dfcbb4edc49c208ab3937ee71cd323cd89ecc6b",
+    "page-11.png": "0b1de554b51998a68234219b2799d0486976e318d0cd4b682e7178e0ee269745",
+    "page-12.png": "e7ce5d8c54211e1778c4191de48d342338aa32e778e5b10f28e7201983098057",
+    "page-13.png": "2d269739b6e4532e80d527a45383b36f8c46319c7bc19a73f53af3baa702ebfe",
+    "page-14.png": "a42f105eef6cf8b5aa9f1c47fb93cd5a9ce1632829ba280c4b270fa8e5175ee1",
+    "page-15.png": "c48d9499f4bcd4ced78fedc3a87a5a25c176c665a96960c4ca8a008fa1dff61a"
+  },
+  "method": "Every rendered page opened and visually inspected with view_image. Publisher page images inspected separately. This is editorial verification, not external peer review.",
+  "findings": "All 15 pages inspected; no clipped equations, overlapping text, broken tables, or unresolved references. The two parts of the main equivalence are together on page 3. Acknowledgment unchanged.",
+  "email_reference_check": {
+    "thm:classification": "1",
+    "thm:sharp": "2",
+    "sec:larger": "5.3",
+    "sec:nine": "5.4",
+    "sec:five": "5.5",
+    "sec:certificate": "6",
+    "app:head": "A"
+  }
+}

@@ -31,6 +31,7 @@ def main() -> int:
         ('orbits', 'verify_orbits.py', []),
         ('uniform', 'verify_uniform.py', []),
         ('classification', 'verify_classification.py', []),
+        ('nine_job', 'verify_nine.py', []),
         ('screen', 'verify_screen.py', []),
     ]
     try:

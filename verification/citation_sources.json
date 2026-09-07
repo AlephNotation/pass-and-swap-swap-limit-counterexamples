@@ -1,0 +1,69 @@
+[
+  {
+    "doi": "10.1007/s11134-024-09914-1",
+    "publisher_pdf_url": "https://link.springer.com/content/pdf/10.1007/s11134-024-09914-1.pdf",
+    "sha256": "f279cbe94b1e84e530bca6327f7d18f76af904670e2ab82c3233a76aaee7faf0",
+    "verified_utc": "2026-09-07T19:42:56.577074+00:00",
+    "viewer_pages_one_based": [
+      6,
+      7,
+      8,
+      11,
+      12,
+      13,
+      30,
+      35,
+      36,
+      37
+    ],
+    "printed_pages": [
+      210,
+      211,
+      212,
+      215,
+      216,
+      217,
+      234,
+      239,
+      240,
+      241
+    ],
+    "method": "Downloaded complete publisher PDF using curl -fL; extracted using pdftotext -layout; rendered each listed page using pdftoppm -f PAGE -l PAGE -singlefile -r 95 -png; inspected every listed page image.",
+    "local_pdf": "/tmp/cycle-manuscript-sources/dg2024.pdf",
+    "page_image_sha256": {
+      "6": "80489e2083245cdbe69b5c80d6998edb6f0af5e1931779ce3d394e65cfc89afd",
+      "7": "08447f65a0fe1f7aa9850b0afcfd854c651a8dd70faacbda6b7d9fd7edff6c2e",
+      "8": "a45a90d30efb01c169a69d4edd6da48709f37afd3cbd5c430ed25474e53ce367",
+      "11": "0735ae1a5b27cefe99d704dd6bcbe56788339ff511fa5f1ed260c712514c238b",
+      "12": "a583e731b9b30dee231c894cc0046fd66d78f47398f0b6f8183a736d1ebc4fdf",
+      "13": "31785cfb5e55a5364c2ea8b958ca0618cc23fa8bc5f42faaf96b48c485fc91c8",
+      "30": "e0100fcf58c5779d106d792f6d6a12f60efcd3be2560c70ad291ef2be78bde51",
+      "35": "d007da68fabc0a931ad550ce94b61daa6b3ba2df68e9e9367515d0ee4e8acb61",
+      "36": "d91f7d46f015d52c349039e8b77d46f8a1d6aa13a6517f5b624b8511494e1f84",
+      "37": "11fce06581504f4d269a48858ba83661f53a8636fc0f49bdc5e83d97065de278"
+    }
+  },
+  {
+    "doi": "10.1007/s11134-021-09700-3",
+    "publisher_pdf_url": "https://link.springer.com/content/pdf/10.1007/s11134-021-09700-3.pdf",
+    "sha256": "62744b635dcc5ba4eb94259c70a03bcaccc2241aa23d1301af426264c86333e5",
+    "verified_utc": "2026-09-07T19:42:56.578685+00:00",
+    "viewer_pages_one_based": [
+      10,
+      11,
+      24
+    ],
+    "printed_pages": [
+      284,
+      285,
+      298
+    ],
+    "method": "Downloaded complete publisher PDF using curl -fL; extracted using pdftotext -layout; rendered each listed page using pdftoppm -f PAGE -l PAGE -singlefile -r 95 -png; inspected every listed page image.",
+    "local_pdf": "/tmp/cycle-manuscript-sources/cd2021-publisher.pdf",
+    "page_image_sha256": {
+      "10": "99dfafe69e4554cf5456de5bc017dfad888f8bb61ea87091c86d6bd40712032a",
+      "11": "2875be19bcab957d749f43d0ba32072bc6430c2cede54005b11270965c4bd34d",
+      "24": "fe86acf96aa77f2038ff39f1b99d7d9a9df7c469c405e6001538165a001b238a"
+    }
+  }
+]
