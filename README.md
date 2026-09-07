@@ -14,7 +14,7 @@ model. The cycle extension constructs the continuous-time process and proves
 its recurrence and absorption results. Finite experiments remain separate.
 See [LEAN.md](LEAN.md) for the exact proof scope and build commands.
 
-The new [cycle-classification formalization](CYCLE_CLASSIFICATION.md) proves
+The new [cycle-classification formalization](OddCycle/CycleClassification.lean) proves
 the arbitrary-size recurrent-class classification, general positive OI laws on
 short classes, and the sharp canonical boundary `n % (2*w) != 1`. It includes
 the larger-cycle unit-rate counterexamples and the explicit C9/w=2 residual.
@@ -22,19 +22,21 @@ The continuous-time process is measurable and nonexplosive; an executable
 recurrence classifier has a proved linear bound in a word-RAM cost model.
 This extension is separate from the consolidated manuscript above.
 
-The [structural extension](STRUCTURAL_THEORY.md) proves that queue-length
+The [structural extension](OddCycle/StructuralTheory.lean) proves that queue-length
 generators under position-indexed service are independent of the swapping
 graph and budget. It also proves canonical length marginals and an arbitrary-size
 family where all length-observable balance identities hold despite full
 canonical failure. The document develops a stronger slow-mixing argument;
 that continuous-time mixing theorem is not yet fully formalized.
 
-The [queue-length indistinguishability theorem](QUEUE_LENGTH_INDISTINGUISHABILITY.md)
+The [queue-length indistinguishability theorem](OddCycle/QueueLengthIndistinguishability.lean)
 is now formalized for every unit-rate `C_(2kw+1)`, `w >= 1`, `k >= 2`.
 The nonstationary normalized canonical candidate and an actual stationary
 initialization give exactly the same law of the entire continuous-time
 queue-length trajectory. The theorem includes cancellation of the residual at
 every length and an explicit C9/w=2 example in the same model.
+The exact assumptions, residual, and verification commands are recorded in
+[LEAN.md](LEAN.md#exact-queue-length-indistinguishability).
 
 ## One-command verification
 

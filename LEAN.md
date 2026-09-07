@@ -14,19 +14,69 @@ experiments retain their separate Python checks.
 Lean reconstructs the replacement dynamics. It does not import Python
 transition tables or assume the Python checks are correct.
 
-The [structural-theory extension](STRUCTURAL_THEORY.md), imported by the default
+The [structural-theory extension](OddCycle/StructuralTheory.lean), imported by the default
 build, proves the queue-length generator and canonical-marginal identities,
 including full canonical defects invisible to length-observable balance tests.
 It also supplies generic finite-kernel and Poisson-averaged bottleneck bounds.
-The complete continuous-time queue mixing theorem still has the explicitly
-listed obligations in that document. Its audit is
+The complete continuous-time queue mixing theorem remains unfinished. Its audit is
 `OddCycle/StructuralTheoryAudit.lean`.
 
-The [exact indistinguishability theorem](QUEUE_LENGTH_INDISTINGUISHABILITY.md)
+The [exact indistinguishability theorem](OddCycle/QueueLengthIndistinguishability.lean)
 connects the unit-rate exceptional family's canonical failure to equality of
 entire continuous-time length-trajectory laws. Its comparison initialization
 is proved invariant at every physical time, using the existing exponential
 clock construction. The audit is `OddCycle/IndistinguishabilityAudit.lean`.
+
+## Exact queue-length indistinguishability
+
+Fix `w >= 1`, `k >= 2`, and `n=2kw+1`. Use one distinct job per vertex of
+`C_n`, with edges `{i,(i+1) mod n}`. Every occupied position in both queues has
+rate one: the OI capacities are `mu(q)=nu(q)=|q|`. The budget allows `w`
+replacements after an initiating completion. The support is the proved
+closed communicating class `C=T_(n,w)`, with one circular orientation run of
+length `w+1` and the other `2k-1` runs of length `w`.
+
+Let `W(c,d)=1/(|c|! |d|!)`, `Z_C=sum_{s in C} W(s)>0`, and
+`hat_pi=W/Z_C`. The declaration
+`OddCycle.unit_exceptional_queue_length_indistinguishability` proves together:
+
+- `hat_pi` is a probability vector and is not invariant under the actual
+  completion kernel.
+- A stationary comparison vector `pi` exists on that same class. Under `pi`,
+  the full configuration distribution remains `pi` at every physical time.
+- The entire continuous-time queue-length trajectory has the same law under
+  `hat_pi` and `pi`, as an equality of measures on `NNReal -> Nat` with its
+  coordinate-generated sigma algebra.
+- For `D=hat_pi Q`, every length fiber has zero total residual, while the
+  explicit family target has residual `[1-2w(k-1)]/(n! Z_C)<0`.
+
+Thus every measurable test based only on queue-length observations has the
+same distribution under these two initializations. The proof uses the existing
+queue process and exponential clocks, and connects the original OI residual
+to the actual completion-kernel residual.
+
+For the explicit `C9`, budget `w=2`, all rates one, the target is
+`((0),(7,8,6,3,4,5,2,1))`. It lies in `T_(9,2)`, with circular run lengths
+`3,2,2,2`. Its unnormalized residual is `-1/120960`, and its normalized
+residual is `-1/(120960 Z_C)`. The concrete declaration is
+`OddCycle.NineJobCycle.queue_length_indistinguishability`.
+
+```sh
+lake build
+lake env lean OddCycle/IndistinguishabilityAudit.lean
+lake env leanchecker OddCycle.QueueLengthIndistinguishability
+```
+
+Verification on 7 September 2026: full build passed (3014 jobs), all 40 audited
+declarations use only `propext`, `Classical.choice`, and `Quot.sound`, and kernel
+replay passed. There are no proof holes, added axioms, or native-decision proofs
+in this extension.
+
+This theorem gives no quantitative convergence time. The separate balanced-family
+slow-mixing proof still needs the operational symmetry and half-arc flow count,
+the length coupling estimate, and the identification of the Poisson-averaged
+law with the existing clocked process. Its full-queue obstruction is not
+transferred to the larger exceptional families here.
 
 ## Run
 
@@ -212,8 +262,7 @@ target directly, without assuming the cited unlimited product-form theorem.
 ## Scope boundary
 
 The newer complete-cycle classification is developed in
-`OddCycle/CycleClassification.lean`; its theorem map is in
-[CYCLE_CLASSIFICATION.md](CYCLE_CLASSIFICATION.md). The arbitrary-size
+[OddCycle/CycleClassification.lean](OddCycle/CycleClassification.lean). The arbitrary-size
 operational classification, exceptional-class uniqueness and exact orientation
 count, positive-position completion kernel, recurrence and absorption, general
 OI canonical stationarity, and sharp product-form boundary are checked.
