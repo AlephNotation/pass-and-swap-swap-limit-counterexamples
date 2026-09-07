@@ -2,8 +2,10 @@
 
 Checked source commit: **`d29d76295f71b441271695138dc134463afc5df7`**. The run completed
 at `2026-09-07T22:23:24.096180+00:00` with **PASS**; all 198 recorded input hashes
-remained unchanged. A subsequent report-only commit records these results.
-The package identifies its final revision in `SOURCE_COMMIT.txt`.
+remained unchanged. Subsequent changes affect verification packaging and
+documentation, this report, and restoration of the DOI badge. The manuscript,
+Lean proofs, numerical verifiers, certificates, and expected results are unchanged.
+A later repeat was interrupted at the user's request and is not reported as passed.
 
 ```sh
 LEAN_NUM_THREADS=1 /opt/homebrew/opt/python@3.14/bin/python3.14 -B code/verify_release.py --output-dir /var/folders/mh/_6j73xhj1ms1576h946m7vxw0000gn/T/cycle-editorial-verification-b_2zxi58
@@ -35,8 +37,9 @@ recurrence; removing positivity from the general validity direction remains
 open. These computations do not replace the Lean classification.
 
 `verification/` tracks only this report and `ManuscriptStatements.lean`.
-The [consolidated package](../PACKAGE.md) includes full command/status logs,
-input hashes, regenerated outputs, rendered pages, and manual-review records
-under `verification/evidence/`. Generated files are kept out of the repository.
-The packager checks that the successful run's input hashes match the committed
-sources before including its evidence. No release or public archive is updated.
+The GitHub release supplies the completed run's command/status logs, input
+hashes, regenerated outputs, rendered pages, and review records as a separate
+verification-evidence archive, identified by the checked commit above. GitHub
+source archives contain the released source revision. Generated evidence stays
+out of the repository. [PACKAGE.md](../PACKAGE.md) explains how to regenerate
+a consolidated package from a matching source revision and successful run.
