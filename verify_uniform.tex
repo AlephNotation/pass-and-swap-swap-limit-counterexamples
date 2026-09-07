@@ -1,0 +1,182 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=0.87in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,booktabs,array}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Uniform product-form failure}
+\fancyhead[R]{\small Limited pass-and-swap queues}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\rev}{\operatorname{rev}}
+\newcommand{\B}{\mathcal B_w}
+\newcommand{\Qw}{Q_{w,\theta}}
+\newcommand{\Qi}{Q_{\infty,\theta}}
+\newcommand{\W}{W_\theta}
+\newcommand{\F}{F_\theta}
+\begin{document}
+\thispagestyle{plain}
+{\Large\bfseries Uniform failure of the canonical product form\\[3pt]
+in limited pass-and-swap queues}\par
+\textit{Working research proof and reproducible finite checks}\hfill September 6, 2026
+
+\begin{abstract}
+For every finite swap limit $w\ge2$, we give identical, strictly positive service allocations on a closed tandem with swapping graph $C_{2w+1}$ for which the canonical OI product form fails on a single recurrent class. The class consists of balanced orientations with branch lengths $w,w+1$. We prove its irreducibility under positive service at every position. With one class at rate two and every other class at rate one, the unnormalized stationary-balance defect at an explicit state is $-w/(2w+2)!$. More generally, every nonunit rate of the distinguished class gives a nonzero defect. The calculation compares limited and unlimited dynamics: exactly two incoming head-completion flows exchange destinations. The proof uses no stationary-distribution solver or extrapolation from finite tests.
+\end{abstract}
+
+\section{Model and uniform statement}
+Use the closed tandem and explicit first-later-compatible replacement rule of Dorsman--Gardner~\cite{DG} and Comte--Dorsman~\cite{CD}. A state $s=(c,d)$ contains one job of each label $0,\ldots,2w$, in head-to-tail queue order. Cycle neighbors are compatible. A completing job replaces the first later compatible job, whose occupant repeats the rule strictly farther back. Stop after $w$ replacements, or when no later neighbor exists. The current job then joins the other queue's tail. An event's rate is the \emph{initiating} job's service rate.
+
+Orient each edge forward in $L(c,d)=c\Vert\rev(d)$. Let $\B$ consist of states whose orientation is the union of two directed paths, with disjoint interiors, from one source to one sink, of lengths $w$ and $w+1$. In both queues give every job its class rate,
+\[
+ r_0=\theta>0,\qquad r_i=1\ (1\le i\le2w),\qquad
+ \mu(q)=\nu(q)=\sum_{x\in q}r_x.
+\]
+This is an OI allocation: the total rate is permutation-invariant, and every prefix increment is the positive rate of the appended job. Define the canonical weights
+\[
+ \F(q)=\prod_{j=1}^{|q|}\frac{1}{\sum_{i=1}^{j}r_{q_i}},\qquad
+ \F(\varnothing)=1,\qquad \W(c,d)=\F(c)\F(d).
+\]
+These are the weights in~\cite[Theorem 3 and Eq.\ (25)]{DG}. Generators act on row vectors.
+
+\begin{theorem}\label{thm:main}
+For every $w\ge2$ and $\theta>0$, $\B$ is a single closed communicating class. At
+\[
+ d_w=(w,w-1,\ldots,1,w+1,w+2,\ldots,2w),\qquad
+ s_w=((0),d_w),
+\]
+the limited generator restricted to $\B$ satisfies
+\begin{equation}\label{eq:main}
+ (\W\Qw)(s_w)=
+ \frac{1}{w!\prod_{k=w}^{2w}(\theta+k)}
+ -\frac{1}{(2w)!(\theta+2w)}.
+\end{equation}
+This is nonzero for every $\theta\ne1$. Consequently the unique stationary law on $\B$ is not proportional to $\W$. At $\theta=2$ the defect is exactly $-w/(2w+2)!$.
+\end{theorem}
+
+\newpage
+\section{The balanced region is a recurrent class}
+\begin{lemma}[Closure]\label{lem:closure}
+$\B$ is nonempty and closed under every position completion, irrespective of the nonnegative service rates assigned to those completions.
+\end{lemma}
+\begin{proof}
+Compare a completion in $c$ with its unlimited version. Unlimited P\&S preserves the placement orientation~\cite[Lemma 1, p.\ 217]{DG}. Its replacement chain follows a directed path, so has length at most $w+1$. If its length is at most $w$, the limited and unlimited transitions agree.
+
+Otherwise it traverses the full longer branch from the unique source $u$ to the unique sink $v$. Both endpoints are in $c$. Every vertex lies between them in $L$, so all jobs are in $c$, with $u$ its head and $v$ its tail. Let $p$ precede $v$ on that branch. The limited completion ejects $p$; the unlimited completion makes one more replacement and ejects $v$. For the same remaining word $R$, their resulting placement orders are $Rvp$ and $Rpv$. Only the edge $p\to v$ reverses. The longer branch loses one edge, and the shorter branch gains the reversed edge: the lengths remain $w,w+1$. Queue exchange reverses orientations, proving the same assertion for $d$.
+
+There are $2(2w+1)$ balanced orientations. Each has $\binom{2w-1}{w}$ linear extensions, obtained by interleaving the two internal chains, and each extension has $2w+2$ queue cuts. Thus
+\[
+ |\B|=2(2w+1)(2w+2)\binom{2w-1}{w}>0.
+\]
+\end{proof}
+
+\begin{lemma}[Irreducibility with positive position rates]\label{lem:irreducible}
+If every position of every nonempty queue has a positive completion rate, then $\B$ is one communicating class.
+\end{lemma}
+\begin{proof}
+First fix one orientation. A tail completion transfers a job to the other tail and moves the cut in $L$ by one without changing $L$. Both directions are possible. Adjacent incomparable labels $a,b$ in a linear extension can also be exchanged without a swap: put the cut after the pair, so the state is $(Pab,\rev(T))$. Complete $a$. Since $a,b$ are not adjacent in the swapping graph, $a$ departs directly, producing $(Pb,\rev(T)a)$ and the new linear extension $PbaT$. Tail moves restore any desired cut. The reverse exchange is possible in the same way. Any two linear extensions are linked by adjacent incomparable exchanges: successively move the next desired label left, across labels incomparable to it. Therefore all states with the fixed orientation communicate using only zero-replacement completions.
+
+Index balanced orientations by $(u,\varepsilon)$, where $u$ is the source and $\varepsilon\in\{-1,1\}$ is the direction of the longer branch, with arithmetic modulo $n=2w+1$. Put all jobs in $c$, with the longer branch's internal vertices before the shorter branch's. A head completion follows the longer branch and, by Lemma~\ref{lem:closure}, reverses its last edge. The new orientation is $(u,-\varepsilon)$. Applying the same argument in $d$ to the reversed orientation moves the source to its neighbor on the old longer branch, giving $(u+\varepsilon,-\varepsilon)$. Hence both moves
+\[
+ (u,\varepsilon)\longrightarrow(u,-\varepsilon),\qquad
+ (u,\varepsilon)\longrightarrow(u+\varepsilon,-\varepsilon)
+\]
+are realizable. Each is an involution; their composition moves $u$ by $\varepsilon$ while retaining that direction. They connect all $2n$ orientations. The within-orientation communication just proved lets these moves be concatenated from arbitrary states. Thus $\B$ is strongly connected.
+\end{proof}
+
+All our class rates are positive, so Lemmas~\ref{lem:closure}--\ref{lem:irreducible} apply. In particular every state of $\B$ is recurrent. Since $C_{2w+1}$ is three-colorable, its color classes can be refined to $w+1$ nonempty independent sets. The recurrent height-$w+1$ region therefore also contradicts Conjecture~1 of~\cite{DG} for each $w\ge2$.
+
+\newpage
+\section{Only two incoming flows change}
+Let $\Qi$ be the unlimited generator on $\B$. Each fixed-orientation set is closed under unlimited P\&S and is irreducible by the zero-replacement argument above. The unlimited product-form theorem~\cite[Theorem 3]{DG} gives $\W\Qi=0$ on each such set, hence on their union $\B$. No common normalization across orientations is needed for this unnormalized balance identity.
+
+Write
+\begin{align*}
+ x_w&=(w,w-1,\ldots,1,0,w+1,w+2,\ldots,2w),\\
+ y_w&=(w,w+1,w-1,\ldots,1,w+2,\ldots,2w,0),\\
+ X_w&=(\varnothing,x_w),\qquad Y_w=(\varnothing,y_w),\\
+ s'_w&=((2w),(w,w-1,\ldots,1,w+1,\ldots,2w-1,0)).
+\end{align*}
+All four states $X_w,Y_w,s_w,s'_w$ are balanced. The head completions at $X_w,Y_w$ both have rate one, since their initiating label is $w\ne0$. They exchange destinations:
+\[
+\begin{array}{c|cc}
+ &\text{limit }w&\text{unlimited}\\ \hline
+ X_w\text{, head of }d&s_w&s'_w\\
+ Y_w\text{, head of }d&s'_w&s_w
+\end{array}
+\]
+Indeed, their unrestricted replacement chains are respectively
+\[
+ w,w-1,\ldots,1,0,2w\qquad\text{and}\qquad
+ w,w+1,w+2,\ldots,2w,0.
+\]
+Both contain $w+1$ replacements. Cutting off their last replacement produces the displayed limited destinations.
+
+\begin{lemma}[Completeness of the two-flow calculation]\label{lem:two}
+Among events with different limited and unlimited destinations, the only gain of incoming flow to $s_w$ is the head completion at $X_w$, and the only loss is the head completion at $Y_w$.
+\end{lemma}
+\begin{proof}
+By Lemma~\ref{lem:closure}, any changed event from $\B$ is a head completion with all jobs in that queue and an unlimited chain of length $w+1$. To enter $s_w$, the completing queue must be $d$, previously containing all jobs.
+
+For a limited arrival at $s_w$, the ejected penultimate vertex is $0$, while the unchanged final vertex of the old long branch is the last entry of $d_w$, namely $2w$. The cycle has only one directed simple path of length $w+1$ with final edge $0\to2w$: its labels are $w,w-1,\ldots,0,2w$. Reversing the replacements along this fixed path in the output word $d_w$ uniquely recovers $x_w$.
+
+For an unlimited arrival at $s_w$, the final ejected vertex is $0$, and its predecessor is the last entry $2w$ in the output word. The long chain must therefore be $w,w+1,\ldots,2w,0$. Reversing those replacements in $d_w$ uniquely recovers $y_w$. To see uniqueness directly, each retained chain label occupies the position previously occupied by the next chain label; replacing these back and prepending the removed head reconstructs the original word. Thus there are no further changed incoming events.
+\end{proof}
+
+The generator diagonals agree: imposing a swap limit retargets completion events without changing their rates, and every event changes the queue lengths. All unchanged incoming events cancel. Consequently
+\begin{equation}\label{eq:retarget}
+ (\W\Qw)(s_w)
+ =\bigl(\W(\Qw-\Qi)\bigr)(s_w)
+ =\W(X_w)-\W(Y_w).
+\end{equation}
+This is the uniform reduction: \emph{two source weights suffice, independently of $w$.}
+
+\newpage
+\section{The balance calculation and its scope}
+In $x_w$, label $0$ is at position $w+1$: the first $w$ jobs have unit rate, followed by prefix totals $\theta+w,\ldots,\theta+2w$. In $y_w$, label $0$ is last. Hence
+\[
+ \W(X_w)=\frac{1}{w!\prod_{k=w}^{2w}(\theta+k)},\qquad
+ \W(Y_w)=\frac{1}{(2w)!(\theta+2w)}.
+\]
+Together with~\eqref{eq:retarget}, this proves~\eqref{eq:main}.
+
+The sign is explicit. Let $P_w(\theta)=\prod_{k=w}^{2w-1}(\theta+k)$. It is strictly increasing for $\theta>0$, and $P_w(1)=(2w)!/w!$. Therefore
+\[
+ (\W\Qw)(s_w)=\frac{1}{\theta+2w}
+ \left(\frac{1}{w!P_w(\theta)}-\frac{1}{(2w)!}\right)
+\]
+is positive for $0<\theta<1$ and negative for $\theta>1$. Normalization by
+$Z_{w,\theta}=\sum_{s\in\B}\W(s)>0$ cannot remove this nonzero defect. At rate two,
+\[
+ W_2(X_w)=\frac{w+1}{(2w+2)!},\qquad
+ W_2(Y_w)=\frac{2w+1}{(2w+2)!},\qquad
+ \boxed{(W_2Q_{w,2})(s_w)=-\frac{w}{(2w+2)!}.}
+\]
+This completes the proof of Theorem~\ref{thm:main}. For $w=2$, the general identity reduces to the earlier five-job calculation
+\[
+ (\W Q_{2,\theta})(s_2)=
+ -\frac{(\theta-1)(\theta+6)}{24(\theta+2)(\theta+3)(\theta+4)}.
+\]
+
+\subsection*{Scope}
+This proves failure of the \emph{canonical} product $\F(c)\F(d)$ on a recurrent class for every $w\ge2$, not failure of every possible alternative factorization $A(c)B(d)$. Lemma~\ref{lem:irreducible} requires positive service at every position. With zero non-head rates, this argument proves closure and existence of a recurrent class in $\B$, but not general irreducibility. The short-orientation Theorem~7 of~\cite{DG} is unaffected, and the $w=1$ bipartite case remains unresolved here.
+
+\subsection*{Reproducible checks and disclosure}
+Run \texttt{python3 verify\_uniform.py} (Python 3.10+, standard library only). It checks every position event from $\B$ for $w=2,3,4,5$ at $\theta=1/2,1,2,3$, including closure, connectivity, unlimited stationary balance, and the two-flow defect. It also audits all 720 and 40,320 states at $w=2,3$, respectively, and checks the explicit words through $w=50$. Larger full state spaces are not enumerated. Exact results and detailed scope are supplied in the accompanying JSON and README.
+
+The arbitrary-$w$ result rests on the written proof, not on those finite checks. This work was assited by OpenAI's ChatGPT-6 and Anthropic's Claude Fable-5.1. The new proof has not received external review or proof-assistant verification; no priority claim is made.
+
+\begingroup\small
+\begin{thebibliography}{2}
+\setlength{\itemsep}{0pt}
+\bibitem{DG} J.-P. Dorsman and K. Gardner. \textit{New directions in pass-and-swap queues}. Queueing Systems 107, 205--256 (2024). doi:10.1007/s11134-024-09914-1. Relevant locations: Lemma 1 and Theorem 3, p.\ 217; Theorem 7, p.\ 240; Conjecture 1, p.\ 241.
+\bibitem{CD} C. Comte and J.-P. Dorsman. \textit{Pass-and-swap queues}. Queueing Systems 98, 275--331 (2021). doi:10.1007/s11134-021-09700-3.
+\end{thebibliography}
+\endgroup
+\end{document}
