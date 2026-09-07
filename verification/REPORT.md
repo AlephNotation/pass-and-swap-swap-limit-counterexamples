@@ -37,9 +37,8 @@ recurrence; removing positivity from the general validity direction remains
 open. These computations do not replace the Lean classification.
 
 `verification/` tracks only this report and `ManuscriptStatements.lean`.
-The GitHub release supplies the completed run's command/status logs, input
-hashes, regenerated outputs, rendered pages, and review records as a separate
-verification-evidence archive, identified by the checked commit above. GitHub
-source archives contain the released source revision. Generated evidence stays
-out of the repository. [PACKAGE.md](../PACKAGE.md) explains how to regenerate
-a consolidated package from a matching source revision and successful run.
+The [Lean proofs workflow](../.github/workflows/lean.yml) checks pushes and
+pull requests. Release assets contain the paper and editable source; GitHub
+also supplies the complete tagged source archives. Generated verification
+evidence is not included in the release. [PACKAGE.md](../PACKAGE.md) documents
+local replay and optional consolidation of sources with a completed run.
