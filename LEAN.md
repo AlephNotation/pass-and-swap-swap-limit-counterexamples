@@ -66,6 +66,17 @@ telescoping prefix weights. No external theorem is introduced as an axiom.
   universally quantified theorem over arbitrary interior words to Lean.
 - Removed class asymmetry as a general explanation of failure. Unit rates
   already fail on the larger exceptional family.
+- The introduction's excess-edge explanation uses `CircularRun.Reach.length_le`
+  and `CircularRun.Reach.deficit_le` for irreversibility. Transport through full
+  runs is reversible; the exceptional pattern is the case where transport is
+  the only nontrivial orientation move left. Persistent truncation does not
+  imply canonical failure for a specified allocation.
+- Section 3 derives the bidirectional `2n`-cycle of exceptional orientations
+  for every `k >= 1` from the exact local-move rule and the parameterization.
+  Lean proves `exceptionalParameter_step`, `exceptionalParameter_covers`,
+  `exceptionalParameter_injective`, and parameter communication. The ring
+  description is a mathematical consequence of these results, not a separately
+  packaged Lean graph-isomorphism theorem.
 - Dorsman and Gardner's Theorem 7 also states a partiteness hypothesis. The general
   short-class argument is derived from unlimited Theorem 3 and proved
   independently in Lean, so it does not import an unstated partite assumption.

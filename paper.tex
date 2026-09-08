@@ -39,11 +39,13 @@ We classify the recurrent configurations of two pass-and-swap queues in closed t
 \end{abstract}
 
 \section{Introduction and main results}\label{sec:intro}
-Limiting a pass-and-swap replacement chain can change both the recurrent configurations and their stationary probabilities. The central question is which configurations survive indefinitely once a finite swap budget is imposed. For cycle swapping graphs, we give a complete answer and use it to determine precisely when the canonical product form is guaranteed for every strictly positive OI allocation.
-
 Pass-and-swap queues model scheduling and load-distribution protocols in machine clusters where compatibility constraints determine which jobs each machine can serve~\cite[pp.~277--278]{CD}. Their replacement chains describe how a service completion can move jobs through a sequence of compatible positions. A product-form stationary law expresses a configuration's probability through explicit queue-wise factors and one normalizing constant, enabling exact performance calculations without solving a separate balance equation for every state.
 
-Comte and Dorsman~\cite{CD} introduced pass-and-swap (P\&S) queues as an extension of order-independent (OI) queues. Dorsman and Gardner~\cite{DG} proved that their canonical stationary law survives a swap limit when the initial placement order is short, and conjectured transience of taller configurations under a partiteness hypothesis. Our classification identifies all short classes and the unique possible tall class. It places the earlier balanced family $\mathcal B_w$ in the larger family $\mathcal T_{n,w}$, and separates the structural recurrence question from the allocation-dependent balance question.
+Comte and Dorsman~\cite{CD} introduced pass-and-swap (P\&S) queues as an extension of order-independent (OI) queues. Dorsman and Gardner~\cite{DG} proved that their canonical stationary law survives a swap limit when the initial placement order is short, and conjectured transience of taller configurations under a partiteness hypothesis. We classify recurrence for two queues in closed tandem with one distinct job per vertex of a cycle, and determine the sharp universal boundary for canonical stationarity.
+
+The classification has a simple mechanism. Unlimited completions preserve the placement orientation, which records the relative order of compatible jobs~\cite[Lemma~1, p.~217]{DG}. On a cycle, truncating a replacement chain can reverse one edge (Lemma~\ref{lem:local}). Group consecutive cycle edges pointing in the same circular direction into \emph{runs}, and call a run \emph{full} when its length equals the budget $w$. An overfull run can transfer an excess edge to a neighboring run. Transport through full runs is reversible; filling a deficit or splitting a run is irreversible, by the run-count and deficit monotonicity proved in Section~\ref{sec:runs}. Under strictly positive position rates, the only tall recurrent pattern has one run of length $w+1$ and every other run full. It is exceptional precisely because transport is the only orientation change left. Its even number $2k$ of alternating runs forces $n=2kw+1$.
+
+The classification determines whether truncation can remain active in a recurrent class. The balance calculations then determine when that activity defeats the canonical stationary weights. For $w\ge2$, at every exceptional length a positive OI allocation exposes a failure; outside those lengths the canonical law is stationary on every closed class for every positive OI allocation. The two counterexample calculations reveal different mechanisms at their target states: on $n=2w+1$, a distinguished class rate makes the gained and lost probability flows unequal; on larger exceptional cycles, the numbers of gained and lost events already differ, so unit rates suffice. Persistent truncation alone does not force failure for a specified allocation: the exact unit-rate check on $C_5$ at $w=2$ gives canonical stationarity despite continuing orientation changes (Section~\ref{sec:uniform-checks}).
 
 \paragraph{Queues and completions.}
 A configuration is $s=(c,d)$, with each queue written from head to tail. There is one distinct job with each label in $\{0,\ldots,n-1\}$, and the swapping graph is the simple cycle $C_n$, $n\ge3$, with edges $\{i,i+1\pmod n\}$. A completion may occur at any occupied position. Its job replaces the first later compatible job, which continues the same scan strictly farther back. After $w$ replacements, or when no later compatible job remains, the carried job departs and joins the other queue's tail. The initiating completion does not consume a replacement. These are the rules of~\cite[\S2.3, pp.~211--212; \S3.1, p.~215; \S5, p.~234]{DG}, with the original position-index recursion in~\cite[\S3.1, pp.~284--285]{CD}. Unless explicitly stated otherwise, completion rates are finite, time-homogeneous, and strictly positive at every occupied position. The recurrence theorem permits dependence on the entire configuration and does not require OI service.
@@ -145,7 +147,7 @@ The exact rule~\eqref{eq:flip} gives a short proof of the classification. A perm
 
 If some run has length at least $w+2$, its second bit can flip: at least $w$ equal bits follow it. This is an interior flip and permanently increases run count. The original orientation cannot be in a terminal communicating component. It remains to consider run lengths at most $w+1$, where only the first or last edge of a length-$(w+1)$ run can move.
 
-Call a run \emph{full} if its length is $w$, \emph{overfull} if it is $w+1$, and \emph{deficient} if it is smaller than $w$. A boundary move from an overfull run makes that donor full and increases its neighbor by one. If the neighbor is full, this transports the extra edge one run farther. If it is deficient, the deficit
+Call a run \emph{full} if its length is $w$, \emph{overfull} if it is $w+1$, and \emph{deficient} if it is smaller than $w$. A boundary move from an overfull run makes that donor full and increases its neighbor by one. If the neighbor is full, this transports the extra edge one run farther. Such transport is reversible wherever it occurs. If the neighbor is deficient, the deficit
 \[
  D=\sum_i\max\{w-\ell_i,0\}
 \]
@@ -157,7 +159,7 @@ Conversely, every short orientation has no nontrivial quotient move. Each lifts,
 \[
  (a,b)\longrightarrow(a+w,1-b)\quad\text{or}\quad(a-w,1-b)\pmod n.
 \]
-When $n=2kw+1$, $\gcd(n,w)=1$ and $n$ is odd. Repeating the first move visits all $2n$ pairs: returning to the original edge requires a multiple of $n$ steps, and returning to its bit requires an even number. Every pair specifies a distinct orientation, since the long run is unique. This proves both the count and communication of the exceptional orientations. Path lifting then proves communication of all their extensions and cuts.
+When $n=2kw+1$, $\gcd(n,w)=1$ and $n$ is odd. The first move has order $2n$: returning to the original edge requires a multiple of $n$ steps, and returning to its bit requires an even number. Every pair specifies a distinct orientation, since the long run is unique. The second move is the inverse of the first, and no other nontrivial moves are possible. Thus, for every $k\ge1$, the graph of nontrivial moves on the exceptional orientations is a bidirectional cycle on $2n$ vertices. This describes possible orientation changes, not transition rates. In particular, all exceptional orientations communicate; path lifting proves communication of all their extensions and cuts.
 
 We have exhausted the terminal components of the event graph. Strictly positive rates make its edges exactly the positive-rate transitions. A finite continuous-time chain with these finite rates is nonexplosive; its recurrent states are precisely the terminal communicating classes, and it almost surely eventually stays in one such class. This proves Theorem~\ref{thm:classification}, including its stochastic assertions.
 
@@ -509,7 +511,7 @@ With one job per vertex, all 61 nonisomorphic simple bipartite graphs through si
 
 The same tests at $w=2$ pass for $K_3$, $K_{1,1,2}$, $K_{1,2,2}$, and $C_5$ with one pendant vertex. These 65 graphs cover 192,590 states and 1,143,194 all-position events. The screen settles neither the general one-swap problem nor counterexample minimality.
 
-\subsection{Uniform-formula checks}
+\subsection{Uniform-formula checks}\label{sec:uniform-checks}
 All position completions are also checked inside the balanced regions below, at $\theta=1/2,1,2,3$.
 \begin{center}
 \begin{tabular}{crrr}

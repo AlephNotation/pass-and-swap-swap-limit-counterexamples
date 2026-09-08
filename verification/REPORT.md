@@ -1,59 +1,40 @@
 # Verification report
 
-Revision: the `even-cycles-modulated-budget` branch. The
-[branch's CI runs](https://github.com/AlephNotation/pass-and-swap-swap-limit-counterexamples/actions/workflows/lean.yml?query=branch%3Aeven-cycles-modulated-budget)
-record the exact commit SHA and full machine-proof results for every push.
-The proof revision is `68f5d5fe5eb8f28828253eea80d4d678044bdeb5`.
-The checks below completed locally on 7 September 2026 before that commit.
+The `excess-edge-introduction` revision is an editorial follow-up to v1.3.
+It rewrites the introduction, clarifies reversible transport and the general
+orientation-ring consequence in Section 3, and updates the theorem map.
 
-| Command actually run | Result |
+The Lean and Python sources, exact certificates and expected results,
+manuscript statement checks, toolchain, and CI settings are identical to
+`4399043ad938a4faec51726acca731f25e7a4845`. That commit passed the
+[complete CI run](https://github.com/AlephNotation/pass-and-swap-swap-limit-counterexamples/actions/runs/34171095333):
+the full Lean build, manuscript declarations, all five axiom audits, full
+kernel replay, both certificate exports, and all eight Python components.
+The [v1.3 report](https://github.com/AlephNotation/pass-and-swap-swap-limit-counterexamples/blob/v1.3/verification/REPORT.md)
+retains the earlier local build and certificate-regeneration records.
+
+Local editorial checks completed on 7 September 2026:
+
+| Check actually run | Result |
 |---|---|
-| `LEAN_NUM_THREADS=1 lake build` | Passed; full default build, 3,018 jobs, including the new stationary-law theorem |
-| `LEAN_NUM_THREADS=1 lake env lean verification/ManuscriptStatements.lean` | Passed; manuscript declarations and signatures checked |
-| `LEAN_NUM_THREADS=1 python3 -B code/check_axioms.py` | Passed; all five audits, 59 / 125 / 34 / 40 / 20 declarations; only `propext`, `Classical.choice`, and `Quot.sound` |
-| `python3 -B run_checks.py` | Passed; all eight expected result files reproduced |
-| `python3 -B -O code/verify_modulated.py` | Passed; optimized output equals the expected modulated result |
-| `python3 -B code/regenerate_modulated_certificate.py --output data/modulated_certificate.json` | Passed; generated exact positive weights and independently verified all 360 states and 2,160 events |
-| `python3 -B code/export_lean_certificate.py --check` | Passed; original certificate export unchanged and consistent |
-| `python3 -B code/export_modulated_certificate.py --check` | Passed; new Lean data matches the integer certificate |
-| Two complete `tectonic --keep-logs --keep-intermediates --outdir DIR paper.tex` builds | Passed; no warnings or box problems, all internal references resolve |
-
-That PDF had 16 pages. Rendered pages were visually inspected, including
-both new statements and the certificate calculation. The author is **Tynan
-Daly**; the assistance acknowledgment is unchanged.
-
-The even-cycle result assumes positive service at every occupied position;
-its canonical-law conclusion additionally assumes positive OI allocations.
-The new modulated example fixes C5, budgets two/unlimited, class rates
-`(2,1,1,1,1)` in both queues, and independent switching at rate one each way.
-Lean proves the actual generator's unique stationary probability law and
-excludes arbitrary real queue factors even when they depend on the mode.
-[LEAN.md](../LEAN.md) gives the exact declaration map and scope.
-
-The feedback follow-up changes no Lean source, certificate, or build settings.
-It adds the exact unit-rate comparison to the existing modulated verifier,
-clarifies Conjecture 2's hypotheses from the complete publisher statement,
-and links the README to CI logs. Its local checks on 7 September 2026 were:
-
-| Command actually run | Result |
-|---|---|
-| `python3 -B run_checks.py` | Passed; all eight expected result files reproduced, including the new unit-rate comparison |
-| `python3 -B -O code/verify_modulated.py` | Passed; JSON equals `results/modulated.json` |
-| Two complete `tectonic --keep-logs --keep-intermediates --outdir DIR paper.tex` builds | Passed; no TeX warnings, box problems, or unresolved references |
-| `pdftoppm -r 100 -png DIR/paper.pdf DIR/page` and visual inspection | All 17 pages reviewed; enlarged review of the modulated section and final proof page |
+| Two `tectonic --keep-logs --keep-intermediates --outdir DIR paper.tex` builds | Passed; 17 pages, no TeX warnings or box problems |
+| `pdftoppm -r 100 -png DIR/paper.pdf DIR/page` and visual inspection | All 17 pages reviewed; enlarged inspection of the introduction, ring argument, and final page |
+| Source comparison of all theorem, lemma, proposition, corollary and abstract environments | Unchanged from v1.3; author and assistance acknowledgment also unchanged |
+| Label/reference check | 48 unique labels; all 57 internal references resolve |
+| Git comparison of proof, verifier, data, expected-result and build inputs | Identical to the green v1.3 commit |
 | `git diff --check` | Passed |
 
-The current PDF has 17 pages. The author and assistance acknowledgment are
-unchanged. Unit rates give the normalized joint law
-`1 / (16 * |c|! * |d|!)` on the same 360-state support. This is an exact finite
-check, not a new Lean theorem. Both fixed-mode generators and joint balance
-were checked with integer weights; the distinguished-rate certificate remains
-unchanged and still verifies.
+No Lean build, kernel replay, or Python verification suite was rerun locally
+for this prose-only change. The [CI workflow](https://github.com/AlephNotation/pass-and-swap-swap-limit-counterexamples/actions/workflows/lean.yml)
+records results for the new commit separately; the baseline run above is
+identified explicitly rather than reported as a new run.
 
-Full independent kernel replay was not repeated locally for this change.
-CI runs `lake env leanchecker --verbose OddCycle`, alongside the full build,
-all five audits, both certificate-export checks, and the complete Python
-suite. Its result must be read for the particular commit; a passing earlier
-run is not evidence for a later revision. No generated verification bundle
-is tracked. [PACKAGE.md](../PACKAGE.md) documents optional complete local
-replay, regeneration, file hashes, and source packaging.
+The introduction distinguishes universal canonical validity from stationarity
+for a particular allocation. The unit-rate C5 control and the balanced-family
+checks at `w=2,3,4,5` remain exact finite computations. The bidirectional ring
+for every `k >= 1` is presented as a consequence of the proved move rule and
+parameterization, not a separately packaged Lean graph-isomorphism theorem.
+[LEAN.md](../LEAN.md) gives the statement map and precise scopes.
+
+No generated verification logs are tracked. [PACKAGE.md](../PACKAGE.md)
+documents optional complete replay, file hashes, and source packaging.
